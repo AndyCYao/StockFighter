@@ -18,11 +18,28 @@ header = {'X-Starfighter-Authorization': apikey}
 print "venue is %s , account is %s, id %s, ticker %s" %(venues,account,instanceID,tickers)
 # further research at https://discuss.starfighters.io/t/the-gm-api-how-to-start-stop-restart-resume-trading-levels-automagically/143
 
-def buy_confirmation():
-    pass
+def get_order_book(v,s):
+    full_url = "%s/venues/%s/stocks/%s" %(base_url,v,s)
+    response = requests.get(full_url, headers= header)
+    return response
 
+def return_best_price(oBook):
+    try:
+        BestAsk = oBook.json().get('asks')[0].get('price')
+        BestAskQty = oBook.json().get("asks")[0].get('qty')
+    except (RuntimeError, TypeError, NameError): 
+        BestAsk = 0
+        BestAskQty = 0
 
-def buy_stock(p, q, s):
+    return BestAsk, BestAskQty
+
+def fill_confirmation(v,s,id):
+    full_url = "%s/venues/%s/stocks/%s/orders/%s" %(base_url,v,s,id)
+    response = requests.get(full_url,headers= header)
+    # print response.json()
+    return response.json().get('ok')
+
+def buy_stock(v, p, q, s):
     order = {
         "account": account,
         "venue": venues,
@@ -32,32 +49,54 @@ def buy_stock(p, q, s):
         "direction": "buy",
         "orderType": "limit"
     }
-    full_url = "%s/venues/%s/stocks/%s/orders" % (base_url, venues, s)
+    full_url = "%s/venues/%s/stocks/%s/orders" % (base_url, v, s)
     response = requests.post(full_url, headers=header, data=json.dumps(order))
-    print(response.text)
-
+    return response.json()
 
 def get_quote(s):
     # Get last quote 
     full_url = "%s/venues/%s/stocks/%s/quote" % (base_url, venues, s)
     response = requests.get(full_url, headers=header)
-    last = response.json().get('last')
+    # last = response.json().get('last')
+    last = response.json()
     return last
 
-totalGoal = 1500
+
+
+
+start = time.time()
+end  = time.time()
+totalGoal = 2000
 lastQuote = get_quote(tickers)
+lastQuotePrice = lastQuote.get('last')
+print "Last Quote %s" %(lastQuotePrice)
 
-print "Last Quote %s" %(lastQuote)
-print buy_stock(lastQuote,100,tickers)
 
+buyOrder = buy_stock(venues, lastQuotePrice,100,tickers)
+# print "Print Buy Order %s" %(buyOrder)
+buyID = buyOrder.get('id')
+buyPrice = buyOrder.get('price')
 
-while totalGoal > 0:
-    time.sleep(3)
-    print(get_quote(tickers))
-    Diff = abs((get_quote(tickers) - lastQuote) / lastQuote)
-    print "current different %d" % (Diff)
+print "bought at %s" %(buyPrice)
+print "check fill status - ID %s" %(buyID)
+print "confirmed fill - %s " %(fill_confirmation(venues,tickers,buyID))
 
-    if Diff < .05:
-        q = 100
-        buy_stock(lastQuote, q, tickers)
+q = 1000
+while totalGoal > 0 and (end - start) < 120:
+    time.sleep(5)
+    BestAsk , q = return_best_price(get_order_book(venues,tickers)) # best asking price
+    
+
+    buyOrder = buy_stock(venues, BestAsk,q,tickers)
+    # print "Print Buy Order %s" %(buyOrder)
+    buyID = buyOrder.get('id')
+    buyPrice = buyOrder.get('price')
+    print "check fill status - ID %s" %(buyID)
+    
+    fillResults = fill_confirmation(venues,tickers,buyID)
+    if fillResults:
+        print "bought at %s" %(buyPrice)
         totalGoal -= q
+    print "confirmed fill - %s " %(fillResults)
+    end  = time.time()
+    print(end - start)

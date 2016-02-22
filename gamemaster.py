@@ -20,7 +20,9 @@ class GameMaster(object):
         pass
 
     def get_api_key(self):
-        apikey = open('apikey.txt','r')
+        file = open('apikey.txt','r')
+        apikey  = file.readlines()[0]
+        
         return apikey
 
     def get_instance_id(self):
@@ -44,3 +46,5 @@ class GameMaster(object):
             return response
         except ValueError as e:
             return{'error': e, 'raw_content': response.content}
+
+
