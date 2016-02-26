@@ -10,22 +10,13 @@ end = time.time()
 sf = gamemaster.StockFighter("sell_side")
 stock = sf.tickers
 
-orderIDList = []
+orderIDList = {}
 positionSoFar = 0  # if negative means short if positive long
 
-while (end - start) < 100:
+while (end - start) < 60:
 
     time.sleep(1)
-
-    for x in orderIDList:
-        num, direction, state = sf.fill_confirmation(stock, x)
-        if direction == "sell":
-            positionSoFar -= num
-        else:
-            positionSoFar += num
-        if state is False:  # meaning this is closed
-            orderIDList.pop(orderIDList.index(x))
-
+    positionSoFar = sf.update_open_orders(orderIDList)
     oBook = sf.get_order_book(stock)
 
     BestAsk = sf.read_orderbook(oBook, "asks", "price")
@@ -34,13 +25,15 @@ while (end - start) < 100:
     Difference = BestAsk - BestBid
 
     try:
-        Spread = Difference / (BestAsk + 0.0)
+        Spread = "{0:%}".format(Difference / (BestAsk + 0.0))
     except ZeroDivisionError:
         Spread = 0
 
     end = time.time()
     print "Pos. %d Best Ask %r , Best Bid %r, q %r Spread %r  Time - %d" % \
         (positionSoFar, BestAsk, BestBid, q, Spread, (end - start))
+    
+
 
     if Spread > 0.005 and abs(positionSoFar) < 500:  # making a transaction
         buyOrder = sf.make_order(BestBid, q, stock, "buy", "limit")
@@ -48,16 +41,18 @@ while (end - start) < 100:
         # print "Print Buy Order %s" % (buyOrder)
         buyID = buyOrder.get('id')
         sellID = sellOrder.get('id')
-        orderIDList.append(buyID)
-        orderIDList.append(sellID)
+        orderIDList[buyID] = 0      # add buy order ID to orderlist
+        orderIDList[sellID] = 0     # do same for sell
 
         buyPrice = buyOrder.get('price')
         sellPrice = sellOrder.get('price')
         print "Bought at %d ID %d - Sold at %d ID %d" % (buyPrice, buyID,
                 sellPrice, sellID)
 
-    """
-    fillResults = sf.fill_confirmation(stock, buyID)
-    if fillResults:
-        print "bought at %s " % (buyPrice)
-    """
+    try:
+        print 'Waiting for keyboard interrupt'
+        while True:
+            time.sleep(2)
+            positionSoFar = sf.update_open_orders(orderIDList)            
+    except KeyboardInterrupt:
+        pass
