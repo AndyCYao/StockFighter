@@ -88,6 +88,24 @@ class StockFighter:
             response.json().get('direction'), \
             response.json().get('open')
 
+    def update_open_orders(self, orderList):
+        """loops through the open ids and check them see 
+        how many have been filled."""
+        currentPos = 0
+        for x in orderList:
+            
+            num, direction, state = self.fill_confirmation(self.tickers, x)
+            if direction == "sell":
+                num = num * -1
+
+            orderList[x] = num
+            # print "%s - total filled %s" % (x, num)
+            currentPos += num  
+
+        print "current pos is %d" %(currentPos)
+        return currentPos
+
+
     def make_order(self, p, q, s, direction, orderType):
         order = {
             "account": self.account,
