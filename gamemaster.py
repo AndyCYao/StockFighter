@@ -100,9 +100,9 @@ class StockFighter:
 
             orderList[x] = num
             # print "%s - total filled %s" % (x, num)
-            currentPos += num  
+            currentPos += num
 
-        print "current pos is %d" %(currentPos)
+        # print "current pos is %d" %(currentPos)
         return currentPos
 
 

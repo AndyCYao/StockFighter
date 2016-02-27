@@ -1,12 +1,6 @@
 """
-Feb 25th 2016 Third Trade sell_side. Here is the approach currently.
-1.) script reads the most favorable quotes in the read_orderbook retrieve
-    their bid / ask / qty.
-2.) since the max long / short position is 1000, i cant make too risky trades.
-    so if the qty is > 100
-    i should just cap it at 100
-3.) Apply a mark up on the sell side to capture the premium
-4.) reguarly check the position using update_open_orders
+Feb 25th 2016 Fourth Trade Duelling BullDozers.
+
 """
 
 import gamemaster
@@ -16,7 +10,7 @@ start = time.time()
 end = time.time()
 
 
-sf = gamemaster.StockFighter("sell_side")
+sf = gamemaster.StockFighter("dueling_bulldozers")
 stock = sf.tickers
 
 orderIDList = {}
@@ -47,7 +41,10 @@ while (end - start) < 50:
     Difference = BestAsk - BestBid
 
     try:
-        Spread = "{0:%}".format(Difference / (BestAsk + 0.0))
+        if BestBid > 0:
+            Spread = "{0:%}".format(Difference / (BestAsk + 0.0))
+        else:
+            Spread = 0
     except ZeroDivisionError:
         Spread = 0
 
@@ -55,7 +52,8 @@ while (end - start) < 50:
     print "T%d Pos. %d Best Ask %r , Best Bid %r, q %r Spread %r, average %r" % \
         ((end - start), positionSoFar, BestAsk, BestBid, q, Spread, ma_20)
 
-    if Spread > 0.005 and abs(positionSoFar) < 500:  # making a transaction
+    if Spread > .005 and abs(positionSoFar) < 500:  # making a transaction
+
         buyOrder = sf.make_order(BestBid, q, stock, "buy", "limit")
         sellOrder = sf.make_order(int(BestAsk * premium), q, stock, "sell", "limit")
         # print "Print Buy Order %s" % (buyOrder)
