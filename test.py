@@ -1,10 +1,7 @@
-import requests
-import json
-import gamemaster
-import time
+x = [1, 2, 3, 4, 5]
 
-sf = gamemaster.StockFighter("chock_a_block")
-print sf.venues
-print sf.tickers 
+x.append(6)
+print x
+x.pop(0)
 
-# print(sf.get_order_book)
+print x
