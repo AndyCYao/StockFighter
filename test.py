@@ -1,7 +1,5 @@
-x = [1, 2, 3, 4, 5]
+import gamemaster
 
-x.append(6)
-print x
-x.pop(0)
-
-print x
+y = gamemaster.StockFighter("sell_side")
+r = y.status_for_all_orders_in_stock(y.tickers)
+print r.json()

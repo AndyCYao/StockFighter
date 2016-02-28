@@ -12,14 +12,23 @@ class GameMaster:
     def __init__(self):
         pass
 
-    def get_current_venue(self):
-        pass
-
-    def get_current_stock(self):
-        pass
+    def check_if_instance_is_active(self,instanceID):
+        isTrue = False
+        header = {'X-Starfighter-Authorization': self.get_api_key()}
+        full_url = "%s/instances/%s" % (self.gm_url, instanceID)
+        response = requests.get(full_url, headers = header)
+        isTrue = response.json().get("state")
+        # print response.json()
+        # print "In check_if_instance_is_active - instance active %r" %(isTrue)
+        return isTrue
             
-    def get_current_account(self):
-        pass
+    def restart_level(self, instanceID):
+        header = {'X-Starfighter-Authorization': self.get_api_key()}
+        full_url = "%s/instances/%s/restart" % (self.gm_url, instanceID)
+        response = requests.post(full_url, headers = header)
+        print "****In restart_level****"
+        # print response.json()
+        return response
 
     def get_api_key(self):
         file = open('apikey.txt', 'r')
@@ -27,11 +36,10 @@ class GameMaster:
         return apikey
 
     def get_instance_id(self):
-        # header = "Cookie:api_key=%s" % (self.get_api_key())
-        # header = "%s" % (self.get_api_key())
+        """returns a list of instances, not working yet"""
         header = {'X-Starfighter-Authorization': self.get_api_key}
         full_url = "%s/levels" % (self.gm_url)
-        response = requests.get(full_url, headers=header)
+        response = requests.get(full_url, headers = header)
 
         try:
             return response.text
@@ -41,13 +49,22 @@ class GameMaster:
     def post_level(self, level):
         header = {'X-Starfighter-Authorization': self.get_api_key()}
         full_url = "%s/levels/%s" % (self.gm_url, level)
-        response = requests.post(full_url, headers=header)
-
+        response = requests.post(full_url, headers = header)
         try:
+            # print response.json()
+            self.write_to_setting(response.json()) # for retrieving later
             return response
         except ValueError as e:
             return{'error': e, 'raw_content': response.content}
 
+    def write_to_setting(self, responseJSON):
+        """
+            store the current session into file to retrieve
+            for restart, resume etc. 
+        """
+        with open("currentInfo.json", "w") as settings:
+            json.dump(responseJSON,settings)
+        settings.close()
 
 class StockFighter:
     """Contains the methods neccessary to make API calls."""
@@ -55,7 +72,23 @@ class StockFighter:
     def __init__(self, LevelName):
         gm = GameMaster()
         apikey = gm.get_api_key()
-        response = gm.post_level(LevelName)
+        # look in the currentinfo, if exists check if its active
+        # if active prompt user if they want to restart or new
+        info = open("currentInfo.json", "r")
+        currentInfo = json.load(info)
+        
+        PrevInstanceID = currentInfo["instanceId"]
+        info.close()
+
+        # Rather than restart every level, check if one exists
+        if gm.check_if_instance_is_active(PrevInstanceID):
+            x = raw_input("Would you like to restart previous level? Y/N ->")
+            if x.upper() == "Y":
+                response = gm.restart_level(PrevInstanceID)
+            else:
+                response= gm.post_level(LevelName)
+        else:
+            response = gm.post_level(LevelName)
 
         self.base_url = "https://api.stockfighter.io/ob/api"
         self.account = response.json().get("account")
@@ -66,13 +99,20 @@ class StockFighter:
         print "venue is %s , account is %s, id %s, ticker %s" %(self.venues,self.account,self.instanceID,self.tickers)
         # further research at https://discuss.starfighters.io/t/the-gm-api-how-to-start-stop-restart-resume-trading-levels-automagically/143
 
+    def status_for_all_orders_in_stock(self, s):
+        """ retrieve all orders given account """
+        full_url = "%s/venues/%s/accounts/%s/stocks/%s/orders" % (self.base_url, self.venues, self.account, s)
+        response = requests.get(full_url, headers = self.header)
+        return response
+
     def get_order_book(self, s):
         """retrieve the order book"""
         full_url = "%s/venues/%s/stocks/%s" % (self.base_url, self.venues, s)
-        response = requests.get(full_url, headers=self.header)
+        response = requests.get(full_url, headers = self.header)
         return response
 
     def read_orderbook(self, oBook, direction, type):
+        """this returns the best price of buy or sell """
         try:
             best_result = oBook.json().get(direction)[0].get(type)
         except (RuntimeError, TypeError, NameError):
@@ -82,28 +122,34 @@ class StockFighter:
     def fill_confirmation(self, s, id):
         """return total number filled for this specific id"""
         full_url = "%s/venues/%s/stocks/%s/orders/%s" % (self.base_url, self.venues,s,id)
-        response = requests.get(full_url, headers=self.header)
+        response = requests.get(full_url, headers = self.header)
         # print response.json()
         return response.json().get('totalFilled'), \
             response.json().get('direction'), \
-            response.json().get('open')
+            response.json().get('open'), \
+            response.json().get('price')
 
     def update_open_orders(self, orderList):
         """loops through the open ids and check them see 
         how many have been filled."""
         currentPos = 0
+        currentPosCash = 0
         for x in orderList:
             
-            num, direction, state = self.fill_confirmation(self.tickers, x)
+            num, direction, state, price = self.fill_confirmation(self.tickers, x)
             if direction == "sell":
                 num = num * -1
 
             orderList[x] = num
             # print "%s - total filled %s" % (x, num)
             currentPos += num
+            # * -.01 because we are getting the correct unit
+            # and also a negative num means someone
+            # bought from us, so is a credit
+            currentPosCash += num * price * (-.01)
 
         # print "current pos is %d" %(currentPos)
-        return currentPos
+        return currentPos, currentPosCash
 
 
     def make_order(self, p, q, s, direction, orderType):
@@ -117,13 +163,13 @@ class StockFighter:
             "orderType": orderType
         }
         full_url = "%s/venues/%s/stocks/%s/orders" % (self.base_url, self.venues, s)
-        response = requests.post(full_url, headers=self.header, data=json.dumps(order))
+        response = requests.post(full_url, headers = self.header, data=json.dumps(order))
         return response.json()
 
     def get_quote(self, s):
         # Get last quote 
         full_url = "%s/venues/%s/stocks/%s/quote" % (self.base_url, self.venues, s)
-        response = requests.get(full_url, headers=self.header)
+        response = requests.get(full_url, headers = self.header)
         last = response.json()
         return last
 
