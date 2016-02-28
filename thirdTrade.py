@@ -21,7 +21,7 @@ end = time.time()
 sf = gamemaster.StockFighter("sell_side")
 stock = sf.tickers
 
-orderIDList = {}
+# orderIDList = {}
 positionSoFar = 0  # if negative means short if positive long
 premium = 1.025
 ma_20_list = []    # moving average 20 lets the script know current trend.
@@ -39,7 +39,8 @@ while nav < 15000:
         print x,
         ma_20 += x + 0.0
     ma_20 = int(ma_20 / curr_count)
-    positionSoFar, cash = sf.update_open_orders(orderIDList)
+    orderIDList = sf.status_for_all_orders_in_stock(stock)
+    positionSoFar, cash = sf.update_open_orders(orderIDList.json())
     oBook = sf.get_order_book(stock)
 
     BestAsk = sf.read_orderbook(oBook, "asks", "price")
@@ -68,8 +69,8 @@ while nav < 15000:
         # print "Print Buy Order %s" % (buyOrder)
         buyID = buyOrder.get('id')
         sellID = sellOrder.get('id')
-        orderIDList[buyID] = 0      # add buy order ID to orderlist
-        orderIDList[sellID] = 0     # do same for sell
+        # orderIDList[buyID] = 0      # add buy order ID to orderlist
+        # orderIDList[sellID] = 0     # do same for sell
 
         buyPrice = buyOrder.get('price')
         sellPrice = sellOrder.get('price')
@@ -81,7 +82,8 @@ while nav < 15000:
         while True:
             time.sleep(1)
             end = time.time()
-            positionSoFar, cash = sf.update_open_orders(orderIDList)
+            orderIDList = sf.status_for_all_orders_in_stock(stock)
+            positionSoFar, cash = sf.update_open_orders(orderIDList.json())
             nav = cash + positionSoFar * sf.get_quote(stock).get("last") * (.01)
             nav_currency = '${:,.2f}'.format(nav)
             print "T%d cur. Cash %d - Pos %d - NAV %r" % ((end-start), cash, 

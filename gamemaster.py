@@ -119,36 +119,31 @@ class StockFighter:
             best_result = 0
         return best_result
 
-    def fill_confirmation(self, s, id):
-        """return total number filled for this specific id"""
-        full_url = "%s/venues/%s/stocks/%s/orders/%s" % (self.base_url, self.venues,s,id)
-        response = requests.get(full_url, headers = self.header)
-        # print response.json()
-        return response.json().get('totalFilled'), \
-            response.json().get('direction'), \
-            response.json().get('open'), \
-            response.json().get('price')
-
     def update_open_orders(self, orderList):
         """loops through the open ids and check them see 
-        how many have been filled."""
+        how many have been filled. i am changing it to loop through the orders from 
+        status_for_all_orders_in_stock
+        """
         currentPos = 0
         currentPosCash = 0
-        for x in orderList:
+
+        for x in orderList["orders"]:
+            id = x["id"]
+            totalFilled = x["totalFilled"]
+            direction = x["direction"]
+            price = x["price"]
+            # print "ID %s, Filled %s, Dirction %s" %(id, totalFilled, direction)  
+
             
-            num, direction, state, price = self.fill_confirmation(self.tickers, x)
+            # num, direction, state, price = self.fill_confirmation(self.tickers, x)
             if direction == "sell":
-                num = num * -1
+                totalFilled = totalFilled * -1
 
-            orderList[x] = num
-            # print "%s - total filled %s" % (x, num)
-            currentPos += num
-            # * -.01 because we are getting the correct unit
-            # and also a negative num means someone
-            # bought from us, so is a credit
-            currentPosCash += num * price * (-.01)
+            currentPos += totalFilled
+            # -.01 because we are getting the correct unit
+            currentPosCash += totalFilled * price * (-.01)
 
-        # print "current pos is %d" %(currentPos)
+        # print "current pos is %d and $%d" %(currentPos, currentPosCash)
         return currentPos, currentPosCash
 
 
