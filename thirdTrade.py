@@ -7,6 +7,8 @@ Feb 25th 2016 Third Trade sell_side. Here is the approach currently.
     i should just cap it at 100
 3.) Apply a mark up on the sell side to capture the premium
 4.) reguarly check the position using update_open_orders
+5.) Net Asset Value is the unrealized gain or loss of asset in hand
+    based on the diff. of current quote - purchased price
 """
 
 import gamemaster
@@ -24,7 +26,9 @@ positionSoFar = 0  # if negative means short if positive long
 premium = 1.025
 ma_20_list = []    # moving average 20 lets the script know current trend.
 ma_20 = 0
-while (end - start) < 50:
+nav = 0
+# while (end - start) < 120:
+while nav < 15000:
     time.sleep(2)
 
     if len(ma_20_list) > 20:  # if theres stuff in ma_20_list
@@ -32,10 +36,10 @@ while (end - start) < 50:
     ma_20_list.append(sf.get_quote(stock).get("last"))
     curr_count = len(ma_20_list)
     for x in ma_20_list:
-        # print x,
+        print x,
         ma_20 += x + 0.0
     ma_20 = int(ma_20 / curr_count)
-    positionSoFar = sf.update_open_orders(orderIDList)
+    positionSoFar, cash = sf.update_open_orders(orderIDList)
     oBook = sf.get_order_book(stock)
 
     BestAsk = sf.read_orderbook(oBook, "asks", "price")
@@ -47,7 +51,10 @@ while (end - start) < 50:
     Difference = BestAsk - BestBid
 
     try:
-        Spread = "{0:%}".format(Difference / (BestAsk + 0.0))
+        if BestBid > 0:
+            Spread = "{0:%}".format(Difference / (BestAsk + 0.0))
+        else:
+            Spread = 0
     except ZeroDivisionError:
         Spread = 0
 
@@ -69,15 +76,17 @@ while (end - start) < 50:
         print "Bought %d at %d ID %d - Sold at %d ID %d" % (q, buyPrice, buyID,
                 sellPrice, sellID)
 
-    # try:
-    """
     print 'Waiting for keyboard interrupt'
-    while True:
-        try:
+    try:
+        while True:
             time.sleep(1)
             end = time.time()
-            positionSoFar = sf.update_open_orders(orderIDList)
-            print "cur. position %d" % (positionSoFar)
-        except KeyboardInterrupt:
-            print "Keyboard Pressed!"
-    """
+            positionSoFar, cash = sf.update_open_orders(orderIDList)
+            nav = cash + positionSoFar * sf.get_quote(stock).get("last") * (.01)
+            nav_currency = '${:,.2f}'.format(nav)
+            print "T%d cur. Cash %d - Pos %d - NAV %r" % ((end-start), cash, 
+                positionSoFar, nav_currency)
+    except KeyboardInterrupt:
+        print "Keyboard Pressed!"
+        continue
+
