@@ -1,6 +1,13 @@
 """
 Feb 28th 2016 Fourth Trade
+Plan to rework the check fill confirmation, rather than currently the process is
+1. given dictionary object orderIDList
+2. fill in the order id, and fill number using the .update_open_orders(orderIDList)
 
+I do instead -> 
+1. loop through the status_for_all_orders_in_stock
+2. check the buy fills, and update the tally, 
+3. check the sell fills, and update. 
 """
 
 import gamemaster
@@ -13,16 +20,20 @@ end = time.time()
 sf = gamemaster.StockFighter("dueling_bulldozers")
 stock = sf.tickers
 
-orderIDList = {}
+# orderIDList = {}
 positionSoFar = 0  # if negative means short if positive long
 premium = 1.025
 ma_20_list = []    # moving average 20 lets the script know current trend.
 ma_20 = 0
 nav = 0
 
-# while (end - start) < 120:
-while nav < 15000:
+while (end - start) < 50:
+# while nav < 15000:
     time.sleep(2)
+
+    # added feb 28th 2016
+    # all_orders = sf.status_for_all_orders_in_stock(stock)
+    # order = all_orders.json()
 
     if len(ma_20_list) > 20:  # if theres stuff in ma_20_list
         ma_20_list.pop(0)
@@ -61,8 +72,8 @@ while nav < 15000:
         # print "Print Buy Order %s" % (buyOrder)
         buyID = buyOrder.get('id')
         sellID = sellOrder.get('id')
-        orderIDList[buyID] = 0      # add buy order ID to orderlist
-        orderIDList[sellID] = 0     # do same for sell
+        # orderIDList[buyID] = 0      # add buy order ID to orderlist
+        # orderIDList[sellID] = 0     # do same for sell
 
         buyPrice = buyOrder.get('price')
         sellPrice = sellOrder.get('price')
@@ -74,7 +85,11 @@ while nav < 15000:
         while True:
             time.sleep(1)
             end = time.time()
-            positionSoFar, cash = sf.update_open_orders(orderIDList)
+            
+            all_orders = sf.status_for_all_orders_in_stock(stock)
+            # order = all_orders.json()
+            positionSoFar, cash = sf.update_open_orders(all_orders.json())
+
             nav = cash + positionSoFar * sf.get_quote(stock).get("last") * (.01)
             nav_currency = '${:,.2f}'.format(nav)
             print "T%d cur. Cash %d - Pos %d - NAV %r" % ((end-start), cash, 
