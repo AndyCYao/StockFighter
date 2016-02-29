@@ -17,37 +17,37 @@ import time
 start = time.time()
 end = time.time()
 
-
 sf = gamemaster.StockFighter("sell_side")
 stock = sf.tickers
 
-# orderIDList = {}
 positionSoFar = 0  # if negative means short if positive long
 premium = 1.025
 ma_20_list = []    # moving average 20 lets the script know current trend.
 ma_20 = 0
 nav = 0
-# while (end - start) < 120:
-while nav < 15000:
-    time.sleep(2)
 
-    if len(ma_20_list) > 20:  # if theres stuff in ma_20_list
-        ma_20_list.pop(0)
-    ma_20_list.append(sf.get_quote(stock).get("last"))
-    curr_count = len(ma_20_list)
-    for x in ma_20_list:
-        print x,
-        ma_20 += x + 0.0
-    ma_20 = int(ma_20 / curr_count)
+def buy_condition(tSpread, tPositionSoFar):
+    """to be tailored for each level"""
+    if tSpread > 0.005 and tPositionSoFar <= 0:
+        return True
+    return False
+
+def sell_condition(tSpread, tPositionSoFar):
+    """to be tailored for each level"""
+    if tSpread > 0.005 and tPositionSoFar >= 0:
+        return True
+    return False
+
+# while (end - start) < 120:
+while nav < 12000:
     orderIDList = sf.status_for_all_orders_in_stock(stock)
     positionSoFar, cash = sf.update_open_orders(orderIDList.json())
     oBook = sf.get_order_book(stock)
 
     BestAsk = sf.read_orderbook(oBook, "asks", "price")
     BestBid = sf.read_orderbook(oBook, "bids", "price")
-    q = sf.read_orderbook(oBook, "bids", "qty")
-    if q > 250:         # i can only handle +- 1000 maximum so less risk
-        q = 250
+    q_bid = min(sf.read_orderbook(oBook, "bids", "qty"),250) #min of 250 because we only have 1000 on either side of pos to work with.
+    q_ask = min(sf.read_orderbook(oBook,"asks","qty"),250)
 
     Difference = BestAsk - BestBid
 
@@ -60,35 +60,36 @@ while nav < 15000:
         Spread = 0
 
     end = time.time()
-    print "T%d Pos. %d Best Ask %r , Best Bid %r, q %r Spread %r, average %r" % \
-        ((end - start), positionSoFar, BestAsk, BestBid, q, Spread, ma_20)
+ 
+    if len(ma_20_list) > 20:  # if theres stuff in ma_20_list
+        ma_20_list.pop(0)
+    ma_20_list.append(sf.get_quote(stock).get("last"))
+    curr_count = len(ma_20_list)
+    for x in ma_20_list:
+        # print x,
+        ma_20 += x + 0.0
+    ma_20 = int(ma_20 / curr_count)
+ 
+    nav = cash + positionSoFar * sf.get_quote(stock).get("last") * (.01)
+    nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
+    
+    print "T%d Pos. %d Best Ask %r , Best Bid %r, Spread %r, average %r, NAV %s" % \
+        ((end - start), positionSoFar, BestAsk, BestBid, Spread, ma_20, nav_currency)
 
-    if Spread > 0.005 and abs(positionSoFar) < 500:  # making a transaction
-        buyOrder = sf.make_order(BestBid, q, stock, "buy", "limit")
-        sellOrder = sf.make_order(int(BestAsk * premium), q, stock, "sell", "limit")
-        # print "Print Buy Order %s" % (buyOrder)
-        buyID = buyOrder.get('id')
-        sellID = sellOrder.get('id')
-        # orderIDList[buyID] = 0      # add buy order ID to orderlist
-        # orderIDList[sellID] = 0     # do same for sell
+    time.sleep(1)
 
+    if buy_condition(Spread, positionSoFar):    
+        buyOrder = sf.make_order(BestBid, q_bid, stock, "buy", "limit")
         buyPrice = buyOrder.get('price')
+        buyID = buyOrder.get('id')
+        print "placed buy ord. - %d units at %d ID %d" % (q_bid, buyPrice, buyID)
+    
+    if sell_condition(Spread, positionSoFar):
+        sellOrder = sf.make_order(int(BestAsk * premium), q_ask, stock, "sell", "limit")
         sellPrice = sellOrder.get('price')
-        print "Bought %d at %d ID %d - Sold at %d ID %d" % (q, buyPrice, buyID,
-                sellPrice, sellID)
+        sellID = sellOrder.get('id')
+    
+        print "placed sold ord. - %d units at %d ID %d" % (q_ask, sellPrice, sellID)
 
-    print 'Waiting for keyboard interrupt'
-    try:
-        while True:
-            time.sleep(1)
-            end = time.time()
-            orderIDList = sf.status_for_all_orders_in_stock(stock)
-            positionSoFar, cash = sf.update_open_orders(orderIDList.json())
-            nav = cash + positionSoFar * sf.get_quote(stock).get("last") * (.01)
-            nav_currency = '${:,.2f}'.format(nav)
-            print "T%d cur. Cash %d - Pos %d - NAV %r" % ((end-start), cash, 
-                positionSoFar, nav_currency)
-    except KeyboardInterrupt:
-        print "Keyboard Pressed!"
-        continue
+    end = time.time()
 
