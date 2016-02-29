@@ -18,11 +18,11 @@ class GameMaster:
         full_url = "%s/instances/%s" % (self.gm_url, instanceID)
         response = requests.get(full_url, headers = header)
         isTrue = response.json().get("state")
-        # print response.json()
-        # print "In check_if_instance_is_active - instance active %r" %(isTrue)
         return isTrue
             
     def restart_level(self, instanceID):
+        """ restart but keep the same info."""
+        
         header = {'X-Starfighter-Authorization': self.get_api_key()}
         full_url = "%s/instances/%s/restart" % (self.gm_url, instanceID)
         response = requests.post(full_url, headers = header)
@@ -74,19 +74,15 @@ class StockFighter:
         apikey = gm.get_api_key()
         # look in the currentinfo, if exists check if its active
         # if active prompt user if they want to restart or new
+        
         info = open("currentInfo.json", "r")
         currentInfo = json.load(info)
-        
-        PrevInstanceID = currentInfo["instanceId"]
-        info.close()
+        x = raw_input("Would you like to restart a level? Y/N ->")
 
-        # Rather than restart every level, check if one exists
-        if gm.check_if_instance_is_active(PrevInstanceID):
-            x = raw_input("Would you like to restart previous level? Y/N ->")
-            if x.upper() == "Y":
-                response = gm.restart_level(PrevInstanceID)
-            else:
-                response= gm.post_level(LevelName)
+        if currentInfo["ok"] and x.upper() == "Y": 
+            PrevInstanceID = currentInfo["instanceId"]
+            response = gm.restart_level(PrevInstanceID)
+            info.close()
         else:
             response = gm.post_level(LevelName)
 
