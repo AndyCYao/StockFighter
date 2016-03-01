@@ -24,16 +24,25 @@ nav = 0
 orderIDList = 0
 
 
-def buy_condition(tSpread, tExpectedPosition, tPositionSoFar):
+def warning_big_order(orderbook):
+    """affect the buy / sell conditions.
+    checks the relative proportion of depth on bothsides.
+    if bid depth is much bigger than ask, then stop all buy
+    if bid depth is much smaller, do vice versa.
+    """
+    pass
+
+
+def buy_condition(tSpread, tExpectedPosition):
     """to be tailored for each level."""
-    if tSpread > 0.005 and tExpectedPosition <= 0 and tPositionSoFar < 400:
+    if tSpread > 0.005 and tExpectedPosition <= 0:
         return True
     return False
 
 
-def sell_condition(tSpread, tExpectedPosition, tPositionSoFar):
+def sell_condition(tSpread, tExpectedPosition):
     """to be tailored for each level."""
-    if tSpread > 0.005 and tExpectedPosition >= 0 and tPositionSoFar > -400:
+    if tSpread > 0.005 and tExpectedPosition >= 0:
         return True
     return False
 
@@ -77,13 +86,13 @@ try:
 
         time.sleep(2)  # slow things down a bit, because we are querying the same information.
 
-        if buy_condition(Spread, expectedPosition, positionSoFar):
+        if buy_condition(Spread, expectedPosition):
             buyOrder = sf.make_order(BestBid, q_bid, stock, "buy", "limit")
             buyPrice = buyOrder.get('price')
             buyID = buyOrder.get('id')
             print "BBBBB placed buy ord. - %d units at %d ID %d" % (q_bid, buyPrice, buyID)
         
-        if sell_condition(Spread, expectedPosition, positionSoFar):
+        if sell_condition(Spread, expectedPosition):
             sellOrder = sf.make_order(int(BestAsk * premium), q_ask, stock, "sell", "limit")
             sellPrice = sellOrder.get('price')
             sellID = sellOrder.get('id')

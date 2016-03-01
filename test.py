@@ -1,6 +1,16 @@
+
 import gamemaster
 import json
 import time
+
+"""Work on Web Sockets"""
+sf = gamemaster.StockFighter("sell_side")
+stock = sf.tickers
+
+
+
+
+
 
 """
 y = gamemaster.StockFighter("sell_side")
@@ -14,7 +24,6 @@ currentInfo = json.load(info)
 
 for x in currentInfo:
     print x
-"""
 
 
 sf = gamemaster.StockFighter("sell_side")
@@ -47,7 +56,7 @@ except KeyboardInterrupt:
     print "ctrl+c pressed!"
 
 
-"""
+
 x = 0
 while x < 20:
     
