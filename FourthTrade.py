@@ -4,7 +4,7 @@ import json
 """
 Feb 28th 2016 - Fourth Trade - Dueling Bull Dozers.
 
-Make $10,000 in profit while minimizing your exposure
+Make $250000 in profit while minimizing your exposure
 
 """
 
