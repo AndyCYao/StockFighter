@@ -1,7 +1,7 @@
 """Contains GameMaster and Stockfighter."""
 import requests
 import json
-
+from ws4py.client.threadedclient import WebSocketClient
 
 class GameMaster:
     """Contains the codes necessary to start the instance."""
@@ -99,7 +99,6 @@ class StockFighter:
         self.tickers = ''.join(response.json().get("tickers"))
         self.header = {'X-Starfighter-Authorization': apikey}
         print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account, self.instanceID, self.tickers)
-        # further research at https://discuss.starfighters.io/t/the-gm-api-how-to-start-stop-restart-resume-trading-levels-automagically/143
 
     def status_for_all_orders_in_stock(self, s):
         """ retrieve all orders given account """
@@ -169,5 +168,38 @@ class StockFighter:
         last = response.json()
         return last
 
+    def quote_venue_ticker(self, callback):
+        def wrapper(msg):
+            if msg is None:
+                callback(None)
+            else:
+                callback(msg['quote'])
 
-    
+        url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/tickertape' % (self.account, self.venues)
+        self.SFSocket(url, wrapper)
+
+    class SFSocket(WebSocketClient):
+        # with template from jchristma/Stockfighter.
+
+        def __init__(self, url, m_callback):
+            WebSocketClient.__init__(self, url)
+            self.callback = m_callback
+            self.connect()
+
+        def closed(self, code, reason=None):
+            print "Closing down Websocket! (%s) %s", code, reason
+            self.callback(None)
+
+        def received_message(self, m):
+            try:
+                # print m
+                if m.is_text:
+                    msg = json.loads(m.data.decode("utf-8"))
+                    # print msg
+                    self.callback(msg)
+            except ValueError as e:
+                self.log.error("Caught Exception in socket message: %s" % e)
+                pass
+        
+        def opened(self):
+            print "Connected to websocket!"
