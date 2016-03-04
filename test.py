@@ -2,22 +2,7 @@
 import gamemaster
 import json
 #  import time
-from ws4py.client.threadedclient import WebSocketClient
-
-
-class SFSocket(WebSocketClient):
-    
-    def closed(self, code, reason=None):
-        print "Closing down! (%s) %s", code, reason
-
-    def received_message(self, m):
-        try:
-            if m.is_text:
-                msg = json.loads(m.data.decode("utf-8"))
-                print msg
-        except ValueError as e:
-            self.log.error("Caught Exception in socket message: %s" % e)
-            pass
+# from ws4py.client.threadedclient import WebSocketClient
 
 if __name__ == '__main__':
     try:
@@ -26,12 +11,15 @@ if __name__ == '__main__':
         account = sf.account
         venues = sf.venues
 
-        uri = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/tickertape' % (account, venues)
-        ws = SFSocket(uri, protocols=['http-only', 'chat'])
-        ws.connect()
-        ws.run_forever()
+        def ReadQuote(m):
+            print "printing whats received from ReadQuote %s" % (m)
+
+        while True:
+            sf.quote_venue_ticker(ReadQuote)
+
     except KeyboardInterrupt:
-        ws.close()
+        print "Ctrl + C Pressed"
+        
 
 
 
