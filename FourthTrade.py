@@ -6,6 +6,8 @@ Feb 28th 2016 - Fourth Trade - Dueling Bull Dozers.
 
 Make $250000 in profit while minimizing your exposure
 
+note: if an order is not being filled , the price has most likely gone out of 
+trading range. should cancel and rebid. 
 """
 
 
@@ -24,30 +26,45 @@ nav = 0
 orderIDList = 0
 
 
-def warning_big_order(orderbook):
+def large_depth():
     """affect the buy / sell conditions.
     checks the relative proportion of depth on bothsides.
-    if bid depth is much bigger than ask, then stop all buy
+    if bid depth is much bigger than ask, then stop all buy, and sell
     if bid depth is much smaller, do vice versa.
     """
-    pass
+    try:
+        depth_ratio = sf.get_quote(stock).get("bidDepth") / sf.get_quote(stock).get("askDepth")
+        if depth_ratio >= 1.5:
+            return "large_bids_depth"
+        elif depth_ratio <= 1.5:
+            return "large_asks_depth"
+        else:
+            return "regular"
+    except ValueError as e:
+        print e
+    except ZeroDivisionError:
+        print "zero divided"
+        return "regular"
 
 
-def buy_condition(tSpread, tExpectedPosition):
+def buy_condition(tSpread, tExpectedPosition, positionSoFar):
     """to be tailored for each level."""
-    if tSpread > 0.005 and tExpectedPosition <= 0:
-        return True
+    if large_depth() == "large_bids_depth":
+        if tSpread > 0.005 and tExpectedPosition <= 0 and positionSoFar < 500:
+            return True
     return False
 
 
-def sell_condition(tSpread, tExpectedPosition):
+def sell_condition(tSpread, tExpectedPosition, positionSoFar):
     """to be tailored for each level."""
-    if tSpread > 0.005 and tExpectedPosition >= 0:
-        return True
+    if large_depth() == "large_asks_depth":
+        if tSpread > 0.005 and tExpectedPosition >= 0 and positionSoFar > -500:
+            return True
     return False
 
 try:
     while nav < 250000:
+        time.sleep(3)  # slow things down a bit, because we are querying the same information.
         orderIDList = sf.status_for_all_orders_in_stock(stock)
         positionSoFar, cash, expectedPosition = sf.update_open_orders(orderIDList.json())
         oBook = sf.get_order_book(stock)
@@ -61,7 +78,7 @@ try:
 
         try:
             if BestBid > 0:
-                Spread = "{0:%}".format(Difference / (BestAsk + 0.0))
+                Spread = "{0:.0%}".format(Difference / (BestAsk + 0.0))
             else:
                 Spread = 0
         except ZeroDivisionError:
@@ -79,30 +96,32 @@ try:
         ma_20 = int(ma_20 / curr_count)
      
         nav = cash + positionSoFar * sf.get_quote(stock).get("last") * (.01)
+
         nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-        
         print "T%d Pos. %d, Expected Pos. %d Best Ask %r , Best Bid %r, Spread %r, average %r, NAV %s" % \
             ((end - start), positionSoFar, expectedPosition, BestAsk, BestBid, Spread, ma_20, nav_currency)
-
-        time.sleep(2)  # slow things down a bit, because we are querying the same information.
-
-        if buy_condition(Spread, expectedPosition):
+                
+        if buy_condition(Spread, expectedPosition, positionSoFar):
             buyOrder = sf.make_order(BestBid, q_bid, stock, "buy", "limit")
             buyPrice = buyOrder.get('price')
             buyID = buyOrder.get('id')
-            print "BBBBB placed buy ord. - %d units at %d ID %d" % (q_bid, buyPrice, buyID)
+            print "\n\tBBBBB placed buy ord. +%d units at %d ID %d \n" % (q_bid, buyPrice, buyID)
         
-        if sell_condition(Spread, expectedPosition):
+        if sell_condition(Spread, expectedPosition, positionSoFar):
             sellOrder = sf.make_order(int(BestAsk * premium), q_ask, stock, "sell", "limit")
             sellPrice = sellOrder.get('price')
             sellID = sellOrder.get('id')
         
-            print "SSSSS placed sold ord. - %d units at %d ID %d" % (q_ask, sellPrice, sellID)
+            print "\n\tSSSSS placed sold ord. -%d units at %d ID %d \n" % (q_ask, sellPrice, sellID)
 
+        # check if some orders need to be cancelled ###
+        # start with sell orders.
+        
+        
         end = time.time()
 
 except KeyboardInterrupt:
     print "ctrl+c pressed!"
-    EndLog = open("results.txt", "w")
-    json.dump(orderIDList, EndLog)
-    EndLog.close()
+    # EndLog = open("results.txt", "w")
+    # json.dump(orderIDList, EndLog)
+    # EndLog.close()

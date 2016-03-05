@@ -161,6 +161,11 @@ class StockFighter:
         response = requests.post(full_url, headers=self.header, data=json.dumps(order))
         return response.json()
 
+    def delete_order(self, s, o_id):
+        full_url = "%s/venues/%s/stocks/%s/orders/%s/cancel" % (self.base_url, self.venues, s, o_id)
+        response = requests.delete(full_url, headers=self.header)
+        return response.json()
+
     def get_quote(self, s):
         # Get last quote.
         full_url = "%s/venues/%s/stocks/%s/quote" % (self.base_url, self.venues, s)

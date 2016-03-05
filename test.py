@@ -4,6 +4,22 @@ import json
 #  import time
 # from ws4py.client.threadedclient import WebSocketClient
 
+
+sf = gamemaster.StockFighter("dueling_bulldozers")
+stock = sf.tickers
+account = sf.account
+venues = sf.venues
+
+orderIDList = sf.status_for_all_orders_in_stock(stock)
+print orderIDList.json()
+
+def identify_unfilled_orders(orderIDList.json()):
+    orderIDs = []
+    
+
+
+
+"""
 if __name__ == '__main__':
     try:
         sf = gamemaster.StockFighter("sell_side")
@@ -21,11 +37,6 @@ if __name__ == '__main__':
         print "Ctrl + C Pressed"
         
 
-
-
-
-
-"""
     y = gamemaster.StockFighter("sell_side")
 
 
