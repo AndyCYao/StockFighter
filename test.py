@@ -9,12 +9,35 @@ sf = gamemaster.StockFighter("dueling_bulldozers")
 stock = sf.tickers
 account = sf.account
 venues = sf.venues
+buyOrder = sf.make_order(90, 100, stock, "buy", "limit")
+buyOrder = sf.make_order(90, 100, stock, "buy", "limit")
+buyOrder = sf.make_order(90, 100, stock, "buy", "limit")
+
+sellOrder = sf.make_order(100, 100, stock, "sell", "limit")
+
 
 orderIDList = sf.status_for_all_orders_in_stock(stock)
-print orderIDList.json()
+x = orderIDList.json()
+print x
+for y in x:
+    print y
+    #if y["open"]:
+        #print(y["id"])
 
-def identify_unfilled_orders(orderIDList.json()):
+
+def identify_unfilled_orders(orderList):
+    """check through orderIDlist, and return a list of 
+    orders that is not gonna be filled at the moment because
+    the price is out the money. 
+    """
     orderIDs = []
+
+    for x in orderList["orders"]:
+        if x["open"] and x["direction"] == "sell":
+           orderIDs.append(x["id"]) 
+
+
+    return orderIDs
     
 
 
