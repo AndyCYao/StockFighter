@@ -91,14 +91,17 @@ class StockFighter:
         else:
         """
         response = gm.post_level(LevelName)
-
-        self.base_url = "https://api.stockfighter.io/ob/api"
-        self.account = response.json().get("account")
-        self.instanceID = response.json().get("instanceId")
-        self.venues = ''.join(response.json().get("venues"))
-        self.tickers = ''.join(response.json().get("tickers"))
-        self.header = {'X-Starfighter-Authorization': apikey}
-        print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account, self.instanceID, self.tickers)
+        # print response.json()
+        if response.json().get("ok"):
+            self.base_url = "https://api.stockfighter.io/ob/api"
+            self.account = response.json().get("account")
+            self.instanceID = response.json().get("instanceId")
+            self.venues = ''.join(response.json().get("venues"))
+            self.tickers = ''.join(response.json().get("tickers"))
+            self.header = {'X-Starfighter-Authorization': apikey}
+            print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account, self.instanceID, self.tickers)
+        else:
+            print "Oops, something went wrong, try again."
 
     def status_for_all_orders_in_stock(self, s):
         """ retrieve all orders given account """
@@ -163,7 +166,7 @@ class StockFighter:
 
     def delete_order(self, s, o_id):
         full_url = "%s/venues/%s/stocks/%s/orders/%s/cancel" % (self.base_url, self.venues, s, o_id)
-        response = requests.delete(full_url, headers=self.header)
+        response = requests.post(full_url, headers=self.header)
         return response.json()
 
     def get_quote(self, s):

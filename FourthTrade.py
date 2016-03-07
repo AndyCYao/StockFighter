@@ -1,6 +1,7 @@
 import gamemaster
 import time
 import json
+import datetime  # StockFighter uses ISO format so need this to convert our time
 """
 Feb 28th 2016 - Fourth Trade - Dueling Bull Dozers.
 
@@ -19,7 +20,6 @@ stock = sf.tickers
 
 positionSoFar = 0       # if negative means short if positive long total filled
 expectedPosition = 0    # this is if both filled and to be filled are accounted for (cant be over +/-1500)
-premium = 1.025
 ma_20_list = []    # moving average 20 lets the script know current trend.
 ma_20 = 0
 nav = 0
@@ -49,22 +49,50 @@ def large_depth():
 
 def buy_condition(tSpread, tExpectedPosition, positionSoFar):
     """to be tailored for each level."""
-    if large_depth() == "large_bids_depth":
-        if tSpread > 0.005 and tExpectedPosition <= 0 and positionSoFar < 500:
-            return True
-    return False
+    # if large_depth() == "large_bids_depth":
+    if tSpread > 0.005 and tExpectedPosition <= 0 and positionSoFar < 500:
+        return True
+    # return False
 
 
 def sell_condition(tSpread, tExpectedPosition, positionSoFar):
     """to be tailored for each level."""
-    if large_depth() == "large_asks_depth":
-        if tSpread > 0.005 and tExpectedPosition >= 0 and positionSoFar > -500:
+    #if large_depth() == "large_asks_depth":
+    if tSpread > 0.005 and tExpectedPosition >= 0 and positionSoFar > -500:
+        return True
+    # return False
+
+def identify_unfilled_orders(orderList, callback):
+    """check through orderIDlist, and return a list of 
+    orders that is not gonna be filled at the moment because
+    the price is out the money. 
+    """
+    for x in orderList["orders"]:
+        if x["open"]: 
+            if callback(x):
+                print "\n\tCancelling units %s - id %s\n at %s" %(x["qty"], x["id"], x["price"]),
+                sf.delete_order(stock, x["id"])
+
+
+def should_cancel_unfilled(order):
+    """if this order takes too long, and is out of money, then cancel it"""
+    s_BestAsk = sf.read_orderbook(oBook, "asks", "price")
+    s_BestBid = sf.read_orderbook(oBook, "bids", "price")
+    if order["direction"] == "buy":
+        if order["price"] < s_BestBid:
+            print "\tShould cancel ID%s %s %s because its price is %s and Best Bid is %s" %(order["id"], order["direction"], order["qty"],
+                order["price"], s_BestBid)
             return True
-    return False
+    else:
+        if order["price"] > s_BestAsk:
+            print "\tShould cancel ID%s %s %s because its price is %s and Best Ask is %s" %(order["id"], order["direction"], order["qty"],
+                order["price"], s_BestAsk)
+            return True
+
 
 try:
     while nav < 250000:
-        time.sleep(3)  # slow things down a bit, because we are querying the same information.
+        time.sleep(1)  # slow things down a bit, because we are querying the same information.
         orderIDList = sf.status_for_all_orders_in_stock(stock)
         positionSoFar, cash, expectedPosition = sf.update_open_orders(orderIDList.json())
         oBook = sf.get_order_book(stock)
@@ -78,7 +106,10 @@ try:
 
         try:
             if BestBid > 0:
-                Spread = "{0:.0%}".format(Difference / (BestAsk + 0.0))
+                Spread = Difference / (BestAsk + 0.0)
+                sell_discount = 1 - (Spread * .5)
+                buy_premium = 1 + (Spread * .5)
+                Spread = "{0:.0%}".format(Spread)
             else:
                 Spread = 0
         except ZeroDivisionError:
@@ -98,17 +129,17 @@ try:
         nav = cash + positionSoFar * sf.get_quote(stock).get("last") * (.01)
 
         nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-        print "T%d Pos. %d, Expected Pos. %d Best Ask %r , Best Bid %r, Spread %r, average %r, NAV %s" % \
-            ((end - start), positionSoFar, expectedPosition, BestAsk, BestBid, Spread, ma_20, nav_currency)
+        print "T%d Pos. %d, Expected Pos. %d, B_Bid, %r B_Ask %r , Last %r, Spread %r, average %r, NAV %s" % \
+            ((end - start), positionSoFar, expectedPosition, BestBid, BestAsk, ma_20_list[-1] , Spread, ma_20, nav_currency)
                 
         if buy_condition(Spread, expectedPosition, positionSoFar):
-            buyOrder = sf.make_order(BestBid, q_bid, stock, "buy", "limit")
+            buyOrder = sf.make_order(int(BestBid * buy_premium), q_bid, stock, "buy", "immediate-or-cancel")
             buyPrice = buyOrder.get('price')
             buyID = buyOrder.get('id')
             print "\n\tBBBBB placed buy ord. +%d units at %d ID %d \n" % (q_bid, buyPrice, buyID)
         
         if sell_condition(Spread, expectedPosition, positionSoFar):
-            sellOrder = sf.make_order(int(BestAsk * premium), q_ask, stock, "sell", "limit")
+            sellOrder = sf.make_order(int(BestAsk * sell_discount), q_ask, stock, "sell", "immediate-or-cancel")
             sellPrice = sellOrder.get('price')
             sellID = sellOrder.get('id')
         
@@ -116,12 +147,8 @@ try:
 
         # check if some orders need to be cancelled ###
         # start with sell orders.
-        
-        
-        end = time.time()
-
+    
+        identify_unfilled_orders(orderIDList.json(), should_cancel_unfilled)
+   
 except KeyboardInterrupt:
     print "ctrl+c pressed!"
-    # EndLog = open("results.txt", "w")
-    # json.dump(orderIDList, EndLog)
-    # EndLog.close()
