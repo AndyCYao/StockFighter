@@ -48,7 +48,9 @@ def large_depth():
 
 
 def buy_condition(tSpread, tExpectedPosition, positionSoFar):
-    """to be tailored for each level."""
+    """to be tailored for each level.
+        will buy if
+    """
     # if large_depth() == "large_bids_depth":
     if tSpread > 0.005 and tExpectedPosition <= 0 and positionSoFar < 500:
         return True
@@ -62,33 +64,38 @@ def sell_condition(tSpread, tExpectedPosition, positionSoFar):
         return True
     # return False
 
+
 def identify_unfilled_orders(orderList, callback):
-    """check through orderIDlist, and return a list of 
+    """check through orderIDlist, and return a list of
     orders that is not gonna be filled at the moment because
-    the price is out the money. 
+    the price is out the money.
     """
     for x in orderList["orders"]:
-        if x["open"]: 
+        if x["open"]:
             if callback(x):
-                print "\n\tCancelling units %s - id %s\n at %s" %(x["qty"], x["id"], x["price"]),
+                print "\n\tCancelling units %s - id %s at %s \n" % (x["qty"], x["id"], x["price"]),
                 sf.delete_order(stock, x["id"])
 
 
 def should_cancel_unfilled(order):
-    """if this order takes too long, and is out of money, then cancel it"""
+    """if this order is out of money, then cancel it"""
     s_BestAsk = sf.read_orderbook(oBook, "asks", "price")
     s_BestBid = sf.read_orderbook(oBook, "bids", "price")
+    price = order["price"]
+
     if order["direction"] == "buy":
-        if order["price"] < s_BestBid:
+        diff = (s_BestBid - price) / price
+        if diff < -.1:
             print "\tShould cancel ID%s %s %s because its price is %s and Best Bid is %s" %(order["id"], order["direction"], order["qty"],
                 order["price"], s_BestBid)
             return True
     else:
-        if order["price"] > s_BestAsk:
+        diff = (s_BestAsk - price) / price
+        if diff > .1:
             print "\tShould cancel ID%s %s %s because its price is %s and Best Ask is %s" %(order["id"], order["direction"], order["qty"],
                 order["price"], s_BestAsk)
             return True
-
+    return False
 
 try:
     while nav < 250000:
@@ -107,8 +114,8 @@ try:
         try:
             if BestBid > 0:
                 Spread = Difference / (BestAsk + 0.0)
-                sell_discount = 1 - (Spread * .5)
-                buy_premium = 1 + (Spread * .5)
+                sell_discount = 1 - (Spread * .2)
+                buy_premium = 1 + (Spread * .15)
                 Spread = "{0:.0%}".format(Spread)
             else:
                 Spread = 0
@@ -130,16 +137,16 @@ try:
 
         nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
         print "T%d Pos. %d, Expected Pos. %d, B_Bid, %r B_Ask %r , Last %r, Spread %r, average %r, NAV %s" % \
-            ((end - start), positionSoFar, expectedPosition, BestBid, BestAsk, ma_20_list[-1] , Spread, ma_20, nav_currency)
+            ((end - start), positionSoFar, expectedPosition, BestBid, BestAsk, ma_20_list[-1], Spread, ma_20, nav_currency)
                 
         if buy_condition(Spread, expectedPosition, positionSoFar):
-            buyOrder = sf.make_order(int(BestBid * buy_premium), q_bid, stock, "buy", "immediate-or-cancel")
+            buyOrder = sf.make_order(int(BestBid * buy_premium), q_bid, stock, "buy", "limit")
             buyPrice = buyOrder.get('price')
             buyID = buyOrder.get('id')
             print "\n\tBBBBB placed buy ord. +%d units at %d ID %d \n" % (q_bid, buyPrice, buyID)
         
         if sell_condition(Spread, expectedPosition, positionSoFar):
-            sellOrder = sf.make_order(int(BestAsk * sell_discount), q_ask, stock, "sell", "immediate-or-cancel")
+            sellOrder = sf.make_order(int(BestAsk * sell_discount), q_ask, stock, "sell", "limit")
             sellPrice = sellOrder.get('price')
             sellID = sellOrder.get('id')
         

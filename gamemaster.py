@@ -103,12 +103,6 @@ class StockFighter:
         else:
             print "Oops, something went wrong, try again."
 
-    def status_for_all_orders_in_stock(self, s):
-        """ retrieve all orders given account """
-        full_url = "%s/venues/%s/accounts/%s/stocks/%s/orders" % (self.base_url, self.venues, self.account, s)
-        response = requests.get(full_url, headers=self.header)
-        return response
-
     def get_order_book(self, s):
         """retrieve the order book"""
         full_url = "%s/venues/%s/stocks/%s" % (self.base_url, self.venues, s)
@@ -123,6 +117,12 @@ class StockFighter:
             best_result = 0
         return best_result
 
+    def status_for_all_orders_in_stock(self, s):
+        """ retrieve all orders given account """
+        full_url = "%s/venues/%s/accounts/%s/stocks/%s/orders" % (self.base_url, self.venues, self.account, s)
+        response = requests.get(full_url, headers=self.header)
+        return response
+
     def update_open_orders(self, orderList):
         """loops through the open ids and check them see.
         how many have been filled. i am changing it to loop through the orders from.
@@ -134,16 +134,18 @@ class StockFighter:
         for x in orderList["orders"]:
             # o_id = x["id"]
             totalFilled = x["totalFilled"]
-            originalQty = x["originalQty"]
+            # originalQty = x["originalQty"]
+            qty = x["qty"] + x["totalFilled"]
             direction = x["direction"]
             price = x["price"]
            
             if direction == "sell":
                 totalFilled = totalFilled * -1
-                originalQty = originalQty * -1
-                
+                # originalQty = originalQty * -1
+                qty = qty * -1
             currentPos += totalFilled
-            expectedPos += originalQty
+            # expectedPos += originalQty
+            expectedPos += qty
             # -.01 because we are getting the correct unit
             currentPosCash += totalFilled * price * (-.01)
 
@@ -173,8 +175,7 @@ class StockFighter:
         # Get last quote.
         full_url = "%s/venues/%s/stocks/%s/quote" % (self.base_url, self.venues, s)
         response = requests.get(full_url, headers=self.header)
-        last = response.json()
-        return last
+        return response.json()
 
     def quote_venue_ticker(self, callback):
         def wrapper(msg):
