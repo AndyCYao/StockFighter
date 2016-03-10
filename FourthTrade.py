@@ -47,12 +47,13 @@ def large_depth():
         return "regular"
 
 
-def buy_condition(tSpread, tExpectedPosition, positionSoFar):
+def buy_condition(tSpread, tExpectedPosition, positionSoFar, tBestBid, tMA):
     """to be tailored for each level.
-        will buy if
+        will buy if the price is not above MA20 price. 
     """
     # if large_depth() == "large_bids_depth":
-    if tSpread > 0.005 and tExpectedPosition <= 0 and positionSoFar < 500:
+
+    if tSpread > 0.005 and tExpectedPosition <= 0 and positionSoFar < 500 and tBestBid < tMA:
         return True
     # return False
 
@@ -82,19 +83,25 @@ def should_cancel_unfilled(order):
     s_BestAsk = sf.read_orderbook(oBook, "asks", "price")
     s_BestBid = sf.read_orderbook(oBook, "bids", "price")
     price = order["price"]
-
-    if order["direction"] == "buy":
-        diff = (s_BestBid - price) / price
-        if diff < -.1:
-            print "\tShould cancel ID%s %s %s because its price is %s and Best Bid is %s" %(order["id"], order["direction"], order["qty"],
-                order["price"], s_BestBid)
-            return True
+    print(order["ts"])  # this is in ISO 8601 time. 
+    o_time = datetime.datetime.strptime(order["ts"], '%Y-%m-%dT%H:%M:%S.%fZ')
+    print("order id%s time ordered %s") % (order["id"], o_time)
+    print("now %s") % (datetime.datetime.now())
+    if (datetime.datetime.now() - o_time) < datetime.timedelta(seconds=30):  # if longer than 30 sec. then cancel it. since the order is clearly overtaken by other
+        if order["direction"] == "buy":
+            diff = (s_BestBid - price) / price
+            if diff < -.1:
+                print "\tShould cancel ID%s %s %s because its price is %s and Best Bid is %s" % (order["id"], order["direction"], order["qty"],
+                    order["price"], s_BestBid)
+                return True
+        else:
+            diff = (s_BestAsk - price) / price
+            if diff > .1:
+                print "\tShould cancel ID%s %s %s because its price is %s and Best Ask is %s" % (order["id"], order["direction"], order["qty"],
+                    order["price"], s_BestAsk)
+                return True
     else:
-        diff = (s_BestAsk - price) / price
-        if diff > .1:
-            print "\tShould cancel ID%s %s %s because its price is %s and Best Ask is %s" %(order["id"], order["direction"], order["qty"],
-                order["price"], s_BestAsk)
-            return True
+        return True
     return False
 
 try:
@@ -139,7 +146,7 @@ try:
         print "T%d Pos. %d, Expected Pos. %d, B_Bid, %r B_Ask %r , Last %r, Spread %r, average %r, NAV %s" % \
             ((end - start), positionSoFar, expectedPosition, BestBid, BestAsk, ma_20_list[-1], Spread, ma_20, nav_currency)
                 
-        if buy_condition(Spread, expectedPosition, positionSoFar):
+        if buy_condition(Spread, expectedPosition, positionSoFar, BestBid, ma_20):
             buyOrder = sf.make_order(int(BestBid * buy_premium), q_bid, stock, "buy", "limit")
             buyPrice = buyOrder.get('price')
             buyID = buyOrder.get('id')
