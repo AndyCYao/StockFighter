@@ -132,10 +132,9 @@ class StockFighter:
         currentPosCash = 0
         expectedPos = 0
         for x in orderList["orders"]:
-            # o_id = x["id"]
             totalFilled = x["totalFilled"]
             # originalQty = x["originalQty"]
-            qty = x["qty"] + x["totalFilled"]
+            qty = x["qty"] + totalFilled
             direction = x["direction"]
             price = x["price"]
            
