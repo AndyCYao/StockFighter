@@ -83,11 +83,16 @@ def should_cancel_unfilled(order):
     s_BestAsk = sf.read_orderbook(oBook, "asks", "price")
     s_BestBid = sf.read_orderbook(oBook, "bids", "price")
     price = order["price"]
-    print(order["ts"])  # this is in ISO 8601 time. 
-    o_time = datetime.datetime.strptime(order["ts"], '%Y-%m-%dT%H:%M:%S.%fZ')
-    print("order id%s time ordered %s") % (order["id"], o_time)
-    print("now %s") % (datetime.datetime.now())
-    if (datetime.datetime.now() - o_time) < datetime.timedelta(seconds=30):  # if longer than 30 sec. then cancel it. since the order is clearly overtaken by other
+
+    # this is in ISO 8601 time. stripping the microseconds we are not that concern
+    ts = order["ts"].split(".")[0]
+    o_time = datetime.datetime.strptime(ts, '%Y-%m-%dT%H:%M:%S')
+    
+    timeDiff = datetime.datetime.utcnow() - o_time
+    
+    if timeDiff < datetime.timedelta(seconds=15):  # if longer than 30 sec. then cancel it. since the order is clearly overtaken by other
+        # print "is true"
+        # print order
         if order["direction"] == "buy":
             diff = (s_BestBid - price) / price
             if diff < -.1:
@@ -101,6 +106,7 @@ def should_cancel_unfilled(order):
                     order["price"], s_BestAsk)
                 return True
     else:
+        print("Should Cancel ID%s its been %s since ordered") % (o_time, timeDiff)
         return True
     return False
 
