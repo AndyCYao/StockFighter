@@ -3,8 +3,20 @@ import gamemaster
 import json
 #  import time
 # from ws4py.client.threadedclient import WebSocketClient
+import datetime
 
+# x = "2016-03-11T06:16:41.85000Z"
+a = "2016-03-11T06:25:27.179683641Z"
+b = a.split(".")[0]
+# print b
+o_time = datetime.datetime.strptime(b, '%Y-%m-%dT%H:%M:%S')
 
+print o_time
+print datetime.datetime.utcnow()
+print datetime.datetime.now()
+
+print (datetime.datetime.utcnow() - o_time) < datetime.timedelta(seconds=30)
+"""
 sf = gamemaster.StockFighter("dueling_bulldozers")
 stock = sf.tickers
 account = sf.account
@@ -26,10 +38,10 @@ for y in x:
 
 
 def identify_unfilled_orders(orderList):
-    """check through orderIDlist, and return a list of 
+    check through orderIDlist, and return a list of 
     orders that is not gonna be filled at the moment because
     the price is out the money. 
-    """
+    
     orderIDs = []
 
     for x in orderList["orders"]:
@@ -42,7 +54,6 @@ def identify_unfilled_orders(orderList):
 
 
 
-"""
 if __name__ == '__main__':
     try:
         sf = gamemaster.StockFighter("sell_side")
