@@ -49,19 +49,20 @@ def large_depth():
 
 def buy_condition(tSpread, tExpectedPosition, positionSoFar, tBestBid, tMA):
     """to be tailored for each level.
-        will buy if the price is not above MA20 price. 
+        will buy if the price is not above MA20 price.
     """
     # if large_depth() == "large_bids_depth":
-
     if tSpread > 0.005 and tExpectedPosition <= 0 and positionSoFar < 500 and tBestBid < tMA:
         return True
     # return False
 
 
-def sell_condition(tSpread, tExpectedPosition, positionSoFar):
-    """to be tailored for each level."""
+def sell_condition(tSpread, tExpectedPosition, positionSoFar, tBestAsk, tMA):
+    """to be tailored for each level.
+        will sell if the price is not below MA20 price.
+    """
     #if large_depth() == "large_asks_depth":
-    if tSpread > 0.005 and tExpectedPosition >= 0 and positionSoFar > -500:
+    if tSpread > 0.005 and tExpectedPosition >= 0 and positionSoFar > -500 and tBestAsk > tMA:
         return True
     # return False
 
@@ -91,8 +92,6 @@ def should_cancel_unfilled(order):
     timeDiff = datetime.datetime.utcnow() - o_time
     
     if timeDiff < datetime.timedelta(seconds=15):  # if longer than 30 sec. then cancel it. since the order is clearly overtaken by other
-        # print "is true"
-        # print order
         if order["direction"] == "buy":
             diff = (s_BestBid - price) / price
             if diff < -.1:
@@ -106,13 +105,13 @@ def should_cancel_unfilled(order):
                     order["price"], s_BestAsk)
                 return True
     else:
-        print("Should Cancel ID%s its been %s since ordered") % (o_time, timeDiff)
+        print("Should Cancel ID%s its been %s since ordered") % (order["id"], timeDiff)
         return True
     return False
 
 try:
     while nav < 250000:
-        time.sleep(1)  # slow things down a bit, because we are querying the same information.
+        time.sleep(1)    # slow things down a bit, because we are querying the same information.
         orderIDList = sf.status_for_all_orders_in_stock(stock)
         positionSoFar, cash, expectedPosition = sf.update_open_orders(orderIDList.json())
         oBook = sf.get_order_book(stock)
@@ -137,14 +136,11 @@ try:
 
         end = time.time()
      
-        if len(ma_20_list) > 20:  # if theres stuff in ma_20_list
+        if len(ma_20_list) > 20:  # Moving average 20 ticks
             ma_20_list.pop(0)
         ma_20_list.append(sf.get_quote(stock).get("last"))
-        curr_count = len(ma_20_list)
-        for x in ma_20_list:
-            # print x,
-            ma_20 += x + 0.0
-        ma_20 = int(ma_20 / curr_count)
+        # print(ma_20_list)
+        ma_20 = sum(ma_20_list) / len(ma_20_list)
      
         nav = cash + positionSoFar * sf.get_quote(stock).get("last") * (.01)
 
@@ -158,7 +154,7 @@ try:
             buyID = buyOrder.get('id')
             print "\n\tBBBBB placed buy ord. +%d units at %d ID %d \n" % (q_bid, buyPrice, buyID)
         
-        if sell_condition(Spread, expectedPosition, positionSoFar):
+        if sell_condition(Spread, expectedPosition, positionSoFar, BestAsk, ma_20):
             sellOrder = sf.make_order(int(BestAsk * sell_discount), q_ask, stock, "sell", "limit")
             sellPrice = sellOrder.get('price')
             sellID = sellOrder.get('id')
