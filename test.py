@@ -13,7 +13,7 @@ o_time = datetime.datetime.strptime(b, '%Y-%m-%dT%H:%M:%S')
 
 print o_time
 print datetime.datetime.utcnow()
-print datetime.datetime.now()
+# print datetime.datetime.now()
 
 print (datetime.datetime.utcnow() - o_time) < datetime.timedelta(seconds=30)
 """
