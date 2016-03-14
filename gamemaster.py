@@ -78,30 +78,35 @@ class StockFighter:
         apikey = gm.get_api_key()
         # look in the currentinfo, if exists check if its active
         # if active prompt user if they want to restart or new
-        
-        """
-        info = open("currentInfo.json", "r")
-        current_info = json.load(info)
-        x = raw_input("Would you like to restart previous stored level? Y/N ->")
+      
+        if LevelName == "test":
+            self.account = "NotSure"
+            self.instanceID = "NotSureID"
+            self.venues = "TESTEX"
+            self.tickers = "FOOBAR"
+        else:
+            response = gm.post_level(LevelName)
+            # print response.json()
+            if response.json().get("ok"):
+                self.account = response.json().get("account")
+                self.instanceID = response.json().get("instanceId")
+                self.venues = ''.join(response.json().get("venues"))
+                self.tickers = ''.join(response.json().get("tickers"))
+            else:
+                print "Oops, something went wrong, try again."
+                raise ValueError
 
-        if current_info["ok"] and x.upper() == "Y":
-            prev_id = current_info["instanceId"]
-            response = gm.restart_level(prev_id)
-            info.close()
-        else:
-        """
-        response = gm.post_level(LevelName)
-        # print response.json()
-        if response.json().get("ok"):
-            self.base_url = "https://api.stockfighter.io/ob/api"
-            self.account = response.json().get("account")
-            self.instanceID = response.json().get("instanceId")
-            self.venues = ''.join(response.json().get("venues"))
-            self.tickers = ''.join(response.json().get("tickers"))
-            self.header = {'X-Starfighter-Authorization': apikey}
-            print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account, self.instanceID, self.tickers)
-        else:
-            print "Oops, something went wrong, try again."
+        print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account,
+                                                                 self.instanceID, self.tickers)
+        self.header = {'X-Starfighter-Authorization': apikey}
+        self.base_url = "https://api.stockfighter.io/ob/api"
+
+    @classmethod
+    def test_mode(cls):
+        """learn about factory design pattern and overload in python."""
+        test = cls("test")
+        return test
+
 
     def get_order_book(self, s):
         """retrieve the order book"""
