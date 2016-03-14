@@ -20,7 +20,7 @@ stock = sf.tickers
 
 positionSoFar = 0       # if negative means short if positive long total filled
 expectedPosition = 0    # this is if both filled and to be filled are accounted for (cant be over +/-1500)
-ma_20_list = []    # moving average 20 lets the script know current trend.
+ma_20_list = []         # moving average 20 lets the script know current trend.
 ma_20 = 0
 nav = 0
 orderIDList = 0
@@ -50,48 +50,6 @@ def sell_condition(tExpectedPosition, positionSoFar, tBestAsk, tMA):
         if tExpectedPosition >= 0 and positionSoFar > -500 and tBestAsk > tMA:
             return True
     
-
-def identify_unfilled_orders(orderList, callback):
-    """check through orderIDlist, and return a list of
-    orders that is not gonna be filled at the moment because
-    the price is out the money.
-    """
-    for x in orderList["orders"]:
-        if x["open"]:
-            if callback(x):
-                print "\n\tCancelling %s units %s - id %s at %s \n" % (x["direction"], x["qty"], x["id"], x["price"]),
-                sf.delete_order(stock, x["id"])
-
-
-def should_cancel_unfilled(order):
-    """if this order is out of money, then cancel it"""
-    s_BestAsk = sf.read_orderbook(oBook, "asks", "price")
-    s_BestBid = sf.read_orderbook(oBook, "bids", "price")
-    price = order["price"]
-
-    # this is in ISO 8601 time. stripping the microseconds we are not that concern
-    ts = order["ts"].split(".")[0]
-    o_time = datetime.datetime.strptime(ts, '%Y-%m-%dT%H:%M:%S')
-    
-    timeDiff = datetime.datetime.utcnow() - o_time
-    
-    if timeDiff < datetime.timedelta(seconds= timeToWait):
-        if order["direction"] == "buy":
-            diff = (s_BestBid - price) / price
-            if diff < -.1:
-                print "\tShould cancel ID%s %s %s because its price is %s and Best Bid is %s" % (order["id"], order["direction"], order["qty"],
-                    order["price"], s_BestBid)
-                return True
-        else:
-            diff = (s_BestAsk - price) / price
-            if diff > .1:
-                print "\tShould cancel ID%s %s %s because its price is %s and Best Ask is %s" % (order["id"], order["direction"], order["qty"],
-                    order["price"], s_BestAsk)
-                return True
-    else:
-        print("Should cancel ID%s its been %s since ordered") % (order["id"], timeDiff)
-        return True
-    return False
 
 try:
     while nav < 250000:
@@ -141,7 +99,6 @@ try:
             worstAsk = int(bestAsk * (1 + worstCase))
             q_increment = int(q_ask * gapPercent)
             q_actual = q_ask
-            # print "initial %s %s %s" % (q_actual, q_increment, worstAsk)
             for actualAsk in range(bestAsk, worstAsk , increment):
                 sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", "limit")
                 sellPrice = sellOrder.get('price')
