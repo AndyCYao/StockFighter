@@ -123,7 +123,7 @@ class CheckFill:
         for x in orderList["orders"]:
             if x["open"]:
                 if callback(x):
-                    print "\n\tCancelling %s %s units at id %s at %s \n" % (x["direction"], x["qty"], x["id"], x["price"]),
+                    print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
                     self.sf.delete_order(self.stock, x["id"])
 
     def should_cancel_unfilled(self, order):
@@ -143,19 +143,12 @@ class CheckFill:
             if order["direction"] == "buy":
                 diff = (s_BestBid - price) / price
                 if diff < -.1:
-                    # print "\t\tShould cancel ID%s %s %s because its price is %s and Best Bid is %s" % (order["id"],
-                    #     order["direction"], order["qty"],
-                    #     order["price"], s_BestBid)
                     return True
             else:
                 diff = (s_BestAsk - price) / price
                 if diff > .1:
-                    # print "\t\tShould cancel ID%s %s %s because its price is %s and Best Ask is %s" % (order["id"],
-                    #     order["direction"], order["qty"],
-                    #     order["price"], s_BestAsk)
                     return True
         else:
-            # print("\t\tShould cancel ID%s its been %s since ordered") % (order["id"], timeDiff)
             return True
         return False
 

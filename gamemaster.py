@@ -58,17 +58,6 @@ class GameMaster:
             return response
         except ValueError as e:
             return{'error': e, 'raw_content': response.content}
-    
-    """
-    def write_to_setting(self, responseJSON):
-            # store the current session into file to retrieve
-            # for restart, resume etc. 
-
-        with open("currentInfo.json", "w") as settings:
-            json.dump(responseJSON, settings)
-        settings.close()
-    """
-    
 
 class StockFighter:
     """Contains the methods neccessary to make API calls."""
