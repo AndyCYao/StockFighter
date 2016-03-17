@@ -10,18 +10,20 @@ FourthTrade will be separated by two thread
 2nd Thread -> Read through open order and cancel unfilled
     i.)     check the order list for open orders.
 
+due to the internal waits in the Queue library for get and put. we dont need to compensate with
+our own time.wait in our own script.
 """
 import threading
 import gamemaster
 import time
 import datetime
-import Queue
+import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
 
-status_queue = Queue.Queue(maxsize=0)
+status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 
 class CurrentStatus:
     """is now separated from BuySell. runs and update
-    positionSoFar, cash, expectedPosition, NAV.
+    positionSoFar, cash, expectedPosition, NAV. AKA the producer thread.
     """
     
     def __init__(self, stockfighter):
@@ -32,6 +34,7 @@ class CurrentStatus:
     def run(self):
         stock = self.sf.tickers
         tempI = 0
+        global status_queue
         while 1:
             time.sleep(1)    # slow things down a bit, because we are querying the same information.
             orderIDList = self.sf.status_for_all_orders_in_stock(stock)
@@ -39,9 +42,9 @@ class CurrentStatus:
 
             nav = cash + positionSoFar * self.sf.get_quote(stock).get("last") * (.01)
             status_queue.put([positionSoFar, cash, expectedPosition, nav, tempI])
-            nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-            print "----\nT%d Pos. %d, Expected Pos. %d, NAV %s tempI %d " % \
-                  ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency, tempI)
+            # nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
+            # print "----\nT%d Pos. %d, Expected Pos. %d, NAV %s tempI %d " % \
+            #       ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency, tempI)
             tempI += 1
 
 class BuySell:
@@ -69,23 +72,20 @@ class BuySell:
                 return True
 
     def run(self):
-        
+        nav = 0
+        positionSoFar = 0       # if negative means short if positive long total filled
+        expectedPosition = 0    # this is if both filled and to be filled are accounted for
         ma_20_list = []         # moving average 20 lets the script know current trend.
         ma_20 = 0
         gapPercent = .01        # how much different in % each order will be
         worstCase = .03  # how much different the best offer and worst offer will be
         stock = self.sf.tickers
-        
-        positionSoFar, cash, expectedPosition, nav, tempII = status_queue.get()
-        status_queue.task_done()
-        nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-
+        global status_queue
         try:
             while nav < 250000:
                 if abs(positionSoFar) > 1000:
                     break
 
-                time.sleep(1)    # slow things down a bit, because we are querying the same information.
                 oBook = self.sf.get_order_book(stock)
 
                 # will multiply base on the below info with gapPercent
@@ -99,10 +99,13 @@ class BuySell:
                 
                 ma_20_list.append(self.sf.get_quote(stock).get("last"))
                 ma_20 = sum(ma_20_list) / len(ma_20_list)
+                             
+                positionSoFar, cash, expectedPosition, nav, tempII = status_queue.get()
                 
+                nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
                 print "BS- Pos. %d, Expected Pos. %d, NAV %s tempI %d" % \
                     (positionSoFar, expectedPosition, nav_currency, tempII)
-                print "B_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20)
+                print " B_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20)
 
                 if self.buy_condition(expectedPosition, positionSoFar, bestBid, ma_20):
                     # loop through the gapPercent and make multiple bids.
@@ -128,7 +131,6 @@ class BuySell:
                         print "\n\tSSSSS placed sell ord. -%d units at %d ID %d" % (q_ask, sellOrder.get('price'),
                                                                                     sellOrder.get('id'))
                         q_actual -= q_increment
-
 
             print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)
         except KeyboardInterrupt:
@@ -200,7 +202,7 @@ if __name__ == '__main__':
     bsThread = threading.Thread(target=bs.run, args=())
     cfThread = threading.Thread(target=cf.run, args=())
     csThread = threading.Thread(target=cs.run, args=())
-    bsThread.daemon = True  # this allows the thread to exit once the main thread exits.
+    bsThread.daemon = True  # this allows the thread to exit without waiting for it to finish executing.
     cfThread.daemon = True
     csThread.daemon = True
     bsThread.start()
