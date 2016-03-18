@@ -20,7 +20,7 @@ import datetime
 import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
-
+gameOn = True
 class CurrentStatus:
     """is now separated from BuySell. runs and update
     positionSoFar, cash, expectedPosition, NAV. AKA the producer thread.
@@ -35,16 +35,17 @@ class CurrentStatus:
         stock = self.sf.tickers
         tempI = 0
         global status_queue
-        while 1:
+        global gameOn
+        while gameOn:
             time.sleep(1)    # slow things down a bit, because we are querying the same information.
             orderIDList = self.sf.status_for_all_orders_in_stock(stock)
             positionSoFar, cash, expectedPosition = self.sf.update_open_orders(orderIDList.json())
 
             nav = cash + positionSoFar * self.sf.get_quote(stock).get("last") * (.01)
             status_queue.put([positionSoFar, cash, expectedPosition, nav, tempI])
-            # nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-            # print "----\nT%d Pos. %d, Expected Pos. %d, NAV %s tempI %d " % \
-            #       ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency, tempI)
+            nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
+            print "----\nT%d Pos. %d, Expected Pos. %d, NAV %s\n" % \
+                   ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency)
             tempI += 1
 
 class BuySell:
@@ -67,9 +68,23 @@ class BuySell:
         """to be tailored for each level.
             will sell if the price is not below MA20 price.
         """
-        if tBestAsk is not None or tBestAsk != 0:
+        if tBestAsk != 0:
             if tExpectedPosition >= 0 and positionSoFar > -500 and tBestAsk > tMA:
                 return True
+
+    def fluff_orders(self, positionSoFar, tBestAsk, tBestBid, stock):
+        """ if have extreme position in long or short, i will make fill or kill orders to make my orders attractive.
+        ex. if long 500, i will make high bid orders and vice versa. 
+        """
+        if positionSoFar < -500:
+            Order = sf.make_order(int(tBestAsk * 1.3), 700, stock, "sell", "fill-or-kill")
+        elif positionSoFar < 500:
+            return
+        elif positionSoFar < 1000:
+            Order = sf.make_order(int(tBestBid * .7), 700, stock, "buy", "fill-or-kill")
+        
+        print "\n\tFLUFF placed %s ord. %d units at %d ID %d" % (Order.get('direction'),1000, Order.get('price'),
+                                                                 Order.get('id'))
 
     def run(self):
         nav = 0
@@ -78,12 +93,14 @@ class BuySell:
         ma_20_list = []         # moving average 20 lets the script know current trend.
         ma_20 = 0
         gapPercent = .01        # how much different in % each order will be
-        worstCase = .03  # how much different the best offer and worst offer will be
+        worstCase = .03         # how much different the best offer and worst offer will be
         stock = self.sf.tickers
         global status_queue
+        global gameOn
         try:
             while nav < 250000:
                 if abs(positionSoFar) > 1000:
+                    gameOn = False
                     break
 
                 oBook = self.sf.get_order_book(stock)
@@ -101,11 +118,11 @@ class BuySell:
                 ma_20 = sum(ma_20_list) / len(ma_20_list)
                              
                 positionSoFar, cash, expectedPosition, nav, tempII = status_queue.get()
-                
+                # time.sleep(1)
                 nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-                print "BS- Pos. %d, Expected Pos. %d, NAV %s tempI %d" % \
-                    (positionSoFar, expectedPosition, nav_currency, tempII)
-                print " B_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20)
+                # print "BS- Pos. %d, Expected Pos. %d, NAV %s tempI %d" % \
+                    # (positionSoFar, expectedPosition, nav_currency, tempII)
+                print "B_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20)
 
                 if self.buy_condition(expectedPosition, positionSoFar, bestBid, ma_20):
                     # loop through the gapPercent and make multiple bids.
@@ -132,10 +149,12 @@ class BuySell:
                                                                                     sellOrder.get('id'))
                         q_actual -= q_increment
 
+                self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
+
             print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving buy sell"
-
+            gameOn = False
 
 class CheckFill:
     
@@ -143,7 +162,7 @@ class CheckFill:
         print "Initializing CheckFill.."
         self.sf = stockfighter
         self.stock = self.sf.tickers
-        self.timeToWait = 5     # for how long the unfill orders can last.
+        self.timeToWait = 3     # for how long the unfill orders can last.
 
     def identify_unfilled_orders(self, orderList, callback):
         """check through orderIDlist, and return a list of
@@ -183,8 +202,9 @@ class CheckFill:
         return False
 
     def run(self):
+        global gameOn
         try:
-            while 1:
+            while gameOn:
                 time.sleep(2)
                 orderIDList = self.sf.status_for_all_orders_in_stock(self.stock)
                 self.identify_unfilled_orders(orderIDList.json(), self.should_cancel_unfilled)
@@ -209,7 +229,7 @@ if __name__ == '__main__':
     cfThread.start()
     csThread.start()
     try:
-        while 1:
+        while gameOn:
             time.sleep(1)
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
