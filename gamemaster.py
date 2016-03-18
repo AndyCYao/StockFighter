@@ -96,17 +96,16 @@ class StockFighter:
         test = cls("test")
         return test
 
-
     def get_order_book(self, s):
         """retrieve the order book"""
         full_url = "%s/venues/%s/stocks/%s" % (self.base_url, self.venues, s)
         response = requests.get(full_url, headers=self.header)
         return response
-
-    def read_orderbook(self, oBook, direction, type):
-        """this returns the best price of buy or sell """
+ 
+    def read_orderbook(self, oBook, direction, type, rank):
+        # this returns the best price of buy or sell
         try:
-            best_result = oBook.json().get(direction)[0].get(type)
+            best_result = oBook.json().get(direction)[rank].get(type)
         except (RuntimeError, TypeError, NameError):
             best_result = 0
         return best_result

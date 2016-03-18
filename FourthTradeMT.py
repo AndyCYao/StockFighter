@@ -18,9 +18,11 @@ import gamemaster
 import time
 import datetime
 import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
+import json
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
+
 class CurrentStatus:
     """is now separated from BuySell. runs and update
     positionSoFar, cash, expectedPosition, NAV. AKA the producer thread.
@@ -45,7 +47,7 @@ class CurrentStatus:
             status_queue.put([positionSoFar, cash, expectedPosition, nav, tempI])
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             print "----\nT%d Pos. %d, Expected Pos. %d, NAV %s\n" % \
-                   ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency)
+                  ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency)
             tempI += 1
 
 class BuySell:
@@ -83,7 +85,7 @@ class BuySell:
         elif positionSoFar < 1000:
             Order = sf.make_order(int(tBestBid * .7), 700, stock, "buy", "fill-or-kill")
         
-        print "\n\tFLUFF placed %s ord. %d units at %d ID %d" % (Order.get('direction'),1000, Order.get('price'),
+        print "\n\tFLUFF placed %s ord. %d units at %d ID %d" % (Order.get('direction'), 1000, Order.get('price'),
                                                                  Order.get('id'))
 
     def run(self):
@@ -104,13 +106,13 @@ class BuySell:
                     break
 
                 oBook = self.sf.get_order_book(stock)
-
+                # print oBook.json()
                 # will multiply base on the below info with gapPercent
-                bestAsk = self.sf.read_orderbook(oBook, "asks", "price")
-                bestBid = self.sf.read_orderbook(oBook, "bids", "price")
-                q_bid = min(self.sf.read_orderbook(oBook, "bids", "qty"), 50)
-                q_ask = min(self.sf.read_orderbook(oBook, "asks", "qty"), 50)
-
+                bestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
+                bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
+                q_bid = min(self.sf.read_orderbook(oBook, "bids", "qty", 1), 30)
+                q_ask = min(self.sf.read_orderbook(oBook, "asks", "qty", 1), 30)
+                
                 if len(ma_20_list) > 20:  # Moving average 20 ticks
                     ma_20_list.pop(0)
                 
@@ -118,10 +120,9 @@ class BuySell:
                 ma_20 = sum(ma_20_list) / len(ma_20_list)
                              
                 positionSoFar, cash, expectedPosition, nav, tempII = status_queue.get()
-                # time.sleep(1)
-                nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
+                # nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
                 # print "BS- Pos. %d, Expected Pos. %d, NAV %s tempI %d" % \
-                    # (positionSoFar, expectedPosition, nav_currency, tempII)
+                # (positionSoFar, expectedPosition, nav_currency, tempII)
                 print "B_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20)
 
                 if self.buy_condition(expectedPosition, positionSoFar, bestBid, ma_20):
@@ -178,8 +179,8 @@ class CheckFill:
     def should_cancel_unfilled(self, order):
         """if this order is out of money, then cancel it"""
         oBook = self.sf.get_order_book(self.stock)
-        s_BestAsk = self.sf.read_orderbook(oBook, "asks", "price")
-        s_BestBid = self.sf.read_orderbook(oBook, "bids", "price")
+        s_BestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
+        s_BestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
         price = order["price"]
 
         # this is in ISO 8601 time. stripping the microseconds we are not that concern
@@ -229,7 +230,13 @@ if __name__ == '__main__':
     cfThread.start()
     csThread.start()
     try:
-        while gameOn:
-            time.sleep(1)
+        open("currentInfo.json", 'w').close()  # doing this clears everything first
+        with open("currentInfo.json", "a") as settings:
+            while gameOn:
+                time.sleep(1)
+                oBook = sf.get_order_book(sf.tickers).json()
+                json.dump(oBook, settings)  # printing the order book for postmordem.
+        settings.close()
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
+        settings.close()
