@@ -41,7 +41,7 @@ class CurrentStatus:
         while gameOn:
             time.sleep(1)    # slow things down a bit, because we are querying the same information.
             orderIDList = self.sf.status_for_all_orders_in_stock(stock)
-            positionSoFar, cash, expectedPosition = self.sf.update_open_orders(orderIDList.json())
+            positionSoFar, cash, expectedPosition = self.sf.update_open_orders(orderIDList)
 
             nav = cash + positionSoFar * self.sf.get_quote(stock).get("last") * (.01)
             status_queue.put([positionSoFar, cash, expectedPosition, nav, tempI])
@@ -78,6 +78,7 @@ class BuySell:
         """ if have extreme position in long or short, i will make fill or kill orders to make my orders attractive.
         ex. if long 500, i will make high bid orders and vice versa. 
         """
+        """
         if positionSoFar < -500:
             Order = sf.make_order(int(tBestAsk * 1.3), 700, stock, "sell", "fill-or-kill")
         elif positionSoFar < 500:
@@ -87,11 +88,10 @@ class BuySell:
         
         print "\n\tFLUFF placed %s ord. %d units at %d ID %d" % (Order.get('direction'), 1000, Order.get('price'),
                                                                  Order.get('id'))
+        """
+        pass
 
     def run(self):
-        nav = 0
-        positionSoFar = 0       # if negative means short if positive long total filled
-        expectedPosition = 0    # this is if both filled and to be filled are accounted for
         ma_20_list = []         # moving average 20 lets the script know current trend.
         ma_20 = 0
         gapPercent = .01        # how much different in % each order will be
@@ -99,6 +99,8 @@ class BuySell:
         stock = self.sf.tickers
         global status_queue
         global gameOn
+        positionSoFar = 0
+        nav = 0
         try:
             while nav < 250000:
                 if abs(positionSoFar) > 1000:
@@ -106,7 +108,6 @@ class BuySell:
                     break
 
                 oBook = self.sf.get_order_book(stock)
-                # print oBook.json()
                 # will multiply base on the below info with gapPercent
                 bestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
@@ -150,7 +151,7 @@ class BuySell:
                                                                                     sellOrder.get('id'))
                         q_actual -= q_increment
 
-                self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
+                # self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
 
             print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)
         except KeyboardInterrupt:
@@ -233,7 +234,7 @@ if __name__ == '__main__':
         open("currentInfo.json", 'w').close()  # doing this clears everything first
         with open("currentInfo.json", "a") as settings:
             while gameOn:
-                time.sleep(1)
+                time.sleep(4)               # the market bots sleep for 4 sec and make a trade
                 oBook = sf.get_order_book(sf.tickers).json()
                 json.dump(oBook, settings)  # printing the order book for postmordem.
         settings.close()
