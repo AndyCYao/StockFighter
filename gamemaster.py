@@ -69,7 +69,7 @@ class StockFighter:
         # if active prompt user if they want to restart or new
       
         if LevelName == "test":
-            self.account = "NotSure"
+            self.account = "EXB123456"
             self.instanceID = "NotSureID"
             self.venues = "TESTEX"
             self.tickers = "FOOBAR"
@@ -103,10 +103,11 @@ class StockFighter:
         return response
  
     def read_orderbook(self, oBook, direction, type, rank):
-        # this returns the best price of buy or sell
+        # this returns the best price of buy or sell, the
+        # lowest ask and highest bid is 1, and ++ as price gets worse.
         try:
             best_result = oBook.json().get(direction)[rank].get(type)
-        except (RuntimeError, TypeError, NameError):
+        except (RuntimeError, TypeError, NameError, IndexError):
             best_result = 0
         return best_result
 
@@ -121,10 +122,11 @@ class StockFighter:
         how many have been filled. i am changing it to loop through the orders from.
         status_for_all_orders_in_stock
         """
+        orderListJson = orderList.json()
         currentPos = 0
         currentPosCash = 0
         expectedPos = 0
-        for x in orderList["orders"]:
+        for x in orderListJson["orders"]:
             totalFilled = x["totalFilled"]
             # originalQty = x["originalQty"]
             qty = x["qty"] + totalFilled
