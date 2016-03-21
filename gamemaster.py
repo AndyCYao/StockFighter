@@ -96,6 +96,16 @@ class StockFighter:
         test = cls("test")
         return test
 
+    def heartbeat(self):
+        """ check if venue is still up """
+        full_url = "%s/venues/%s/heartbeat" % (self.base_url, self.venues)
+        response = requests.get(full_url).json()
+        # print response.json()
+        if not response["ok"]:
+            print "%s's on fire" %(self.venues)
+
+        return response["ok"]
+
     def get_order_book(self, s):
         """retrieve the order book"""
         full_url = "%s/venues/%s/stocks/%s" % (self.base_url, self.venues, s)
