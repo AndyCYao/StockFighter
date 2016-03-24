@@ -1,6 +1,7 @@
 import gamemaster
 import time
 import datetime
+import random
 
 start = time.time()
 end = time.time()
@@ -48,19 +49,14 @@ def should_cancel_unfilled(order):
     return False
 
 while totalGoal > positionSoFar and sf.heartbeat():
-
-    time.sleep(2)
+    randSleep = random.randint(1,3)
+    time.sleep(randSleep)
     oBook = sf.get_order_book(stock)
     bestBid = sf.read_orderbook(oBook, "bids", "price", 1 ) + 1
     q_ask = sf.read_orderbook(oBook, "asks", "qty", 1)
     q_ask_actual = int(q_ask * .6)  # i am ordering 20% of actual quote because dont want to affect market.
     
     if q_ask_actual:
-        # buyOrder = sf.make_order(BestBid, q_ask_actual, stock, "buy", "limit")
-        # buyID = buyOrder.get('id')
-        # buyPrice = buyOrder.get('price')
-        # print "\t placed buy order at ID %s %s units" % (buyID, q_ask_actual)
-
 
         # loop through the gapPercent and make multiple bids.
         increment = int(bestBid * .01 * -1)
