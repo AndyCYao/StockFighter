@@ -19,6 +19,7 @@ import time
 import datetime
 import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
 import json
+import random
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
@@ -78,7 +79,7 @@ class BuySell:
         """ if have extreme position in long or short, i will make fill or kill orders to make my orders attractive.
         ex. if long 500, i will make high bid orders and vice versa. 
         """
-        """
+       
         if positionSoFar < -500:
             Order = sf.make_order(int(tBestAsk * 1.3), 700, stock, "sell", "fill-or-kill")
         elif positionSoFar < 500:
@@ -88,8 +89,7 @@ class BuySell:
         
         print "\n\tFLUFF placed %s ord. %d units at %d ID %d" % (Order.get('direction'), 1000, Order.get('price'),
                                                                  Order.get('id'))
-        """
-        pass
+      
 
     def run(self):
         ma_20_list = []         # moving average 20 lets the script know current trend.
@@ -121,9 +121,6 @@ class BuySell:
                 ma_20 = sum(ma_20_list) / len(ma_20_list)
                              
                 positionSoFar, cash, expectedPosition, nav, tempII = status_queue.get()
-                # nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-                # print "BS- Pos. %d, Expected Pos. %d, NAV %s tempI %d" % \
-                # (positionSoFar, expectedPosition, nav_currency, tempII)
                 print "B_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20)
 
                 if self.buy_condition(expectedPosition, positionSoFar, bestBid, ma_20):
@@ -151,7 +148,7 @@ class BuySell:
                                                                                     sellOrder.get('id'))
                         q_actual -= q_increment
 
-                # self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
+                self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
 
             print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)
         except KeyboardInterrupt:

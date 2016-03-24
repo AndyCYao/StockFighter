@@ -183,12 +183,14 @@ class StockFighter:
 
     def quote_venue_ticker(self, callback):
         def wrapper(msg):
+            
             if msg is None:
                 callback(None)
             else:
+                # msg=json.loads(msg.data)
                 callback(msg['quote'])
 
-        url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/tickertape' % (self.account, self.venues)
+        url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/tickertape/stocks/%s' % (self.account, self.venues, self.tickers)
         self.SFSocket(url, wrapper)
 
     class SFSocket(WebSocketClient):
@@ -208,7 +210,7 @@ class StockFighter:
                 # print m
                 if m.is_text:
                     msg = json.loads(m.data.decode("utf-8"))
-                    # print msg
+                    print msg
                     self.callback(msg)
             except ValueError as e:
                 self.log.error("Caught Exception in socket message: %s" % e)
