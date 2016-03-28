@@ -23,6 +23,7 @@ import random
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
+quote_queue = Queue.Queue(maxsize=0)  # used in the post-mordem.
 
 class CurrentStatus:
     """is now separated from BuySell. runs and update
@@ -99,6 +100,7 @@ class BuySell:
         stock = self.sf.tickers
         global status_queue
         global gameOn
+        # global quote_queue
         positionSoFar = 0
         nav = 0
         try:
@@ -113,7 +115,22 @@ class BuySell:
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
                 q_bid = min(self.sf.read_orderbook(oBook, "bids", "qty", 1), 30)
                 q_ask = min(self.sf.read_orderbook(oBook, "asks", "qty", 1), 30)
+                quoteTime = oBook.json()['ts']
                 
+                """
+                Not used for now, queue socket implementation, seems not able to beat the oBook info in
+                speed
+                m = quote_queue.get()
+                try:
+                    bestAskQ = m['ask']
+                    bestBidQ = m['bid']
+                    quoteTimeQ = m['quoteTime']
+                    print "compare oBook bestAsk %r - bestAskQ %r" %(bestAsk, bestAskQ)
+                    print "and QuoteTime \n %r \n %r is quoteTimeQ newer %r" %(quoteTime, quoteTimeQ, quoteTimeQ > quoteTime)
+                except:
+                    pass
+                """
+
                 if len(ma_20_list) > 20:  # Moving average 20 ticks
                     ma_20_list.pop(0)
                 
@@ -130,10 +147,11 @@ class BuySell:
                     q_increment = int(q_bid * gapPercent)
                     q_actual = q_bid
                     for actualBid in range(bestBid, worstBid, increment):
-                        # print actualBid, q_actual
                         buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", "limit")
+                        """
                         print "\n\tBBBBB placed buy ord. +%d units at %d ID %d" % (q_bid, buyOrder.get('price'),
                                                                                    buyOrder.get('id'))
+                        """
                         q_actual -= q_increment
 
                 if self.sell_condition(expectedPosition, positionSoFar, bestAsk, ma_20):
@@ -144,11 +162,13 @@ class BuySell:
                     q_actual = q_ask
                     for actualAsk in range(bestAsk, worstAsk, increment):
                         sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", "limit")
+                        """
                         print "\n\tSSSSS placed sell ord. -%d units at %d ID %d" % (q_ask, sellOrder.get('price'),
                                                                                     sellOrder.get('id'))
+                        """
                         q_actual -= q_increment
 
-                self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
+                # self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
 
             print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)
         except KeyboardInterrupt:
@@ -210,6 +230,16 @@ class CheckFill:
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving checking fills"
 
+def QuoteSocket(m):
+    quote_queue.put(m)
+
+def ExecutionSocket(m):
+    if not m is None:    
+        print "/n***** IN websocket ****"
+        print m
+        print "*****"
+    else:
+        sf.execution_venue_ticker(ExecutionSocket)
 
 if __name__ == '__main__':
     
@@ -217,6 +247,8 @@ if __name__ == '__main__':
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)
+    sf.quote_venue_ticker(QuoteSocket)
+    sf.execution_venue_ticker(ExecutionSocket)
 
     bsThread = threading.Thread(target=bs.run, args=())
     cfThread = threading.Thread(target=cf.run, args=())
@@ -230,9 +262,10 @@ if __name__ == '__main__':
     try:
         open("currentInfo.json", 'w').close()  # doing this clears everything first
         with open("currentInfo.json", "a") as settings:
-            while gameOn:
+            while gameOn and sf.heartbeat():
                 time.sleep(4)               # the market bots sleep for 4 sec and make a trade
-                oBook = sf.get_order_book(sf.tickers).json()
+                # oBook = sf.get_order_book(sf.tickers).json()
+                oBook = quote_queue.get()
                 json.dump(oBook, settings)  # printing the order book for postmordem.
         settings.close()
     except KeyboardInterrupt:

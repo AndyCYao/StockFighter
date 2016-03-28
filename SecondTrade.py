@@ -48,6 +48,34 @@ def should_cancel_unfilled(order):
         return True
     return False
 
+def ExecutionSocket(m):
+    currentPos = 0
+    currentPosCash = 0
+    expectedPos = 0
+    print "\n***** IN websocket ****"
+    print m
+    if not m is None:
+        for x in m["order"]:
+            direction = x["direction"]
+            totalFilled = y["totalFilled"]
+            price = y["price"]
+                
+                # originalQty = y["originalQty"]
+            qty = y["qty"] + totalFilled
+            
+            if direction == "sell":
+                totalFilled = totalFilled * -1
+                qty = qty * -1
+                currentPos += totalFilled
+                expectedPos += qty
+                # -.01 because we are getting the correct unit
+                currentPosCash += totalFilled * price * (-.01)
+
+            print "EXECUTION current pos is %d and $%d" %(currentPos, currentPosCash)
+            return currentPos, currentPosCash, expectedPos
+
+
+sf.execution_venue_ticker(ExecutionSocket)
 while totalGoal > positionSoFar and sf.heartbeat():
     randSleep = random.randint(1,3)
     time.sleep(randSleep)
@@ -76,4 +104,3 @@ while totalGoal > positionSoFar and sf.heartbeat():
     end = time.time()
     identify_unfilled_orders(orderIDList.json(), should_cancel_unfilled)
     print "T%d Actual Pos. %d" % ((end - start), positionSoFar)
-
