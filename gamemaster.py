@@ -136,6 +136,7 @@ class StockFighter:
         currentPos = 0
         currentPosCash = 0
         expectedPos = 0
+        # print orderListJson
         for x in orderListJson["orders"]:
             totalFilled = x["totalFilled"]
             # originalQty = x["originalQty"]
@@ -193,6 +194,19 @@ class StockFighter:
         url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/tickertape/stocks/%s' % (self.account, self.venues, self.tickers)
         self.SFSocket(url, wrapper)
 
+    def execution_venue_ticker(self, callback):
+        def wrapper(msg):
+            
+            if msg is None:
+                callback(None)
+            else:
+                # msg=json.loads(msg)
+                callback(msg)
+
+        url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/executions/stocks/%s' % (self.account, self.venues, self.tickers)
+        self.SFSocket(url, wrapper)
+
+
     class SFSocket(WebSocketClient):
         # with template from jchristma/Stockfighter.
 
@@ -210,7 +224,7 @@ class StockFighter:
                 # print m
                 if m.is_text:
                     msg = json.loads(m.data.decode("utf-8"))
-                    print msg
+                    # print msg
                     self.callback(msg)
             except ValueError as e:
                 self.log.error("Caught Exception in socket message: %s" % e)
