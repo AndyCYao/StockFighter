@@ -19,7 +19,7 @@ def identify_unfilled_orders(orderList, callback):
         for x in orderList["orders"]:
             if x["open"]:
                 if callback(x):
-                    print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
+                    # print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
                     sf.delete_order(stock, x["id"])
 
 def should_cancel_unfilled(order):
@@ -53,15 +53,39 @@ def ExecutionSocket(m):
     currentPosCash = 0
     expectedPos = 0
     print "\n***** IN websocket ****"
-    print m
-    if not m is None:
-        for x in m["order"]:
+    
+    if m is not None:
+        # print m
+        direction = m["order"]["direction"]
+
+        totalFilled = m["order"]["totalFilled"]
+        price = m["order"]["price"]
+            
+            # originalQty = m["order"]["originalQty"]
+        qty = m["order"]["qty"] + totalFilled
+        
+        if direction == "sell":
+            totalFilled = totalFilled * -1
+            qty = qty * -1
+        
+        currentPos += totalFilled
+        expectedPos += qty
+            # -.01 because we are getting the correct unit
+        currentPosCash += totalFilled * price * (-.01)        
+        
+        print "EXECUTION current pos is %d and $%d" %(currentPos, currentPosCash)
+        return currentPos, currentPosCash, expectedPos
+
+        """        
+        for x in m["order"].items(): # the .items() returns tuple of key and value
+            print x
+
             direction = x["direction"]
-            totalFilled = y["totalFilled"]
-            price = y["price"]
+            totalFilled = x["totalFilled"]
+            price = x["price"]
                 
-                # originalQty = y["originalQty"]
-            qty = y["qty"] + totalFilled
+                # originalQty = x["originalQty"]
+            qty = x["qty"] + totalFilled
             
             if direction == "sell":
                 totalFilled = totalFilled * -1
@@ -69,10 +93,12 @@ def ExecutionSocket(m):
                 currentPos += totalFilled
                 expectedPos += qty
                 # -.01 because we are getting the correct unit
-                currentPosCash += totalFilled * price * (-.01)
-
-            print "EXECUTION current pos is %d and $%d" %(currentPos, currentPosCash)
+                currentPosCash += totalFilled * price * (-.01)        
+                print "EXECUTION current pos is %d and $%d" %(currentPos, currentPosCash)
             return currentPos, currentPosCash, expectedPos
+            """
+    else:
+        sf.execution_venue_ticker(ExecutionSocket)
 
 
 sf.execution_venue_ticker(ExecutionSocket)
@@ -91,12 +117,12 @@ while totalGoal > positionSoFar and sf.heartbeat():
         worstBid = int(bestBid * (1 - .03))
         q_increment = int(q_ask_actual* .01)
         q_actual = q_ask_actual
-
+        # print q_actual, bestBid, worstBid, increment
         for actualBid in range(bestBid, worstBid, increment):
-            # print actualBid, q_actual
+            
             buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", "limit")
-            print "\n\tBBBBB placed buy ord. +%d units at %d ID %d" % (q_actual, buyOrder.get('price'),
-                                                                       buyOrder.get('id'))
+            # print "\n\tBBBBB placed buy ord. +%d units at %d ID %d" % (q_actual, buyOrder.get('price'),
+            #                                                            buyOrder.get('id'))
             q_actual -= q_increment
 
     orderIDList = sf.status_for_all_orders_in_stock(stock)
