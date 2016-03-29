@@ -136,6 +136,7 @@ class StockFighter:
         currentPos = 0
         currentPosCash = 0
         expectedPos = 0
+        # print "******IN HTTP REST******"
         # print orderListJson
         for x in orderListJson["orders"]:
             totalFilled = x["totalFilled"]
