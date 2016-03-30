@@ -49,7 +49,7 @@ def should_cancel_unfilled(order):
     else:
         return True
     return False
-
+"""
 def ExecutionSocket(m):
     currentPos = 0
     currentPosCash = 0
@@ -83,9 +83,9 @@ def ExecutionSocket(m):
     else:
         print "...restarting websocket..."
         sf.execution_venue_ticker(ExecutionSocket)
+"""
 
-
-sf.execution_venue_ticker(ExecutionSocket)
+sf.execution_venue_ticker(sf.execution_socket)
 while totalGoal > positionSoFar and sf.heartbeat():
     randSleep = random.randint(1,3)
     time.sleep(randSleep)
