@@ -89,7 +89,7 @@ class StockFighter:
                                                                  self.instanceID, self.tickers)
         self.header = {'X-Starfighter-Authorization': apikey}
         self.base_url = "https://api.stockfighter.io/ob/api"
-
+        self.orders = {}
     @classmethod
     def test_mode(cls):
         """learn about factory design pattern and overload in python."""
@@ -157,6 +157,41 @@ class StockFighter:
 
         # print "current pos is %d and $%d" %(currentPos, currentPosCash)
         return currentPos, currentPosCash, expectedPos
+
+
+    def execution_socket(self, m):
+        """provides the same data as from status_for_all_orders_in_stock, just
+        done in a websocket way and faster"""
+        currentPos = 0
+        currentPosCash = 0
+        expectedPos = 0
+        print "\n***** IN websocket ****"
+        
+        if m is not None:
+            self.orders[m["standingId"]] = m
+            
+            for x in self.orders:
+                o = self.orders[x]
+                direction = o["order"]["direction"]
+                totalFilled = o["order"]["totalFilled"]
+                price = o["order"]["price"]
+                qty = o["order"]["qty"] + totalFilled
+                
+                if direction == "sell":
+                    totalFilled = totalFilled * -1
+                    qty = qty * -1
+                
+                currentPos += totalFilled
+                expectedPos += qty
+                    # -.01 because we are getting the correct unit
+                currentPosCash += totalFilled * price * (-.01)        
+                
+            print "EXECUTION current pos is %d and $%d" %(currentPos, currentPosCash)
+     
+        else:
+            print "...restarting websocket..."
+            self.execution_venue_ticker(self.execution_socket)
+            pass
 
     def make_order(self, p, q, s, direction, orderType):
         order = {
