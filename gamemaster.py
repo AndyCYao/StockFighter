@@ -24,7 +24,6 @@ class GameMaster:
             
     def restart_level(self, instanceID):
         """ restart but keep the same info."""
-        
         header = {'X-Starfighter-Authorization': self.get_api_key()}
         full_url = "%s/instances/%s/restart" % (self.gm_url, instanceID)
         response = requests.post(full_url, headers=header)
@@ -59,9 +58,9 @@ class GameMaster:
         except ValueError as e:
             return{'error': e, 'raw_content': response.content}
 
+
 class StockFighter:
     """Contains the methods neccessary to make API calls."""
-
     def __init__(self, LevelName):
         gm = GameMaster()
         apikey = gm.get_api_key()
@@ -89,7 +88,12 @@ class StockFighter:
                                                                  self.instanceID, self.tickers)
         self.header = {'X-Starfighter-Authorization': apikey}
         self.base_url = "https://api.stockfighter.io/ob/api"
-        self.orders = {}
+
+        self.orders = {}  # used for storing a list of active orders made during this session.
+        orderIDList = self.status_for_all_orders_in_stock(self.tickers)
+        self.positionSoFar, self.cash, self.expectedPosition = self.update_open_orders(orderIDList)
+        print "Game restarted.. Actual Pos. is %d" % (self.positionSoFar)
+
     @classmethod
     def test_mode(cls):
         """learn about factory design pattern and overload in python."""
@@ -102,7 +106,7 @@ class StockFighter:
         response = requests.get(full_url).json()
         # print response.json()
         if not response["ok"]:
-            print "%s's on fire" %(self.venues)
+            print "%s's on fire" % (self.venues)
 
         return response["ok"]
 
@@ -161,32 +165,42 @@ class StockFighter:
 
     def execution_socket(self, m):
         """provides the same data as from status_for_all_orders_in_stock, just
-        done in a websocket way and faster"""
-        currentPos = 0
-        currentPosCash = 0
-        expectedPos = 0
-        print "\n***** IN websocket ****"
-        
+        done in a websocket way and faster, updates the self.positionSoFar,
+        self.cash, and self.expectedPosition"""
         if m is not None:
             self.orders[m["standingId"]] = m
-            
+            filled = m["filled"]
+            price = m["price"]
+            direction = m["order"]["direction"]
+            qty = m["order"]["qty"] + filled
+            """
             for x in self.orders:
                 o = self.orders[x]
-                direction = o["order"]["direction"]
-                totalFilled = o["order"]["totalFilled"]
-                price = o["order"]["price"]
-                qty = o["order"]["qty"] + totalFilled
+                # print o
+                # direction = o["order"]["direction"]
+                # totalFilled = o["order"]["totalFilled"]
+                # filled = o["order"]["filled"]
+                # price = o["order"]["price"]
+                # qty = o["order"]["qty"] + filled
                 
                 if direction == "sell":
-                    totalFilled = totalFilled * -1
+                    # totalFilled = totalFilled * -1
+                    filled = filled * -1
                     qty = qty * -1
-                
-                currentPos += totalFilled
-                expectedPos += qty
-                    # -.01 because we are getting the correct unit
-                currentPosCash += totalFilled * price * (-.01)        
-                
-            print "EXECUTION current pos is %d and $%d" %(currentPos, currentPosCash)
+                self.positionSoFar += filled
+                self.expectedPosition += qty
+                # -.01 because we are getting the correct unit
+                self.cash += totalFilled * price * (-.01)
+            """
+            if direction == "sell":
+                # totalFilled = totalFilled * -1
+                filled = filled * -1
+                qty = qty * -1
+            self.positionSoFar += filled
+            self.expectedPosition += qty
+            # -.01 because we are getting the correct unit
+            self.cash += filled * price * (-.01)
+            print "WS - current pos is %d and cash $%d" % (self.positionSoFar, self.cash)
      
         else:
             print "...restarting websocket..."
