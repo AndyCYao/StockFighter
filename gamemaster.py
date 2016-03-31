@@ -144,68 +144,50 @@ class StockFighter:
         # print orderListJson
         for x in orderListJson["orders"]:
             totalFilled = x["totalFilled"]
-            # originalQty = x["originalQty"]
             qty = x["qty"] + totalFilled
             direction = x["direction"]
             price = x["price"]
            
             if direction == "sell":
                 totalFilled = totalFilled * -1
-                # originalQty = originalQty * -1
                 qty = qty * -1
             currentPos += totalFilled
-            # expectedPos += originalQty
             expectedPos += qty
             # -.01 because we are getting the correct unit
             currentPosCash += totalFilled * price * (-.01)
-
-        # print "current pos is %d and $%d" %(currentPos, currentPosCash)
         return currentPos, currentPosCash, expectedPos
 
 
     def execution_socket(self, m):
         """provides the same data as from status_for_all_orders_in_stock, just
         done in a websocket way and faster, updates the self.positionSoFar,
-        self.cash, and self.expectedPosition"""
+        self.cash, and self.expectedPosition , bug.. expectedPosition should not be updated from here.
+        because here they only get updated of any FILLED orders. expectedPosition should be determine from
+        actual Buy/Sell side.
+        """
         if m is not None:
+            print m
             self.orders[m["standingId"]] = m
             filled = m["filled"]
             price = m["price"]
             direction = m["order"]["direction"]
             qty = m["order"]["qty"] + filled
-            """
-            for x in self.orders:
-                o = self.orders[x]
-                # print o
-                # direction = o["order"]["direction"]
-                # totalFilled = o["order"]["totalFilled"]
-                # filled = o["order"]["filled"]
-                # price = o["order"]["price"]
-                # qty = o["order"]["qty"] + filled
-                
-                if direction == "sell":
-                    # totalFilled = totalFilled * -1
-                    filled = filled * -1
-                    qty = qty * -1
-                self.positionSoFar += filled
-                self.expectedPosition += qty
-                # -.01 because we are getting the correct unit
-                self.cash += totalFilled * price * (-.01)
-            """
             if direction == "sell":
-                # totalFilled = totalFilled * -1
                 filled = filled * -1
                 qty = qty * -1
             self.positionSoFar += filled
             self.expectedPosition += qty
             # -.01 because we are getting the correct unit
             self.cash += filled * price * (-.01)
-            print "WS - current pos is %d and cash $%d" % (self.positionSoFar, self.cash)
+            nav = self.cash + self.positionSoFar * self.get_quote(self.tickers).get("last") * (.01)
+            nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
+            print "\tWS -current pos is %d,expected Pos. %d,cash $%d,nav %s" % (self.positionSoFar, self.expectedPosition,
+                                                                                self.cash, nav_currency)
      
         else:
             print "...restarting websocket..."
             self.execution_venue_ticker(self.execution_socket)
-            pass
+            # pass
 
     def make_order(self, p, q, s, direction, orderType):
         order = {

@@ -1,5 +1,6 @@
 import gamemaster
 import time
+import datetime
 import json
 """
 Feb 25th 2016 Third Trade sell_side. Here is the approach currently.
@@ -23,8 +24,6 @@ end = time.time()
 sf = gamemaster.StockFighter("sell_side")
 stock = sf.tickers
 
-# positionSoFar = 0       # if negative means short if positive long total filled
-# expectedPosition = 0    # this is if both filled and to be filled are accounted for (cant be over +/-1000)
 premium = 1.025
 ma_20_list = []    # moving average 20 lets the script know current trend.
 ma_20 = 0
@@ -44,9 +43,50 @@ def sell_condition(tSpread, tExpectedPosition):
         return True
     return False
 
+def identify_unfilled_orders(orderList, callback):
+        """check through orderIDlist, and return a list of
+        orders that is not gonna be filled at the moment because
+        the price is out the money.
+        """
+        for x in orderList["orders"]:
+            if x["open"]:
+                if callback(x):
+                    print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
+                    sf.delete_order(stock, x["id"])
+
+def should_cancel_unfilled(order):
+    """if this order is out of money, then cancel it"""
+    oBook = sf.get_order_book(stock)
+    s_BestAsk = sf.read_orderbook(oBook, "asks", "price", 1)
+    s_BestBid = sf.read_orderbook(oBook, "bids", "price", 1)
+    price = order["price"]
+
+    # this is in ISO 8601 time. stripping the microseconds we are not that concern
+    ts = order["ts"].split(".")[0]
+    o_time = datetime.datetime.strptime(ts, '%Y-%m-%dT%H:%M:%S')
+    
+    timeDiff = datetime.datetime.utcnow() - o_time
+    
+    if timeDiff < datetime.timedelta(seconds=5):
+        if order["direction"] == "buy":
+            diff = (s_BestBid - price) / price
+            if diff < -.1:
+                return True
+        else:
+            diff = (s_BestAsk - price) / price
+            if diff > .1:
+                return True
+    else:
+        return True
+    return False
+
+
 try:
     sf.execution_venue_ticker(sf.execution_socket)  # start the thread for update the status.
     while nav < 12000:
+        if abs(sf.positionSoFar) > 1000:
+            break
+
         orderIDList = sf.status_for_all_orders_in_stock(stock)
         # sf.positionSoFar, sf.cash, sf.expectedPosition = sf.update_open_orders(orderIDList.json())
         oBook = sf.get_order_book(stock)
@@ -76,25 +116,25 @@ try:
         ma_20 = int(ma_20 / curr_count)
      
         nav = sf.cash + sf.positionSoFar * sf.get_quote(stock).get("last") * (.01)
-        nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-        
-        print "\tT%d, Best Ask %r , Best Bid %r, average %r, \n\tNAV %s" % \
-            ((end - start), BestAsk, BestBid, ma_20, nav_currency)
+        print "T%d, Best Ask %r , Best Bid %r, average %r" % \
+            ((end - start), BestAsk, BestBid, ma_20)
 
         if buy_condition(Spread, sf.expectedPosition):
             buyOrder = sf.make_order(BestBid, q_bid, stock, "buy", "limit")
             buyPrice = buyOrder.get('price')
             buyID = buyOrder.get('id')
-            print "placed buy ord. - %d units at %d ID %d" % (q_bid, buyPrice, buyID)
+            print "\tplaced buy ord. - %d units at %d ID %d" % (q_bid, buyPrice, buyID)
         
         if sell_condition(Spread, sf.expectedPosition):
             sellOrder = sf.make_order(int(BestAsk * premium), q_ask, stock, "sell", "limit")
             sellPrice = sellOrder.get('price')
             sellID = sellOrder.get('id')
         
-            print "placed sold ord. - %d units at %d ID %d" % (q_ask, sellPrice, sellID)
+            print "\tplaced sold ord. - %d units at %d ID %d" % (q_ask, sellPrice, sellID)
 
         end = time.time()
+        orderIDList = sf.status_for_all_orders_in_stock(stock)
+        identify_unfilled_orders(orderIDList.json(), should_cancel_unfilled)
         time.sleep(2)  # slow things down a bit, because we are querying the same information.
 except KeyboardInterrupt:
     print "ctrl+c pressed!"
