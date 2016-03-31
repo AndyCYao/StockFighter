@@ -88,10 +88,9 @@ class StockFighter:
                                                                  self.instanceID, self.tickers)
         self.header = {'X-Starfighter-Authorization': apikey}
         self.base_url = "https://api.stockfighter.io/ob/api"
-
-        self.orders = {}  # used for storing a list of active orders made during this session.
-        orderIDList = self.status_for_all_orders_in_stock(self.tickers)
-        self.positionSoFar, self.cash, self.expectedPosition = self.update_open_orders(orderIDList)
+        # used for storing a list of active orders made during this session.
+        self.orders  = self.status_for_all_orders_in_stock(self.tickers)
+        self.positionSoFar, self.cash, self.expectedPosition = self.update_open_orders()
         print "Game restarted.. Actual Pos. is %d" % (self.positionSoFar)
 
     @classmethod
@@ -117,7 +116,7 @@ class StockFighter:
         return response
  
     def read_orderbook(self, oBook, direction, type, rank):
-        # this returns the best price of buy or sell, the
+        # this reads the orderbook, returns what user wants to see, the
         # lowest ask and highest bid is 1, and ++ as price gets worse.
         try:
             best_result = oBook.json().get(direction)[rank].get(type)
@@ -126,23 +125,28 @@ class StockFighter:
         return best_result
 
     def status_for_all_orders_in_stock(self, s):
-        """ retrieve all orders given account """
+        """ retrieve all orders given account, load into an orders dictionary
+        this provides similar info to execution socket.
+        """
+        tOrders = {}
         full_url = "%s/venues/%s/accounts/%s/stocks/%s/orders" % (self.base_url, self.venues, self.account, s)
         response = requests.get(full_url, headers=self.header)
-        return response
+        orderListJson = response.json()
+        for x in orderListJson["orders"]:
+            tOrders[x["id"]] = x
+        return tOrders
 
-    def update_open_orders(self, orderList):
+    def update_open_orders(self, orders):
         """loops through the open ids and check them see.
         how many have been filled. i am changing it to loop through the orders from.
         status_for_all_orders_in_stock
         """
-        orderListJson = orderList.json()
+        # orderListJson = orderList.json()
         currentPos = 0
         currentPosCash = 0
         expectedPos = 0
-        # print "******IN HTTP REST******"
-        # print orderListJson
-        for x in orderListJson["orders"]:
+        for y in orders:
+            x = orders[y]
             totalFilled = x["totalFilled"]
             qty = x["qty"] + totalFilled
             direction = x["direction"]
@@ -160,14 +164,13 @@ class StockFighter:
 
     def execution_socket(self, m):
         """provides the same data as from status_for_all_orders_in_stock, just
-        done in a websocket way and faster, updates the self.positionSoFar,
-        self.cash, and self.expectedPosition , bug.. expectedPosition should not be updated from here.
-        because here they only get updated of any FILLED orders. expectedPosition should be determine from
-        actual Buy/Sell side.
+        done in a websocket way and faster, updates the orders dictionary
         """
         if m is not None:
             print m
-            self.orders[m["standingId"]] = m
+            self.orders[m["standingId"]] = m["order"]
+            self.update_open_orders(self.orders)
+            """
             filled = m["filled"]
             price = m["price"]
             direction = m["order"]["direction"]
@@ -183,7 +186,7 @@ class StockFighter:
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             print "\tWS -current pos is %d,expected Pos. %d,cash $%d,nav %s" % (self.positionSoFar, self.expectedPosition,
                                                                                 self.cash, nav_currency)
-     
+            """
         else:
             print "...restarting websocket..."
             self.execution_venue_ticker(self.execution_socket)
