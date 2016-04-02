@@ -16,7 +16,8 @@ def identify_unfilled_orders(orderList, callback):
         orders that is not gonna be filled at the moment because
         the price is out the money.
         """
-        for x in orderList["orders"]:
+        for y in orderList:
+            x = orderList[y]
             if x["open"]:
                 if callback(x):
                     print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
@@ -53,14 +54,14 @@ while totalGoal > sf.positionSoFar and sf.heartbeat():
     oBook = sf.get_order_book(stock)
     bestBid = sf.read_orderbook(oBook, "bids", "price", 1) + 1
     q_ask = sf.read_orderbook(oBook, "asks", "qty", 1)
-    q_ask_actual = int(q_ask * .6)  # i am ordering 20% of actual quote because dont want to affect market.
+    q_ask_actual = min(int(q_ask * .6), 500)  # i am ordering 20% of actual quote because dont want to affect market.
     
     if q_ask_actual:
 
         # loop through the gapPercent and make multiple bids.
         increment = int(bestBid * .01 * -1)
         worstBid = int(bestBid * (1 - .03))
-        q_increment = int(q_ask_actual * .01)
+        q_increment = int(q_ask_actual * .2)
         q_actual = q_ask_actual
         # print q_actual, bestBid, worstBid, increment
         for actualBid in range(bestBid, worstBid, increment):
@@ -70,9 +71,9 @@ while totalGoal > sf.positionSoFar and sf.heartbeat():
                                                                        buyOrder.get('id'))
             q_actual -= q_increment
 
-    # end = time.time()
-    # positionSoFar, cash, expectedPosition = sf.update_open_orders(orderIDList)
-    # print "T%d Actual Pos. %d" % ((end - start), positionSoFar)
+    end = time.time()
+    sf.order = sf.status_for_all_orders_in_stock(stock)
+    positionSoFar, cash, expectedPosition = sf.update_open_orders(sf.order)
+    print "T%d Aprrox.. actual Pos. %d - expected Pos. %d" % ((end - start), positionSoFar, expectedPosition)
+    identify_unfilled_orders(sf.order, should_cancel_unfilled)
     time.sleep(3)
-    orderIDList = sf.status_for_all_orders_in_stock(stock)
-    identify_unfilled_orders(orderIDList.json(), should_cancel_unfilled)
