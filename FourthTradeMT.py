@@ -1,6 +1,5 @@
 
 """
-
 testing Multi Thread.
 FourthTrade will be separated by two thread
 1st Thread. -> Buy / Sell
@@ -18,8 +17,7 @@ import gamemaster
 import time
 import datetime
 import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
-# import json
-# import random
+import json
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
@@ -158,7 +156,6 @@ class BuySell:
 
                 # self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
 
-
             print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving buy sell"
@@ -182,7 +179,7 @@ class CheckFill:
             x = orderList[y]
             if x["open"]:
                 if callback(x):
-                    print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
+                    print "\n\tCancelling %s %s units at %s ID %s" % (x["direction"], x["qty"], x["price"], x["id"])
                     self.sf.delete_order(self.stock, x["id"])
 
     def should_cancel_unfilled(self, order):
@@ -221,13 +218,18 @@ class CheckFill:
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving checking fills"
 
+
+def QuoteSocket(m):
+    """receives data, put into quote_queue for postmordem purpose. """
+    quote_queue.put(m)
+
 if __name__ == '__main__':
     
     sf = gamemaster.StockFighter("dueling_bulldozers")
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)
-    # sf.quote_venue_ticker(QuoteSocket)
+    sf.quote_venue_ticker(QuoteSocket)
     sf.execution_venue_ticker(sf.execution_socket)
 
     bsThread = threading.Thread(target=bs.run, args=())
@@ -240,14 +242,14 @@ if __name__ == '__main__':
     cfThread.start()
     csThread.start()
     try:
-        # open("currentInfo.json", 'w').close()  # doing this clears everything first
-        # with open("currentInfo.json", "a") as settings:
-        while gameOn and sf.heartbeat():
-            time.sleep(4)               # the market bots sleep for 4 sec and make a trade
-            # oBook = sf.get_order_book(sf.tickers).json()
-            # oBook = quote_queue.get()
-            # json.dump(oBook, settings)  # printing the order book for postmordem.
-        # settings.close()
+        open("currentInfo.json", 'w').close()  # doing this clears everything first
+        with open("currentInfo.json", "a") as settings:
+            while gameOn and sf.heartbeat():
+                time.sleep(4)               # the market bots sleep for 4 sec and make a trade
+                quotes = sf.get_order_book(sf.tickers).json()
+                quotes = quote_queue.get()
+                json.dump(quotes, settings)  # printing the order book for postmordem.
+        settings.close()
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
-        # settings.close()
+        settings.close()
