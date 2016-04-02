@@ -270,4 +270,4 @@ class StockFighter:
                 pass
         
         def opened(self):
-            print "Connected to execution websocket!"
+            print "Connected to websocket!"
