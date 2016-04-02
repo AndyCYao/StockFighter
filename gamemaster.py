@@ -86,13 +86,23 @@ class StockFighter:
 
         print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account,
                                                                  self.instanceID, self.tickers)
+        # used for storing a list of active orders made during this session.
         self.header = {'X-Starfighter-Authorization': apikey}
         self.base_url = "https://api.stockfighter.io/ob/api"
+<<<<<<< HEAD
         # used for storing a list of active orders made during this session.
         self.orders  = self.status_for_all_orders_in_stock(self.tickers)
         self.positionSoFar, self.cash, self.expectedPosition = self.update_open_orders()
         print "Game restarted.. Actual Pos. is %d" % (self.positionSoFar)
 
+=======
+        self.orders = self.status_for_all_orders_in_stock(self.tickers)
+        self.positionSoFar, self.cash, self.expectedPosition = self.update_open_orders(self.orders)
+        print "Game started...Actual Pos. is %d, expectedPosition %d, Cash %d" % (self.positionSoFar,
+                                                                                  self.expectedPosition,
+                                                                                  self.cash)
+    
+>>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
     @classmethod
     def test_mode(cls):
         """learn about factory design pattern and overload in python."""
@@ -125,13 +135,18 @@ class StockFighter:
         return best_result
 
     def status_for_all_orders_in_stock(self, s):
+<<<<<<< HEAD
         """ retrieve all orders given account, load into an orders dictionary
         this provides similar info to execution socket.
         """
+=======
+        """ retrieve all orders in a given account, loads into a dictionary object"""
+>>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
         tOrders = {}
         full_url = "%s/venues/%s/accounts/%s/stocks/%s/orders" % (self.base_url, self.venues, self.account, s)
         response = requests.get(full_url, headers=self.header)
         orderListJson = response.json()
+<<<<<<< HEAD
         for x in orderListJson["orders"]:
             tOrders[x["id"]] = x
         return tOrders
@@ -147,6 +162,27 @@ class StockFighter:
         expectedPos = 0
         for y in orders:
             x = orders[y]
+=======
+        # print orderListJson
+ 
+        for x in orderListJson["orders"]:
+            tOrders[x["id"]] = x
+            # y = orderListJson[x]["id"]
+            # print "%r\n" % (y)
+        return tOrders
+ 
+    def update_open_orders(self, orders):
+        """loops through the given dictionary open ids and check them see.
+        how many have been filled. i am changing it to loop through the orders from.
+        status_for_all_orders_in_stock
+        """
+        positionSoFar = 0
+        cash = 0
+        expectedPosition = 0
+        for y in orders:
+            x = orders[y]
+            # print x
+>>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
             totalFilled = x["totalFilled"]
             qty = x["qty"] + totalFilled
             direction = x["direction"]
@@ -155,14 +191,13 @@ class StockFighter:
             if direction == "sell":
                 totalFilled = totalFilled * -1
                 qty = qty * -1
-            currentPos += totalFilled
-            expectedPos += qty
-            # -.01 because we are getting the correct unit
-            currentPosCash += totalFilled * price * (-.01)
-        return currentPos, currentPosCash, expectedPos
-
+            positionSoFar += totalFilled
+            expectedPosition += qty            
+            cash += totalFilled * price * (-.01)  # -.01 because we are getting the correct unit
+        return positionSoFar, cash, expectedPosition
 
     def execution_socket(self, m):
+<<<<<<< HEAD
         """provides the same data as from status_for_all_orders_in_stock, just
         done in a websocket way and faster, updates the orders dictionary
         """
@@ -171,26 +206,44 @@ class StockFighter:
             self.orders[m["standingId"]] = m["order"]
             self.update_open_orders(self.orders)
             """
+=======
+        """provides the same data as update_open_orders, just
+        done in a websocket way and faster, updates the self.positionSoFar,
+        self.cash As the websocket sends message, this method
+        adds the delta into the module level variables self.cash and self.positionSoFar
+        """
+        if m is not None:
+            # print m
+            # self.orders[m["standingId"]] = m
+
+>>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
             filled = m["filled"]
             price = m["price"]
             direction = m["order"]["direction"]
-            qty = m["order"]["qty"] + filled
+            # qty = m["order"]["qty"] + filled
             if direction == "sell":
                 filled = filled * -1
-                qty = qty * -1
+                # qty = qty * -1
             self.positionSoFar += filled
-            self.expectedPosition += qty
+            # self.expectedPosition += qty
             # -.01 because we are getting the correct unit
             self.cash += filled * price * (-.01)
             nav = self.cash + self.positionSoFar * self.get_quote(self.tickers).get("last") * (.01)
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
+<<<<<<< HEAD
             print "\tWS -current pos is %d,expected Pos. %d,cash $%d,nav %s" % (self.positionSoFar, self.expectedPosition,
                                                                                 self.cash, nav_currency)
             """
+=======
+            
+            print "\tWS -current pos is %d,cash $%d,nav %s" % (self.positionSoFar,
+                                                               self.cash, nav_currency)
+     
+>>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
         else:
-            print "...restarting websocket..."
-            self.execution_venue_ticker(self.execution_socket)
-            # pass
+            if self.heartbeat():  # sometimes m is None because venue is dead, this checks it.
+                print "...restarting websocket..."
+                self.execution_venue_ticker(self.execution_socket)
 
     def make_order(self, p, q, s, direction, orderType):
         order = {

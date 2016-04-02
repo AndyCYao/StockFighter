@@ -1,6 +1,5 @@
 
 """
-
 testing Multi Thread.
 FourthTrade will be separated by two thread
 1st Thread. -> Buy / Sell
@@ -19,11 +18,11 @@ import time
 import datetime
 import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
 import json
-import random
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
 quote_queue = Queue.Queue(maxsize=0)  # used in the post-mordem.
+
 
 class CurrentStatus:
     """is now separated from BuySell. runs and update
@@ -41,16 +40,18 @@ class CurrentStatus:
         global status_queue
         global gameOn
         while gameOn:
-            time.sleep(1)    # slow things down a bit, because we are querying the same information.
-            orderIDList = self.sf.status_for_all_orders_in_stock(stock)
-            positionSoFar, cash, expectedPosition = self.sf.update_open_orders(orderIDList)
+            time.sleep(3)    # slow things down a bit, because we are querying the same information.
+            orders = self.sf.status_for_all_orders_in_stock(stock)
+            positionSoFar, cash, expectedPosition = self.sf.update_open_orders(orders)
 
             nav = cash + positionSoFar * self.sf.get_quote(stock).get("last") * (.01)
-            status_queue.put([positionSoFar, cash, expectedPosition, nav, tempI])
+            status_queue.put([cash, expectedPosition, nav, tempI])
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-            print "----\nT%d Pos. %d, Expected Pos. %d, NAV %s\n" % \
-                  ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency)
+            print "----\nT%d approximate Pos. %d, Expected Pos. %d, NAV %s" % \
+                  ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency),
+            # print "temp %d" % (tempI)
             tempI += 1
+
 
 class BuySell:
     
@@ -91,7 +92,6 @@ class BuySell:
         print "\n\tFLUFF placed %s ord. %d units at %d ID %d" % (Order.get('direction'), 1000, Order.get('price'),
                                                                  Order.get('id'))
       
-
     def run(self):
         ma_20_list = []         # moving average 20 lets the script know current trend.
         ma_20 = 0
@@ -104,7 +104,7 @@ class BuySell:
         positionSoFar = 0
         nav = 0
         try:
-            while nav < 250000:
+            while nav < 250000 and sf.heartbeat():
                 if abs(positionSoFar) > 1000:
                     gameOn = False
                     break
@@ -113,23 +113,9 @@ class BuySell:
                 # will multiply base on the below info with gapPercent
                 bestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
-                q_bid = min(self.sf.read_orderbook(oBook, "bids", "qty", 1), 30)
-                q_ask = min(self.sf.read_orderbook(oBook, "asks", "qty", 1), 30)
-                quoteTime = oBook.json()['ts']
-                
-                """
-                Not used for now, queue socket implementation, seems not able to beat the oBook info in
-                speed
-                m = quote_queue.get()
-                try:
-                    bestAskQ = m['ask']
-                    bestBidQ = m['bid']
-                    quoteTimeQ = m['quoteTime']
-                    print "compare oBook bestAsk %r - bestAskQ %r" %(bestAsk, bestAskQ)
-                    print "and QuoteTime \n %r \n %r is quoteTimeQ newer %r" %(quoteTime, quoteTimeQ, quoteTimeQ > quoteTime)
-                except:
-                    pass
-                """
+                q_bid = min(self.sf.read_orderbook(oBook, "bids", "qty", 1), 100)
+                q_ask = min(self.sf.read_orderbook(oBook, "asks", "qty", 1), 100)
+                # quoteTime = oBook.json()['ts']
 
                 if len(ma_20_list) > 20:  # Moving average 20 ticks
                     ma_20_list.pop(0)
@@ -137,8 +123,10 @@ class BuySell:
                 ma_20_list.append(self.sf.get_quote(stock).get("last"))
                 ma_20 = sum(ma_20_list) / len(ma_20_list)
                              
-                positionSoFar, cash, expectedPosition, nav, tempII = status_queue.get()
-                print "B_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20)
+                cash, expectedPosition, nav, tempII = status_queue.get()
+                positionSoFar = sf.positionSoFar  # the sf.positionSoFar is updated by the execution thread. much faster
+                print "\nB_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20),
+                # print "temp %d" % (tempII)
 
                 if self.buy_condition(expectedPosition, positionSoFar, bestBid, ma_20):
                     # loop through the gapPercent and make multiple bids.
@@ -147,11 +135,10 @@ class BuySell:
                     q_increment = int(q_bid * gapPercent)
                     q_actual = q_bid
                     for actualBid in range(bestBid, worstBid, increment):
-                        buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", "limit")
-                        """
+                        buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", "limit")                        
                         print "\n\tBBBBB placed buy ord. +%d units at %d ID %d" % (q_bid, buyOrder.get('price'),
                                                                                    buyOrder.get('id'))
-                        """
+                        
                         q_actual -= q_increment
 
                 if self.sell_condition(expectedPosition, positionSoFar, bestAsk, ma_20):
@@ -161,11 +148,10 @@ class BuySell:
                     q_increment = int(q_ask * gapPercent)
                     q_actual = q_ask
                     for actualAsk in range(bestAsk, worstAsk, increment):
-                        sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", "limit")
-                        """
+                        sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", "limit")                        
                         print "\n\tSSSSS placed sell ord. -%d units at %d ID %d" % (q_ask, sellOrder.get('price'),
                                                                                     sellOrder.get('id'))
-                        """
+                        
                         q_actual -= q_increment
 
                 # self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
@@ -174,6 +160,7 @@ class BuySell:
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving buy sell"
             gameOn = False
+
 
 class CheckFill:
     
@@ -188,10 +175,11 @@ class CheckFill:
         orders that is not gonna be filled at the moment because
         the price is out the money.
         """
-        for x in orderList["orders"]:
+        for y in orderList:
+            x = orderList[y]
             if x["open"]:
                 if callback(x):
-                    print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
+                    print "\n\tCancelling %s %s units at %s ID %s" % (x["direction"], x["qty"], x["price"], x["id"])
                     self.sf.delete_order(self.stock, x["id"])
 
     def should_cancel_unfilled(self, order):
@@ -225,21 +213,15 @@ class CheckFill:
         try:
             while gameOn:
                 time.sleep(2)
-                orderIDList = self.sf.status_for_all_orders_in_stock(self.stock)
-                self.identify_unfilled_orders(orderIDList.json(), self.should_cancel_unfilled)
+                orders = self.sf.status_for_all_orders_in_stock(self.stock)
+                self.identify_unfilled_orders(orders, self.should_cancel_unfilled)
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving checking fills"
 
-def QuoteSocket(m):
-    quote_queue.put(m)
 
-def ExecutionSocket(m):
-    if not m is None:    
-        print "/n***** IN websocket ****"
-        print m
-        print "*****"
-    else:
-        sf.execution_venue_ticker(ExecutionSocket)
+def QuoteSocket(m):
+    """receives data, put into quote_queue for postmordem purpose. """
+    quote_queue.put(m)
 
 if __name__ == '__main__':
     
@@ -248,7 +230,7 @@ if __name__ == '__main__':
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)
     sf.quote_venue_ticker(QuoteSocket)
-    sf.execution_venue_ticker(ExecutionSocket)
+    sf.execution_venue_ticker(sf.execution_socket)
 
     bsThread = threading.Thread(target=bs.run, args=())
     cfThread = threading.Thread(target=cf.run, args=())
@@ -264,9 +246,9 @@ if __name__ == '__main__':
         with open("currentInfo.json", "a") as settings:
             while gameOn and sf.heartbeat():
                 time.sleep(4)               # the market bots sleep for 4 sec and make a trade
-                # oBook = sf.get_order_book(sf.tickers).json()
-                oBook = quote_queue.get()
-                json.dump(oBook, settings)  # printing the order book for postmordem.
+                quotes = sf.get_order_book(sf.tickers).json()
+                quotes = quote_queue.get()
+                json.dump(quotes, settings)  # printing the order book for postmordem.
         settings.close()
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
