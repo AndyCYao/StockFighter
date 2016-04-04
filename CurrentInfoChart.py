@@ -2,7 +2,6 @@
 
 import gviz_api
 import json
-import datetime
 page_template = """
 <html>
   <script src="https://www.google.com/jsapi" type="text/javascript"></script>
@@ -27,7 +26,7 @@ def main():
     # Creating the data - based on this below
     # https://developers.google.com/chart/interactive/docs/gallery/linechart#curving-the-lines
       
-    description = {"quoteTime": ("string", "QuoteTime"),"last": ("number", "Last Traded Price")}
+    description = {"quoteTime": ("string", "QuoteTime"), "last": ("number", "Last Traded Price")}
     data = []
     file = json.loads(open("currentInfo.json").read())
     for x in file:
@@ -40,17 +39,18 @@ def main():
     data_table = gviz_api.DataTable(description)
     data_table.LoadData(data)
     
+    """
     # Create a JavaScript code string.
     jscode = data_table.ToJSCode("jscode_data",
                                 columns_order=("quoteTime", "last"),
                                 order_by="quoteTime")
-    
+    """
     # Put the JS code into the template.
-    print "Content-type: text/html\nLoading graph.html...", 
+    print "Loading graph.html...", 
     open("Graph.html", 'w').close()  # doing this clears everything first
     with open("Graph.html", "a") as graph:
         graph.write(page_template % vars())
     graph.close()
     print "Done"
 if __name__ == '__main__':
-  main()
+    main()
