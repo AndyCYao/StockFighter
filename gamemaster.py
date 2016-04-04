@@ -89,20 +89,12 @@ class StockFighter:
         # used for storing a list of active orders made during this session.
         self.header = {'X-Starfighter-Authorization': apikey}
         self.base_url = "https://api.stockfighter.io/ob/api"
-<<<<<<< HEAD
-        # used for storing a list of active orders made during this session.
-        self.orders  = self.status_for_all_orders_in_stock(self.tickers)
-        self.positionSoFar, self.cash, self.expectedPosition = self.update_open_orders()
-        print "Game restarted.. Actual Pos. is %d" % (self.positionSoFar)
-
-=======
         self.orders = self.status_for_all_orders_in_stock(self.tickers)
         self.positionSoFar, self.cash, self.expectedPosition = self.update_open_orders(self.orders)
         print "Game started...Actual Pos. is %d, expectedPosition %d, Cash %d" % (self.positionSoFar,
                                                                                   self.expectedPosition,
                                                                                   self.cash)
     
->>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
     @classmethod
     def test_mode(cls):
         """learn about factory design pattern and overload in python."""
@@ -126,7 +118,7 @@ class StockFighter:
         return response
  
     def read_orderbook(self, oBook, direction, type, rank):
-        # this reads the orderbook, returns what user wants to see, the
+        # this returns the best price of buy or sell, the
         # lowest ask and highest bid is 1, and ++ as price gets worse.
         try:
             best_result = oBook.json().get(direction)[rank].get(type)
@@ -135,34 +127,11 @@ class StockFighter:
         return best_result
 
     def status_for_all_orders_in_stock(self, s):
-<<<<<<< HEAD
-        """ retrieve all orders given account, load into an orders dictionary
-        this provides similar info to execution socket.
-        """
-=======
         """ retrieve all orders in a given account, loads into a dictionary object"""
->>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
         tOrders = {}
         full_url = "%s/venues/%s/accounts/%s/stocks/%s/orders" % (self.base_url, self.venues, self.account, s)
         response = requests.get(full_url, headers=self.header)
         orderListJson = response.json()
-<<<<<<< HEAD
-        for x in orderListJson["orders"]:
-            tOrders[x["id"]] = x
-        return tOrders
-
-    def update_open_orders(self, orders):
-        """loops through the open ids and check them see.
-        how many have been filled. i am changing it to loop through the orders from.
-        status_for_all_orders_in_stock
-        """
-        # orderListJson = orderList.json()
-        currentPos = 0
-        currentPosCash = 0
-        expectedPos = 0
-        for y in orders:
-            x = orders[y]
-=======
         # print orderListJson
  
         for x in orderListJson["orders"]:
@@ -182,7 +151,6 @@ class StockFighter:
         for y in orders:
             x = orders[y]
             # print x
->>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
             totalFilled = x["totalFilled"]
             qty = x["qty"] + totalFilled
             direction = x["direction"]
@@ -197,16 +165,6 @@ class StockFighter:
         return positionSoFar, cash, expectedPosition
 
     def execution_socket(self, m):
-<<<<<<< HEAD
-        """provides the same data as from status_for_all_orders_in_stock, just
-        done in a websocket way and faster, updates the orders dictionary
-        """
-        if m is not None:
-            print m
-            self.orders[m["standingId"]] = m["order"]
-            self.update_open_orders(self.orders)
-            """
-=======
         """provides the same data as update_open_orders, just
         done in a websocket way and faster, updates the self.positionSoFar,
         self.cash As the websocket sends message, this method
@@ -216,7 +174,6 @@ class StockFighter:
             # print m
             # self.orders[m["standingId"]] = m
 
->>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
             filled = m["filled"]
             price = m["price"]
             direction = m["order"]["direction"]
@@ -230,16 +187,10 @@ class StockFighter:
             self.cash += filled * price * (-.01)
             nav = self.cash + self.positionSoFar * self.get_quote(self.tickers).get("last") * (.01)
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-<<<<<<< HEAD
-            print "\tWS -current pos is %d,expected Pos. %d,cash $%d,nav %s" % (self.positionSoFar, self.expectedPosition,
-                                                                                self.cash, nav_currency)
-            """
-=======
             
             print "\tWS -current pos is %d,cash $%d,nav %s" % (self.positionSoFar,
                                                                self.cash, nav_currency)
      
->>>>>>> d5448040725201e8d388d6b4fe08efbadc31f57e
         else:
             if self.heartbeat():  # sometimes m is None because venue is dead, this checks it.
                 print "...restarting websocket..."
