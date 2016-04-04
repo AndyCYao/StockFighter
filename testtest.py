@@ -1,46 +1,60 @@
-import time
-import gamemaster
+#!/usr/bin/python
 
-"""
-print "Trying TestEX mode",
-sf = gamemaster.StockFighter.test_mode()
-"""
-print "Try actual level"
-sf = gamemaster.StockFighter("first_steps")
+import gviz_api
 
+page_template = """
+<html>
+  <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+  <script>
+    google.load('visualization', '1', {packages:['table']});
 
-print "\n\nTesting Execution quote socket."
-sf.execution_venue_ticker(sf.execution_socket)
-time.sleep(2)
-print "\nTrying placing order...",
-order = sf.make_order(20000, 10, sf.tickers, "buy", "limit")
-print "new order is %r" % (order)
-# print "\nOk.. now delete the order",
-# order = sf.delete_order(sf.tickers, order["id"])
+    google.setOnLoadCallback(drawTable);
+    function drawTable() {
+      %(jscode)s
+      var jscode_table = new google.visualization.Table(document.getElementById('table_div_jscode'));
+      jscode_table.draw(jscode_data, {showRowNumber: true});
 
-"""
-print "\nTrying get orderbook...",
-oBook = sf.get_order_book(sf.tickers)
-print oBook.json()
-
-print "\nUsing the read_orderbook to find the best price...",
-print sf.read_orderbook(oBook, "bids", "price", 1),
-print sf.read_orderbook(oBook, "asks", "price", 1)
-
-print "\nGet last quote...",
-print sf.get_quote(sf.tickers)
-
-print "\nSee all the open orders...",
-orderList = sf.status_for_all_orders_in_stock(sf.tickers)
-print orderList.json()
-
-print "\nLoop through the list and check current current positions, cash, and expected positions..."
-print sf.update_open_orders(orderList)
+      var json_table = new google.visualization.Table(document.getElementById('table_div_json'));
+      var json_data = new google.visualization.DataTable(%(json)s, 0.6);
+      json_table.draw(json_data, {showRowNumber: true});
+    }
+  </script>
+  <body>
+    <H1>Table created using ToJSCode</H1>
+    <div id="table_div_jscode"></div>
+    <H1>Table created using ToJSon</H1>
+    <div id="table_div_json"></div>
+  </body>
+</html>
 """
 
-print "Waiting for ctrl+c..."
-while 1:
-    time.sleep(5)
+def main():
+  # Creating the data
+  description = {"name": ("string", "Name"),
+                 "salary": ("number", "Salary"),
+                 "full_time": ("boolean", "Full Time Employee")}
+  data = [{"name": "Mike", "salary": (10000, "$10,000"), "full_time": True},
+          {"name": "Jim", "salary": (800, "$800"), "full_time": False},
+          {"name": "Alice", "salary": (12500, "$12,500"), "full_time": True},
+          {"name": "Bob", "salary": (7000, "$7,000"), "full_time": True}]
 
-# print "Try actual level"
-# sf = gamemaster.StockFighter("dueling_bulldozers")
+  # Loading it into gviz_api.DataTable
+  data_table = gviz_api.DataTable(description)
+  data_table.LoadData(data)
+
+  # Create a JavaScript code string.
+  jscode = data_table.ToJSCode("jscode_data",
+                               columns_order=("name", "salary", "full_time"),
+                               order_by="salary")
+  # Create a JSON string.
+  json = data_table.ToJSon(columns_order=("name", "salary", "full_time"),
+                           order_by="salary")
+
+  # Put the JS code and JSON string into the template.
+  print "Content-type: text/html"
+  print
+  print page_template % vars()
+
+
+if __name__ == '__main__':
+  main()

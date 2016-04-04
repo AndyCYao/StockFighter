@@ -212,7 +212,7 @@ class CheckFill:
         global gameOn
         try:
             while gameOn:
-                time.sleep(2)
+                time.sleep(3)
                 orders = self.sf.status_for_all_orders_in_stock(self.stock)
                 self.identify_unfilled_orders(orders, self.should_cancel_unfilled)
         except KeyboardInterrupt:
@@ -244,12 +244,19 @@ if __name__ == '__main__':
     try:
         open("currentInfo.json", 'w').close()  # doing this clears everything first
         with open("currentInfo.json", "a") as settings:
+            settings.write("[")
             while gameOn and sf.heartbeat():
-                time.sleep(4)               # the market bots sleep for 4 sec and make a trade
-                quotes = sf.get_order_book(sf.tickers).json()
                 quotes = quote_queue.get()
                 json.dump(quotes, settings)  # printing the order book for postmordem.
-        settings.close()
+                settings.write(",")
+
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
-        settings.close()
+
+    settings.seek(-1, 2) # -1 is looking at the last item from the end, in this case comma. 
+    settings.truncate()  # removes the character that above line found.
+    settings.write("]")
+    settings.close()
+    print "Printing postmordem info into graph..."
+    import CurrentInfoChart
+    CurrentInfoChart.main()
