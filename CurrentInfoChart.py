@@ -2,6 +2,8 @@
 
 import gviz_api
 import json
+import datetime
+
 page_template = """
 <html>
   <script src="https://www.google.com/jsapi" type="text/javascript"></script>
@@ -15,9 +17,16 @@ page_template = """
       jscode_table.draw(jscode_data, {showRowNumber: true});
     }
   </script>
+  <style type="text/css">
+    HTML{
+        font-family:arial
+    }
+
+  </style>
   <body>
-    <H1>Table created using ToJSCode</H1>
+    <H2>%(infos)s</H2>
     <div id="table_div_jscode"></div>
+    <H4>%(printed)s Table created using gviz_api</H4>
   </body>
 </html>
 """
@@ -39,12 +48,15 @@ def main():
     data_table = gviz_api.DataTable(description)
     data_table.LoadData(data)
     
-    """
     # Create a JavaScript code string.
     jscode = data_table.ToJSCode("jscode_data",
-                                columns_order=("quoteTime", "last"),
-                                order_by="quoteTime")
-    """
+                                 columns_order=("quoteTime", "last"),
+                                 order_by="quoteTime")
+    infos = """
+        Venue-%s Trading %s.  
+    """ % (x["venue"], x["symbol"])
+    printed = "printed on %r." % (datetime.datetime.now().strftime("%Y-%m-%d %H:%M"))
+
     # Put the JS code into the template.
     print "Loading graph.html...", 
     open("Graph.html", 'w').close()  # doing this clears everything first
