@@ -241,22 +241,24 @@ if __name__ == '__main__':
     bsThread.start()
     cfThread.start()
     csThread.start()
+
     try:
-        open("currentInfo.json", 'w').close()  # doing this clears everything first
-        with open("currentInfo.json", "a") as settings:
+        open("currentInfo.json", 'r+b').close()  # doing this clears everything first
+        with open("currentInfo.json", "r+b") as settings:
             settings.write("[")
             while gameOn and sf.heartbeat():
                 quotes = quote_queue.get()
                 json.dump(quotes, settings)  # printing the order book for postmordem.
                 settings.write(",")
-
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
+    finally:
+        with open("currentInfo.json", "r+b") as settings:       
+            settings.seek(-1, 2)  # -1 is looking at the last item from the end, in this case comma. 
+            settings.truncate()   # removes the character that above line found.
+            settings.write("]")
+            settings.close()
+        print "Printing postmordem info into graph..."
+        import CurrentInfoChart
+        CurrentInfoChart.main()
 
-    settings.seek(-1, 2) # -1 is looking at the last item from the end, in this case comma. 
-    settings.truncate()  # removes the character that above line found.
-    settings.write("]")
-    settings.close()
-    print "Printing postmordem info into graph..."
-    import CurrentInfoChart
-    CurrentInfoChart.main()
