@@ -66,3 +66,10 @@ def main():
     print "Done"
 if __name__ == '__main__':
     main()
+
+"""
+, "bestBid": ("number", "Best Bid")
+, "bestBid": x["bid"]
+, "bestAsk": ("number", "Best Ask")
+, "bestAsk": x["ask"]
+"""
