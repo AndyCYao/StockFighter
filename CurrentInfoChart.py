@@ -35,11 +35,23 @@ def main():
     # Creating the data - based on this below
     # https://developers.google.com/chart/interactive/docs/gallery/linechart#curving-the-lines
       
-    description = {"quoteTime": ("string", "QuoteTime"), "last": ("number", "Last Traded Price")}
+    description = {"quoteTime": ("string", "QuoteTime"), 
+                   "bid": ("number", "Best Bid"),
+                   "last": ("number", "Last Traded Price"),
+                   "ask": ("number", "Best Ask")}
     data = []
     file = json.loads(open("currentInfo.json").read())
     for x in file:
-        file_dict = {"quoteTime": x["quoteTime"], "last": x["last"]}
+        if "bid" in x:
+            bid = x["bid"]
+        else:
+            bid = None
+        if "ask" in x:
+            ask = x["ask"]
+        else:
+            ask = None
+
+        file_dict = {"quoteTime": x["quoteTime"], "bid": bid, "last": x["last"], "ask": ask}
         data.append(file_dict)
 
     # need a list of dictionaries.
@@ -50,7 +62,7 @@ def main():
     
     # Create a JavaScript code string.
     jscode = data_table.ToJSCode("jscode_data",
-                                 columns_order=("quoteTime", "last"),
+                                 columns_order=("quoteTime", "last", "ask", "bid"),
                                  order_by="quoteTime")
     infos = """
         Venue-%s Trading %s.  
