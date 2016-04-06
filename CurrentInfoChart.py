@@ -14,18 +14,29 @@ page_template = """
     function drawTable() {
       %(jscode)s
       var jscode_table = new google.visualization.LineChart(document.getElementById('table_div_jscode'));
-      jscode_table.draw(jscode_data, {showRowNumber: true});
+      var options = {
+        'title':'Post-Mordem Analyze', 
+        'width':2000, 
+        'height':800,
+        'series': {
+            1: { lineDashStyle: [2, 2] },
+            2: { lineDashStyle: [4, 4] }
+            }
+        };
+      jscode_table.draw(jscode_data, options);
     }
   </script>
   <style type="text/css">
     HTML{
-        font-family:arial
+        font-family:arial;
+        text-align:center
     }
 
   </style>
   <body>
-    <H2>%(infos)s</H2>
+    <H2>Stockfighter 2016</H2>
     <div id="table_div_jscode"></div>
+    <H3>%(infos)s</H3>
     <H4>%(printed)s Table created using gviz_api</H4>
   </body>
 </html>
@@ -79,9 +90,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-"""
-, "bestBid": ("number", "Best Bid")
-, "bestBid": x["bid"]
-, "bestAsk": ("number", "Best Ask")
-, "bestAsk": x["ask"]
-"""
