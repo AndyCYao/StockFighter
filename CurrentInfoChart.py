@@ -8,22 +8,47 @@ page_template = """
 <html>
   <script src="https://www.google.com/jsapi" type="text/javascript"></script>
   <script>
-    google.load('visualization', '1', {packages:['corechart']});
+        google.load('visualization', '1', {packages:['corechart']});
 
-    google.setOnLoadCallback(drawTable);
-    function drawTable() {
-      %(jscode)s
-      var jscode_table = new google.visualization.LineChart(document.getElementById('table_div_jscode'));
-      var options = {
-        'title':'Post-Mordem Analyze', 
-        'width':2000, 
-        'height':800,
-        'series': {
-            1: { lineDashStyle: [2, 2] },
-            2: { lineDashStyle: [4, 4] }
-            }
-        };
-      jscode_table.draw(jscode_data, options);
+        google.setOnLoadCallback(drawTable);
+        function drawTable() {
+            %(jscode)s
+            var jscode_table = new google.visualization.LineChart(document.getElementById('table_div_jscode'));
+            var options = {
+            'title':'Post-Mordem Analyze', 
+            'width':2000, 
+            'height':800,
+            'series': {
+                1: { lineDashStyle: [2, 2], color: '#ff4000' },
+                2: { lineDashStyle: [4, 4], color: '#00ff00' }
+                }
+            };
+        jscode_table.draw(jscode_data, options);
+        var columns {0: false, 1: false, 2: false}; // 0 is last, 1 is ask, 2 is bid. the value is whether to display or not
+        //var LastHidden = false;
+        var hideLast = document.getElementById("hideLast");
+        hideLast.onclick = function()
+           {
+                //LastHidden != LastHidden;
+
+           }
+        var AskHidden = false;
+        var hideAsk = document.getElementById("hideAsk");
+        hideAsk.onclick = function()
+           {
+                AskHidden != AskHidden;
+           }
+        var BidHidden = false;
+        var hideBid = document.getElementById("hideBid");
+        hideBid.onclick = function()
+           {
+                BidHidden != BidHidden;
+           }
+        function ShowHide(){
+              view = new google.visualization.DataView(jscode_data);
+              view.hideColumns([3]); 
+              jscode_table.draw(view, options);
+        }
     }
   </script>
   <style type="text/css">
@@ -36,6 +61,9 @@ page_template = """
   <body>
     <H2>Stockfighter 2016</H2>
     <div id="table_div_jscode"></div>
+    <button type="button" id="hideLast"  >Hide Last</button>
+    <button type="button" id="hideBid"  >Hide Bid</button>
+    <button type="button" id="hideAsk"  >Hide Ask</button>
     <H3>%(infos)s</H3>
     <H4>%(printed)s Table created using gviz_api</H4>
   </body>

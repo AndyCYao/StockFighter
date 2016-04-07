@@ -64,9 +64,7 @@ class StockFighter:
     def __init__(self, LevelName):
         gm = GameMaster()
         apikey = gm.get_api_key()
-        # look in the currentinfo, if exists check if its active
-        # if active prompt user if they want to restart or new
-      
+        self.quotes = []    # used to store the websocket quote data.
         if LevelName == "test":
             self.account = "EXB123456"
             self.instanceID = "NotSureID"
@@ -94,7 +92,9 @@ class StockFighter:
         print "Game started...Actual Pos. is %d, expectedPosition %d, Cash %d" % (self.positionSoFar,
                                                                                   self.expectedPosition,
                                                                                   self.cash)
-    
+        self.quote_venue_ticker(self.quote_socket)
+        self.execution_venue_ticker(self.execution_socket)
+
     @classmethod
     def test_mode(cls):
         """learn about factory design pattern and overload in python."""
@@ -195,6 +195,21 @@ class StockFighter:
             if self.heartbeat():  # sometimes m is None because venue is dead, this checks it.
                 print "...restarting websocket..."
                 self.execution_venue_ticker(self.execution_socket)
+
+    def quote_socket(self, m):
+        """receives quotes from websocket, and put them in a data list of dictionary, then 
+        when game ends, push everything into draw graph."""
+        if m is not None:
+            self.quotes.append(m)
+
+    def make_graphs(self):
+        """using the dictionaries gathered in self.quotes to update the graphs"""
+        open("currentInfo.json", 'r+b').close()  # doing this clears everything first
+        with open("currentInfo.json", "r+b") as settings:
+            json.dump(self.quotes, settings)
+        print "Printing postmordem info into graph..."
+        import CurrentInfoChart
+        CurrentInfoChart.main()
 
     def make_order(self, p, q, s, direction, orderType):
         order = {
