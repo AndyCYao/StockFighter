@@ -1,4 +1,3 @@
-
 """
 testing Multi Thread.
 FourthTrade will be separated by two thread
@@ -17,12 +16,10 @@ import gamemaster
 import time
 import datetime
 import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
-import json
+# import json
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
-quote_queue = Queue.Queue(maxsize=0)  # used in the post-mordem.
-
 
 class CurrentStatus:
     """is now separated from BuySell. runs and update
@@ -218,19 +215,12 @@ class CheckFill:
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving checking fills"
 
-
-def QuoteSocket(m):
-    """receives data, put into quote_queue for postmordem purpose. """
-    quote_queue.put(m)
-
 if __name__ == '__main__':
     
     sf = gamemaster.StockFighter("dueling_bulldozers")
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)
-    sf.quote_venue_ticker(QuoteSocket)
-    sf.execution_venue_ticker(sf.execution_socket)
 
     bsThread = threading.Thread(target=bs.run, args=())
     cfThread = threading.Thread(target=cf.run, args=())
@@ -242,20 +232,12 @@ if __name__ == '__main__':
     cfThread.start()
     csThread.start()
 
-    try:
-        data = []
-        open("currentInfo.json", 'r+b').close()  # doing this clears everything first
-        # settings.write("[")
-        while gameOn and sf.heartbeat():
-            quotes = quote_queue.get()
-            data.append(quotes)
+    try: 
+        while gameOn and sf.heartbeat():          
+            time.sleep(1)
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
     finally:
-        with open("currentInfo.json", "r+b") as settings:
-            json.dump(data, settings)
+        sf.make_graphs()
 
-        print "Printing postmordem info into graph..."
-        import CurrentInfoChart
-        CurrentInfoChart.main()
-
+       
