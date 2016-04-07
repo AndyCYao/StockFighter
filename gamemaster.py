@@ -64,6 +64,7 @@ class StockFighter:
     def __init__(self, LevelName):
         gm = GameMaster()
         apikey = gm.get_api_key()
+        
         self.quotes = []    # used to store the websocket quote data.
         if LevelName == "test":
             self.account = "EXB123456"
@@ -79,7 +80,8 @@ class StockFighter:
                 self.venues = ''.join(response.json().get("venues"))
                 self.tickers = ''.join(response.json().get("tickers"))
             else:
-                print "Oops, something went wrong, try again."
+                print """Oops, something went wrong while connecting to Stockfighter, please try again in a 
+                few minutes"""
                 raise ValueError
 
         print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account,
@@ -204,19 +206,21 @@ class StockFighter:
 
     def make_graphs(self):
         """using the dictionaries gathered in self.quotes to update the graphs"""
-        open("currentInfo.json", 'r+b').close()  # doing this clears everything first
         with open("currentInfo.json", "r+b") as settings:
-            json.dump(self.quotes, settings)
-        
-        results =  open("currentInfo.json", "r+b").read()
-        try: # between above and here there might be errors in loading. 
-            json_obj = json.load(results)
+            settings.seek(0)  # The seek and truncate line wipes out everythin in the settings file.
+            settings.truncate()
+            json.dump(self.quotes, settings)        
+        results = open("currentInfo.json", "r+b").read()
+        # print results
+        try:
+            json_obj = json.loads(results)  # between above and here there might be errors in loading. 
             print "Printing postmordem info into graph..."
             import CurrentInfoChart
             CurrentInfoChart.main()
         except Exception as e:
             # raise e
-            print "Oops found error while making graph, please try again\n%r" %(e)
+            print "Oops found error while making graph, please try again\n%r" % (e)
+
     def make_order(self, p, q, s, direction, orderType):
         order = {
             "account": self.account,

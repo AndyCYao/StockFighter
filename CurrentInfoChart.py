@@ -14,23 +14,32 @@ page_template = """
         function drawTable() {
             %(jscode)s
         var jscode_table = new google.visualization.LineChart(document.getElementById('table_div_jscode'));
+
+        var columns = [];
+        var series = {};
+        for (var i = 0; i < jscode_data.getNumberOfColumns(); i++) {
+            columns.push(i);
+            if (i < 4) {
+                series[i - 1] = {targetAxisIndex:0};    //index 0 is the price axes
+            }
+            else if(i <=5 ){
+                series[i - 1] = {targetAxisIndex:1, type:'bars'};    //index 1 is the depth axes
+            }
+        }
+        
         var options = {
         'title':'Post-Mordem Analyze', 
         'width':2000, 
         'height':800,
         'pointSize': 1,
-        'series': series
+        'series': series,
+        vAxes:{
+            0:{'title': 'Price'},
+            1:{'title': "Depth"}
+            }
         };
 
         jscode_table.draw(jscode_data, options);
-        var columns = [];
-        var series = {};
-        for (var i = 0; i < jscode_data.getNumberOfColumns(); i++) {
-            columns.push(i);
-            if (i > 0) {
-                series[i - 1] = {};
-            }
-        }
             //based on http://jsfiddle.net/Khrys/5SD27/
          google.visualization.events.addListener(jscode_table, 'select', function () {
                 //alert("something's selected");
@@ -82,14 +91,17 @@ page_template = """
 </html>
 """
 
+
 def main():
-    # Creating the data - based on this below
-    # https://developers.google.com/chart/interactive/docs/gallery/linechart#curving-the-lines
-      
+    """Creating the data - based on this below
+    https://developers.google.com/chart/interactive/docs/gallery/linechart#curving-the-lines
+    """      
     description = {"quoteTime": ("string", "QuoteTime"), 
                    "bid": ("number", "Best Bid"),
                    "last": ("number", "Last Traded Price"),
-                   "ask": ("number", "Best Ask")}
+                   "ask": ("number", "Best Ask"),
+                   "bidDepth": ("number", "Bid Depth"),
+                   "askDepth": ("number", "Ask Depth")}
     data = []
     file = json.loads(open("currentInfo.json").read())
     for x in file:
@@ -102,7 +114,8 @@ def main():
         else:
             ask = None
 
-        file_dict = {"quoteTime": x["quoteTime"], "bid": bid, "last": x["last"], "ask": ask}
+        file_dict = {"quoteTime": x["quoteTime"], "bid": bid, "last": x["last"], "ask": ask, 
+                     "bidDepth": x["bidDepth"], "askDepth": x['askDepth']}
         data.append(file_dict)
 
     # need a list of dictionaries.
@@ -113,7 +126,7 @@ def main():
     
     # Create a JavaScript code string.
     jscode = data_table.ToJSCode("jscode_data",
-                                 columns_order=("quoteTime", "last", "ask", "bid"),
+                                 columns_order=("quoteTime", "last", "ask", "bid", "askDepth", "bidDepth"),
                                  order_by="quoteTime")
     infos = """
         Venue-%s Trading %s.  
@@ -129,42 +142,3 @@ def main():
     print "Done"
 if __name__ == '__main__':
     main()
-
-"""
-        var columns = {1: true, 2: true, 3: true}; 
-        // 0 is last, 1 is ask, 2 is bid. the value is whether to display or not
-        //var LastHidden = false;
-        var hideLast = document.getElementById("hideLast");
-        hideLast.onclick = function()
-           {
-                columns[1] = !columns[1]
-                ShowHide();
-           }
-        var AskHidden = false;
-        var hideAsk = document.getElementById("hideAsk");
-        hideAsk.onclick = function()
-           {
-                columns[2] = !columns[2];
-                ShowHide();
-           }
-        var BidHidden = false;
-        var hideBid = document.getElementById("hideBid");
-        hideBid.onclick = function()
-           {
-                columns[3] = !columns[3];
-                ShowHide();
-           }
-
-        //hiden columns base on the column dictionary and redraw the table
-        function ShowHide(){
-              view = new google.visualization.DataView(jscode_data);
-              for (var x in columns){
-                if (columns[x] == false){
-                  //alert("columns[" + x + "] is " + columns[x]);
-                  y = parseInt(x)
-                  view.hideColumns([y]);
-                }
-              }
-              jscode_table.draw(view, options);
-        }
-"""
