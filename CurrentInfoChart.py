@@ -13,42 +13,57 @@ page_template = """
         google.setOnLoadCallback(drawTable);
         function drawTable() {
             %(jscode)s
-            var jscode_table = new google.visualization.LineChart(document.getElementById('table_div_jscode'));
-            var options = {
-            'title':'Post-Mordem Analyze', 
-            'width':2000, 
-            'height':800,
-            'series': {
-                1: { lineDashStyle: [2, 2], color: '#ff4000' },
-                2: { lineDashStyle: [4, 4], color: '#00ff00' }
-                }
-            };
-        jscode_table.draw(jscode_data, options);
-        var columns {0: false, 1: false, 2: false}; // 0 is last, 1 is ask, 2 is bid. the value is whether to display or not
-        //var LastHidden = false;
-        var hideLast = document.getElementById("hideLast");
-        hideLast.onclick = function()
-           {
-                //LastHidden != LastHidden;
+        var jscode_table = new google.visualization.LineChart(document.getElementById('table_div_jscode'));
+        var options = {
+        'title':'Post-Mordem Analyze', 
+        'width':2000, 
+        'height':800,
+        'pointSize': 1,
+        'series': series
+        };
 
-           }
-        var AskHidden = false;
-        var hideAsk = document.getElementById("hideAsk");
-        hideAsk.onclick = function()
-           {
-                AskHidden != AskHidden;
-           }
-        var BidHidden = false;
-        var hideBid = document.getElementById("hideBid");
-        hideBid.onclick = function()
-           {
-                BidHidden != BidHidden;
-           }
-        function ShowHide(){
-              view = new google.visualization.DataView(jscode_data);
-              view.hideColumns([3]); 
-              jscode_table.draw(view, options);
+        jscode_table.draw(jscode_data, options);
+        var columns = [];
+        var series = {};
+        for (var i = 0; i < jscode_data.getNumberOfColumns(); i++) {
+            columns.push(i);
+            if (i > 0) {
+                series[i - 1] = {};
+            }
         }
+            //based on http://jsfiddle.net/Khrys/5SD27/
+         google.visualization.events.addListener(jscode_table, 'select', function () {
+                //alert("something's selected");
+                var sel = jscode_table.getSelection();
+                // if selection length is 0, we deselected an element
+                if (sel.length > 0) {
+                    // if row is undefined, we clicked on the legend
+                    if (sel[0].row === null) {
+                        var col = sel[0].column;
+                        if (columns[col] == col) {
+                            // hide the data series
+                            columns[col] = {
+                                label: jscode_data.getColumnLabel(col),
+                                type: jscode_data.getColumnType(col),
+                                calc: function () {
+                                    return null;
+                                }
+                            };
+                            
+                            // grey out the legend entry
+                            series[col - 1].color = '#CCCCCC';
+                        }
+                        else {
+                            // show the jscode_data series
+                            columns[col] = col;
+                            series[col - 1].color = null;
+                        }
+                        var view = new google.visualization.DataView(jscode_data);
+                        view.setColumns(columns);
+                        jscode_table.draw(view, options);
+                    }
+                }
+            });
     }
   </script>
   <style type="text/css">
@@ -61,9 +76,6 @@ page_template = """
   <body>
     <H2>Stockfighter 2016</H2>
     <div id="table_div_jscode"></div>
-    <button type="button" id="hideLast"  >Hide Last</button>
-    <button type="button" id="hideBid"  >Hide Bid</button>
-    <button type="button" id="hideAsk"  >Hide Ask</button>
     <H3>%(infos)s</H3>
     <H4>%(printed)s Table created using gviz_api</H4>
   </body>
@@ -118,3 +130,41 @@ def main():
 if __name__ == '__main__':
     main()
 
+"""
+        var columns = {1: true, 2: true, 3: true}; 
+        // 0 is last, 1 is ask, 2 is bid. the value is whether to display or not
+        //var LastHidden = false;
+        var hideLast = document.getElementById("hideLast");
+        hideLast.onclick = function()
+           {
+                columns[1] = !columns[1]
+                ShowHide();
+           }
+        var AskHidden = false;
+        var hideAsk = document.getElementById("hideAsk");
+        hideAsk.onclick = function()
+           {
+                columns[2] = !columns[2];
+                ShowHide();
+           }
+        var BidHidden = false;
+        var hideBid = document.getElementById("hideBid");
+        hideBid.onclick = function()
+           {
+                columns[3] = !columns[3];
+                ShowHide();
+           }
+
+        //hiden columns base on the column dictionary and redraw the table
+        function ShowHide(){
+              view = new google.visualization.DataView(jscode_data);
+              for (var x in columns){
+                if (columns[x] == false){
+                  //alert("columns[" + x + "] is " + columns[x]);
+                  y = parseInt(x)
+                  view.hideColumns([y]);
+                }
+              }
+              jscode_table.draw(view, options);
+        }
+"""
