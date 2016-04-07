@@ -207,10 +207,16 @@ class StockFighter:
         open("currentInfo.json", 'r+b').close()  # doing this clears everything first
         with open("currentInfo.json", "r+b") as settings:
             json.dump(self.quotes, settings)
-        print "Printing postmordem info into graph..."
-        import CurrentInfoChart
-        CurrentInfoChart.main()
-
+        
+        results =  open("currentInfo.json", "r+b").read()
+        try: # between above and here there might be errors in loading. 
+            json_obj = json.load(results)
+            print "Printing postmordem info into graph..."
+            import CurrentInfoChart
+            CurrentInfoChart.main()
+        except Exception as e:
+            # raise e
+            print "Oops found error while making graph, please try again\n%r" %(e)
     def make_order(self, p, q, s, direction, orderType):
         order = {
             "account": self.account,
