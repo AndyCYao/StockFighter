@@ -94,7 +94,9 @@ class StockFighter:
         print "Game started...Actual Pos. is %d, expectedPosition %d, Cash %d" % (self.positionSoFar,
                                                                                   self.expectedPosition,
                                                                                   self.cash)
+        print "\nConnecting to quote socket...",
         self.quote_venue_ticker(self.quote_socket)
+        print "\nConnecting to execution socket...",
         self.execution_venue_ticker(self.execution_socket)
 
     @classmethod

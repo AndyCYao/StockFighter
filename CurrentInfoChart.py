@@ -13,7 +13,7 @@ page_template = """
         google.setOnLoadCallback(drawTable);
         function drawTable() {
             %(jscode)s
-        var jscode_table = new google.visualization.LineChart(document.getElementById('table_div_jscode'));
+        var jscode_table = new google.visualization.ComboChart(document.getElementById('table_div_jscode'));
 
         var columns = [];
         var series = {};
