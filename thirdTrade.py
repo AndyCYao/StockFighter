@@ -48,7 +48,8 @@ def identify_unfilled_orders(orderList, callback):
         orders that is not gonna be filled at the moment because
         the price is out the money.
         """
-        for x in orderList["orders"]:
+        for y in orderList:
+            x = orderList[y]
             if x["open"]:
                 if callback(x):
                     print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
@@ -82,7 +83,6 @@ def should_cancel_unfilled(order):
 
 
 try:
-    sf.execution_venue_ticker(sf.execution_socket)  # start the thread for update the status.
     while nav < 12000:
         if abs(sf.positionSoFar) > 1000:
             break
@@ -134,10 +134,9 @@ try:
 
         end = time.time()
         orderIDList = sf.status_for_all_orders_in_stock(stock)
-        identify_unfilled_orders(orderIDList.json(), should_cancel_unfilled)
+        identify_unfilled_orders(orderIDList, should_cancel_unfilled)
         time.sleep(2)  # slow things down a bit, because we are querying the same information.
 except KeyboardInterrupt:
     print "ctrl+c pressed!"
-    with open("results.txt", "w") as EndLog:
-        json.dump(orderIDList, EndLog)
-    EndLog.close()
+finally:
+    sf.make_graphs()
