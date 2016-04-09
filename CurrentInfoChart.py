@@ -29,7 +29,7 @@ page_template = """
         
         var options = {
         'title':'Post-Mordem Analyze', 
-        'width':2000, 
+        'width':5000, 
         'height':800,
         'pointSize': 1,
         'series': series,

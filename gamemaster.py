@@ -202,7 +202,7 @@ class StockFighter:
 
     def quote_socket(self, m):
         """receives quotes from websocket, and put them in a data list of dictionary, then 
-        when game ends, push everything into draw graph."""
+        when game ends, push everything into draw graph.(using the make_graphs method)"""
         if m is not None:
             self.quotes.append(m)
 
