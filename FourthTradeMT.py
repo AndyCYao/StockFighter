@@ -7,6 +7,7 @@ FourthTrade will be separated by two thread
     iii.)   repeat.
 2nd Thread -> Read through open order and cancel unfilled
     i.)     check the order list for open orders.
+3rd Thread -> Current Status-> prints out what is the current NAV, Position, Expected Position etc.
 
 due to the internal waits in the Queue library for get and put. we dont need to compensate with
 our own time.wait in our own script.
@@ -16,7 +17,6 @@ import gamemaster
 import time
 import datetime
 import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
-# import json
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
@@ -112,8 +112,7 @@ class BuySell:
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
                 q_bid = min(self.sf.read_orderbook(oBook, "bids", "qty", 1), 100)
                 q_ask = min(self.sf.read_orderbook(oBook, "asks", "qty", 1), 100)
-                # quoteTime = oBook.json()['ts']
-
+                
                 if len(ma_20_list) > 20:  # Moving average 20 ticks
                     ma_20_list.pop(0)
                 
