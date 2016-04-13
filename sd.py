@@ -15,15 +15,22 @@ def find_sd(lst):
         y += (x - u) ** 2.0
     return math.sqrt(y / (count - 1))
 
-def find_iqr(lst):
-    lst.sort()
-    print "min is %d" % (lst[0])
-    print "max is %d" % (lst[-1])
+def find_median(lst):
     if len(lst) % 2 == 1:
         median = lst[((len(lst) + 1) / 2) - 1]        
     else:
         median = float(sum(lst[(len(lst) / 2) - 1:(len(lst) / 2) + 1])) / 2.0
-    print "median is %d" % (median)
+    return median
+
+def find_iqr(lst):
+    lst.sort()
+    print "min is %d" % (lst[0])
+    print "max is %d" % (lst[-1])
+    print "median is %d" % (find_median(lst))
+    q1 = find_median(lst[:len(lst) // 2])
+    q3 = find_median(lst[len(lst) // 2:])
+    iqr = q3 - q1
+    print iqr
     return lst
 
 if __name__ == '__main__': 
