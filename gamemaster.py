@@ -65,7 +65,8 @@ class StockFighter:
         gm = GameMaster()
         apikey = gm.get_api_key()
         
-        self.quotes = []    # used to store the websocket quote data.
+        self.quotes = []     # used to store the websocket quote data.
+        self.orderbook = []  # used in the websocket quote method to store the orderbook
         if LevelName == "test":
             self.account = "EXB123456"
             self.instanceID = "NotSureID"
