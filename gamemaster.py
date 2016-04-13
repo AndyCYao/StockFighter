@@ -120,6 +120,7 @@ class StockFighter:
         """retrieve the order book"""
         full_url = "%s/venues/%s/stocks/%s" % (self.base_url, self.venues, s)
         response = requests.get(full_url, headers=self.header)
+        self.orderbook.append(response.json())
         return response
  
     def read_orderbook(self, oBook, direction, type, rank):
@@ -213,10 +214,12 @@ class StockFighter:
             settings.seek(0)  # The seek and truncate line wipes out everythin in the settings file.
             settings.truncate()
             json.dump(self.quotes, settings)        
-        results = open("currentInfo.json", "r+b").read()
-        # print results
+        with open("resultOrderBook.json", "r+b") as orderBook:
+            orderBook.seek(0)  # The seek and truncate line wipes out everythin in the orderBook file.
+            orderBook.truncate()
+            json.dump(self.orderbook, orderBook)        
+                
         try:
-            json_obj = json.loads(results)  # between above and here there might be errors in loading. 
             print "Printing postmordem info into graph..."
             import CurrentInfoChart
             CurrentInfoChart.main()
