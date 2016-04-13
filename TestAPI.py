@@ -46,5 +46,3 @@ except KeyboardInterrupt:
     pass
 except Exception as e:
     pass
-# print "Try actual level"
-# sf = gamemaster.StockFighter("dueling_bulldozers")
