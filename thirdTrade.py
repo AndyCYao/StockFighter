@@ -52,11 +52,11 @@ def identify_unfilled_orders(orderList, callback):
             x = orderList[y]
             if x["open"]:
                 if callback(x):
-                    print "\n\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
+                    print "\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
                     sf.delete_order(stock, x["id"])
 
 def should_cancel_unfilled(order):
-    """if this order is out of money, then cancel it"""
+    """if this order is out of money, then cancel it, or if elapsed for longer than 5 sec."""
     oBook = sf.get_order_book(stock)
     s_BestAsk = sf.read_orderbook(oBook, "asks", "price", 1)
     s_BestBid = sf.read_orderbook(oBook, "bids", "price", 1)

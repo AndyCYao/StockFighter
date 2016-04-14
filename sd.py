@@ -1,19 +1,5 @@
 # find SD
-import math
-
-ary = [29, 24, 24, 27, 21]
-
-
-def find_sd(lst):
-    """return the standard deviation of a list."""
-    if len(lst) < 1:
-        raise ValueError('mean requires at least one data point')
-    count = len(lst)
-    u = sum(lst) / count
-    y = 0
-    for x in lst:
-        y += (x - u) ** 2.0
-    return math.sqrt(y / (count - 1))
+import json
 
 def find_median(lst):
     if len(lst) % 2 == 1:
@@ -24,15 +10,54 @@ def find_median(lst):
 
 def find_iqr(lst):
     lst.sort()
-    print "min is %d" % (lst[0])
-    print "max is %d" % (lst[-1])
-    print "median is %d" % (find_median(lst))
+    # print "min is %d" % (lst[0])
+    # print "max is %d" % (lst[-1])
+    # print "median is %d" % (find_median(lst))
     q1 = find_median(lst[:len(lst) // 2])
     q3 = find_median(lst[len(lst) // 2:])
     iqr = q3 - q1
-    print iqr
-    return lst
+    return lst[0], lst[-1], iqr
 
-if __name__ == '__main__': 
-    # print find_sd(ary)
-    print(find_iqr(ary))
+def is_outlier(lst, number):
+    i_min, i_max, i_iqr = find_iqr(lst)
+    low_outlier = i_min - 3 * i_iqr
+    high_outlier = i_max + 3 * i_iqr
+    if number > high_outlier or number < low_outlier:
+        print "number %d is outlier min %d, max %d, iqr %d" % (number, i_min, i_max, i_iqr),  
+        return True
+    else:
+        print "number %d is within min %d, max %d, iqr %d" % (number, i_min, i_max, i_iqr),
+        return False
+
+if __name__ == '__main__':
+    quotes = []
+    file = json.loads(open("currentInfo.json").read())
+    for m in file:
+        if len(quotes) > 1:  # just comparing two quotes without quoteTime
+            this_m = {i: m[i] for i in m if i != 'quoteTime'}
+            last_m = {i: quotes[-1][i] for i in quotes[-1] if i != 'quoteTime'}
+            if not this_m == last_m:
+                quotes.append(m)
+        else:
+            quotes.append(m)    
+
+
+    """Checking if the quote stream can detect outliers"""
+    """
+    file = json.loads(open("currentInfo.json").read())
+    bid_stream = []
+    ask_stream = []
+    for x in file:        
+        outlier = False        
+        if len(bid_stream) > 20:
+            print(is_outlier(bid_stream, x['bidDepth']))
+        if not x['bidDepth'] == 0:
+            bid_stream.append(x["bidDepth"])
+        
+        if len(ask_stream) > 20:
+            outlier = is_outlier(ask_stream, x['askDepth'])
+            print("time %r" % (x['quoteTime']))
+
+        if x['askDepth'] > 0 and outlier is False:
+            ask_stream.append(x["askDepth"])
+    """
