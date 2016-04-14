@@ -204,9 +204,18 @@ class StockFighter:
 
     def quote_socket(self, m):
         """receives quotes from websocket, and put them in a data list of dictionary, then 
-        when game ends, push everything into draw graph.(using the make_graphs method)"""
+        when game ends, push everything into draw graph.(using the make_graphs method). note 
+        the socket sends LOTS of messages, even for any server side change unseen in the market,
+        such as cancelled orders or unfill FOK. so need to do a comparison check before appending
+        to the self.quote"""
         if m is not None:
-            self.quotes.append(m)
+            if len(self.quotes) > 1:  # just comparing two quotes without quoteTime
+                this_m = {i: m[i] for i in m if i != 'quoteTime'}
+                last_m = {i: self.quotes[-1][i] for i in self.quotes[-1] if i != 'quoteTime'}
+                if not this_m == last_m:
+                    self.quotes.append(m)
+            else:
+                self.quotes.append(m)
 
     def make_graphs(self):
         """using the dictionaries gathered in self.quotes to update the graphs"""
@@ -275,7 +284,6 @@ class StockFighter:
 
         url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/executions/stocks/%s' % (self.account, self.venues, self.tickers)
         self.SFSocket(url, wrapper)
-
 
     class SFSocket(WebSocketClient):
         # with template from jchristma/Stockfighter.
