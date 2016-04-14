@@ -185,7 +185,7 @@ class CheckFill:
         s_BestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
         price = order["price"]
 
-        # this is in ISO 8601 time. stripping the microseconds we are not that concern
+        # this is in ISO 8601 time. stripping the microseconds we are not concern
         ts = order["ts"].split(".")[0]
         o_time = datetime.datetime.strptime(ts, '%Y-%m-%dT%H:%M:%S')
         

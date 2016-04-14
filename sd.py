@@ -1,5 +1,7 @@
 # find SD
 import json
+# import datetime
+from dateutil import tz, parser
 
 def find_median(lst):
     if len(lst) % 2 == 1:
@@ -30,18 +32,14 @@ def is_outlier(lst, number):
         return False
 
 if __name__ == '__main__':
-    quotes = []
     file = json.loads(open("currentInfo.json").read())
+    HERE = tz.tzlocal()
     for m in file:
-        if len(quotes) > 1:  # just comparing two quotes without quoteTime
-            this_m = {i: m[i] for i in m if i != 'quoteTime'}
-            last_m = {i: quotes[-1][i] for i in quotes[-1] if i != 'quoteTime'}
-            if not this_m == last_m:
-                quotes.append(m)
-        else:
-            quotes.append(m)    
-
-
+        # before = datetime.datetime.strptime(m['quoteTime'], '%Y-%m-%dT%H:%M:%S')
+        before = parser.parse(m['quoteTime'])
+        after = before.astimezone(HERE)
+        print "Before %r \t After %r" % (before, after)
+        
     """Checking if the quote stream can detect outliers"""
     """
     file = json.loads(open("currentInfo.json").read())

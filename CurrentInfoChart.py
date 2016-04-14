@@ -3,6 +3,7 @@
 import gviz_api
 import json
 import datetime
+from dateutil import tz, parser
 
 page_template = """
 <html>
@@ -20,7 +21,7 @@ page_template = """
         for (var i = 0; i < jscode_data.getNumberOfColumns(); i++) {
             columns.push(i);
             if (i < 4) {
-                series[i - 1] = {targetAxisIndex:0};    //index 0 is the price axes
+                series[i - 1] = {targetAxisIndex:0, pointSize:5, lineWidth:0};    //index 0 is the price axes
             }
             else if(i <=5 ){
                 series[i - 1] = {targetAxisIndex:1, type:'bars'};    //index 1 is the depth axes
@@ -95,6 +96,7 @@ page_template = """
 def main():
     """Creating the data - based on this below
     https://developers.google.com/chart/interactive/docs/gallery/linechart#curving-the-lines
+    last and lastTime need to be handled differently
     """      
     description = {"quoteTime": ("string", "QuoteTime"), 
                    "bid": ("number", "Best Bid"),
@@ -103,7 +105,10 @@ def main():
                    "bidDepth": ("number", "Bid Depth"),
                    "askDepth": ("number", "Ask Depth")}
     data = []
+    prev_last_trade = None    
     file = json.loads(open("currentInfo.json").read())
+    local = tz.tzlocal()
+
     for x in file:
         if "bid" in x:
             bid = x["bid"]
@@ -113,10 +118,28 @@ def main():
             ask = x["ask"]
         else:
             ask = None
+        
+        utc_lastTrade = parser.parse(x['lastTrade'])
+        utc_quoteTime = parser.parse(x['quoteTime'])
+        local_lastTrade = utc_lastTrade.astimezone(local)
+        local_quoteTime = utc_quoteTime.astimezone(local)
 
-        file_dict = {"quoteTime": x["quoteTime"], "bid": bid, "last": x["last"], "ask": ask, 
-                     "bidDepth": x["bidDepth"], "askDepth": x['askDepth']}
-        data.append(file_dict)
+        if local_lastTrade == local_quoteTime:
+            file_dict = {"quoteTime": x["quoteTime"], "bid": bid, "last": x['last'], "ask": ask, 
+                         "bidDepth": x["bidDepth"], "askDepth": x['askDepth']}            
+            prev_last_trade = local_lastTrade
+        else:
+            if prev_last_trade == local_lastTrade:  # meaning no new trades
+                file_dict = {"quoteTime": local_quoteTime, "bid": bid, "last": None, "ask": ask, 
+                             "bidDepth": x["bidDepth"], "askDepth": x['askDepth']}
+            else:
+                #  file_dict = {"quoteTime": prev_last_trade, "bid": None, "last": x["last"], "ask": None, 
+                #             "bidDepth": None, "askDepth": None}
+                file_dict = {"quoteTime": local_quoteTime, "bid": bid, "last": x['last'], "ask": ask, 
+                             "bidDepth": x["bidDepth"], "askDepth": x['askDepth']}                               
+                prev_last_trade = local_lastTrade
+            
+        data.append(file_dict)            
 
     # need a list of dictionaries.
     # print data
