@@ -25,23 +25,14 @@ def is_outlier(lst, number):
     low_outlier = i_min - 3 * i_iqr
     high_outlier = i_max + 3 * i_iqr
     if number > high_outlier or number < low_outlier:
-        print "number %d is outlier min %d, max %d, iqr %d" % (number, i_min, i_max, i_iqr),  
+        # print "number %d is outlier min %d, max %d, iqr %d" % (number, i_min, i_max, i_iqr),  
         return True
     else:
-        print "number %d is within min %d, max %d, iqr %d" % (number, i_min, i_max, i_iqr),
+        # print "number %d is within min %d, max %d, iqr %d" % (number, i_min, i_max, i_iqr),
         return False
 
 if __name__ == '__main__':
-    file = json.loads(open("currentInfo.json").read())
-    HERE = tz.tzlocal()
-    for m in file:
-        # before = datetime.datetime.strptime(m['quoteTime'], '%Y-%m-%dT%H:%M:%S')
-        before = parser.parse(m['quoteTime'])
-        after = before.astimezone(HERE)
-        print "Before %r \t After %r" % (before, after)
-        
     """Checking if the quote stream can detect outliers"""
-    """
     file = json.loads(open("currentInfo.json").read())
     bid_stream = []
     ask_stream = []
@@ -54,8 +45,7 @@ if __name__ == '__main__':
         
         if len(ask_stream) > 20:
             outlier = is_outlier(ask_stream, x['askDepth'])
-            print("time %r" % (x['quoteTime']))
+            # print("time %r" % (x['quoteTime']))
 
         if x['askDepth'] > 0 and outlier is False:
             ask_stream.append(x["askDepth"])
-    """

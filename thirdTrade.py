@@ -1,7 +1,7 @@
 import gamemaster
 import time
 import datetime
-import json
+
 """
 Feb 25th 2016 Third Trade sell_side. Here is the approach currently.
 1.) script reads the most favorable quotes in the read_orderbook retrieve
@@ -30,21 +30,27 @@ ma_20 = 0
 nav = 0
 
 
-def buy_condition(tSpread, tExpectedPosition):
-    """to be tailored for each level."""
-    if tSpread > 0.005 and tExpectedPosition <= 0:
-        return True
+def buy_condition(tExpectedPosition, positionSoFar, tBestBid, tMA):
+    """to be tailored for each level.
+        will buy if the price is not above MA20 price.
+    """
+    if tBestBid != 0:
+        if tExpectedPosition <= 0 and positionSoFar < 500 and tBestBid < tMA:
+            return True
     return False
 
-
-def sell_condition(tSpread, tExpectedPosition):
-    """to be tailored for each level."""
-    if tSpread > 0.005 and tExpectedPosition >= 0:
-        return True
+def sell_condition(tExpectedPosition, positionSoFar, tBestAsk, tMA):
+    """to be tailored for each level.
+        will sell if the price is not below MA20 price.
+    """
+    if tBestAsk != 0:
+        if tExpectedPosition >= 0 and positionSoFar > -500 and tBestAsk > tMA:
+            return True
     return False
+
 
 def identify_unfilled_orders(orderList, callback):
-        """check through orderIDlist, and return a list of
+        """check through orderIDlist, and return a list of.
         orders that is not gonna be filled at the moment because
         the price is out the money.
         """
@@ -54,6 +60,7 @@ def identify_unfilled_orders(orderList, callback):
                 if callback(x):
                     print "\tCancelling %s %s units at %s ID %s \n" % (x["direction"], x["qty"], x["price"], x["id"])
                     sf.delete_order(stock, x["id"])
+
 
 def should_cancel_unfilled(order):
     """if this order is out of money, then cancel it, or if elapsed for longer than 5 sec."""
@@ -68,7 +75,7 @@ def should_cancel_unfilled(order):
     
     timeDiff = datetime.datetime.utcnow() - o_time
     
-    if timeDiff < datetime.timedelta(seconds=5):
+    if timeDiff < datetime.timedelta(seconds=3):
         if order["direction"] == "buy":
             diff = (s_BestBid - price) / price
             if diff < -.1:
@@ -87,8 +94,7 @@ try:
         if abs(sf.positionSoFar) > 1000:
             break
 
-        orderIDList = sf.status_for_all_orders_in_stock(stock)
-        # sf.positionSoFar, sf.cash, sf.expectedPosition = sf.update_open_orders(orderIDList.json())
+        orderIDList = sf.status_for_all_orders_in_stock(stock)        
         oBook = sf.get_order_book(stock)
 
         BestAsk = sf.read_orderbook(oBook, "asks", "price", 1)
@@ -109,28 +115,27 @@ try:
         if len(ma_20_list) > 20:  # if theres stuff in ma_20_list
             ma_20_list.pop(0)
         ma_20_list.append(sf.get_quote(stock).get("last"))
-        curr_count = len(ma_20_list)
-        for x in ma_20_list:
-            # print x,
-            ma_20 += x + 0.0
-        ma_20 = int(ma_20 / curr_count)
+        ma_20 = sum(ma_20_list) / len(ma_20_list)
      
         nav = sf.cash + sf.positionSoFar * sf.get_quote(stock).get("last") * (.01)
         print "T%d, Best Ask %r , Best Bid %r, average %r" % \
             ((end - start), BestAsk, BestBid, ma_20)
+        print "----\napproximate Pos. %d, Expected Pos. %d, NAV %s" % \
+            (sf.positionSoFar, sf.expectedPosition, nav)
 
-        if buy_condition(Spread, sf.expectedPosition):
-            buyOrder = sf.make_order(BestBid, q_bid, stock, "buy", "limit")
+        if buy_condition(sf.expectedPosition, sf.positionSoFar, BestBid, ma_20):
+            buyOrder = sf.make_order(BestBid, q_ask, stock, "buy", "limit")
             buyPrice = buyOrder.get('price')
             buyID = buyOrder.get('id')
-            print "\tplaced buy ord. - %d units at %d ID %d" % (q_bid, buyPrice, buyID)
+            buyQty = buyOrder.get('qty')
+            print "\tplaced buy ord. - %d units at %d ID %d" % (buyQty, buyPrice, buyID)
         
-        if sell_condition(Spread, sf.expectedPosition):
-            sellOrder = sf.make_order(int(BestAsk * premium), q_ask, stock, "sell", "limit")
+        if sell_condition(sf.expectedPosition, sf.positionSoFar, BestAsk, ma_20):
+            sellOrder = sf.make_order(int(BestAsk * premium), q_bid, stock, "sell", "limit")
             sellPrice = sellOrder.get('price')
             sellID = sellOrder.get('id')
-        
-            print "\tplaced sold ord. - %d units at %d ID %d" % (q_ask, sellPrice, sellID)
+            sellQty = sellOrder.get('qty')
+            print "\tplaced sold ord. - %d units at %d ID %d" % (sellQty, sellPrice, sellID)
 
         end = time.time()
         orderIDList = sf.status_for_all_orders_in_stock(stock)
