@@ -27,7 +27,6 @@ class GameMaster:
         header = {'X-Starfighter-Authorization': self.get_api_key()}
         full_url = "%s/instances/%s/restart" % (self.gm_url, instanceID)
         response = requests.post(full_url, headers=header)
-        print "****In restart_level****"
         # print response.json()
         return response
 
@@ -191,6 +190,10 @@ class StockFighter:
             # self.expectedPosition += qty
             # -.01 because we are getting the correct unit
             self.cash += filled * price * (-.01)
+            
+            last = self.get_quote(self.tickers).get("last")
+            if last is None:
+                last = 0
             nav = self.cash + self.positionSoFar * self.get_quote(self.tickers).get("last") * (.01)
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             
@@ -211,8 +214,8 @@ class StockFighter:
         if m is not None:
             if len(self.quotes) > 1:  # just comparing two quotes without quoteTime
                 this_m = {i: m[i] for i in m if i != 'quoteTime'}
-                last_m = {i: self.quotes[-1][i] for i in self.quotes[-1] if i != 'quoteTime'}
-                if not this_m == last_m:
+                last_m = {i: self.quotes[-1][i] for i in self.quotes[-1] if i != 'quoteTime'}                
+                if not this_m == last_m:                    
                     self.quotes.append(m)
             else:
                 self.quotes.append(m)
