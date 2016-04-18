@@ -1,21 +1,13 @@
 import gamemaster
 import gamemaster
+import gamemaster
 import time
 import datetime
 
 """
-Feb 25th 2016 Third Trade sell_side. Here is the approach currently.
-1.) script reads the most favorable quotes in the read_orderbook retrieve
-    their bid / ask / qty.
-2.) since the max long / short position is 1000, i cant make too risky trades.
-    so if the qty is > 100
-    i should just cap it at 100
-3.) Apply a mark up on the sell side to capture the premium
-4.) reguarly check the position using update_open_orders
-5.) Net Asset Value is the unrealized gain or loss of asset in hand
-    based on the diff. of current quote - purchased price
-Feb 29th 2016 -
-1.) add a way to check how many position pending ontop of the total filled.
+Since buying stock is difficult (much higher bid depth than ask depth). The strategy will be as below:
+1.) buy with favorable price .
+2.) sell with as much premium as possible. 
 """
 
 
@@ -33,10 +25,9 @@ nav = 0
 
 def buy_condition(tExpectedPosition, positionSoFar, tBestBid, tMA):
     """to be tailored for each level.
-        will buy if the price is not above MA20 price.
     """
     if tBestBid != 0:
-        if tExpectedPosition <= 0 and positionSoFar < 500 and tBestBid < tMA:
+        if tExpectedPosition <= 0 and positionSoFar < 500:
             return True
     return False
 
@@ -76,18 +67,10 @@ def should_cancel_unfilled(order):
     
     timeDiff = datetime.datetime.utcnow() - o_time
     
-    if timeDiff < datetime.timedelta(seconds=3):
-        if order["direction"] == "buy":
-            diff = (s_BestBid - price) / price
-            if diff < -.1:
-                return True
-        else:
-            diff = (s_BestAsk - price) / price
-            if diff > .1:
-                return True
-    else:
+    if timeDiff > datetime.timedelta(seconds=5):
         return True
-    return False
+    else:
+        return False
 
 
 try:
@@ -102,14 +85,6 @@ try:
         BestBid = sf.read_orderbook(oBook, "bids", "price", 1)
         q_bid = min(sf.read_orderbook(oBook, "bids", "qty", 1), 250)  # min of 250 because we only have 1000 on either side of pos to work with.
         q_ask = min(sf.read_orderbook(oBook, "asks", "qty", 1), 250)
-        Difference = BestAsk - BestBid
-        try:
-            if BestBid > 0:
-                Spread = "{0:%}".format(Difference / (BestAsk + 0.0))
-            else:
-                Spread = 0
-        except ZeroDivisionError:
-            Spread = 0
 
         end = time.time()
      
@@ -125,18 +100,20 @@ try:
             (sf.positionSoFar, sf.expectedPosition, nav)
 
         if buy_condition(sf.expectedPosition, sf.positionSoFar, BestBid, ma_20):
-            buyOrder = sf.make_order(BestBid, q_ask, stock, "buy", "limit")
-            buyPrice = buyOrder.get('price')
-            buyID = buyOrder.get('id')
-            buyQty = buyOrder.get('qty')
-            print "\tplaced buy ord. - %d units at %d ID %d" % (buyQty, buyPrice, buyID)
+            if q_ask > 0:
+                buyOrder = sf.make_order(int(BestBid * premium), q_ask, stock, "buy", "limit")
+                buyPrice = buyOrder.get('price')
+                buyID = buyOrder.get('id')
+                buyQty = buyOrder.get('qty')
+                print "\tplaced buy ord. - %r units at %r ID %r" % (buyQty, buyPrice, buyID)
         
         if sell_condition(sf.expectedPosition, sf.positionSoFar, BestAsk, ma_20):
-            sellOrder = sf.make_order(int(BestAsk * premium), q_bid, stock, "sell", "limit")
-            sellPrice = sellOrder.get('price')
-            sellID = sellOrder.get('id')
-            sellQty = sellOrder.get('qty')
-            print "\tplaced sold ord. - %d units at %d ID %d" % (sellQty, sellPrice, sellID)
+            if q_bid > 0:
+                sellOrder = sf.make_order(int(BestAsk * premium), q_bid, stock, "sell", "limit")
+                sellPrice = sellOrder.get('price')
+                sellID = sellOrder.get('id')
+                sellQty = sellOrder.get('qty')
+                print "\tplaced sold ord. - %r units at %r ID %r" % (sellQty, sellPrice, sellID)
 
         end = time.time()
         orderIDList = sf.status_for_all_orders_in_stock(stock)

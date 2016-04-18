@@ -194,7 +194,7 @@ class StockFighter:
             last = self.get_quote(self.tickers).get("last")
             if last is None:
                 last = 0
-            nav = self.cash + self.positionSoFar * self.get_quote(self.tickers).get("last") * (.01)
+            nav = self.cash + self.positionSoFar * last * (.01)
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             
             print "\tWS -current pos is %d,cash $%d,nav %s" % (self.positionSoFar,
