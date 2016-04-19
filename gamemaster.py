@@ -137,12 +137,9 @@ class StockFighter:
         full_url = "%s/venues/%s/accounts/%s/stocks/%s/orders" % (self.base_url, self.venues, self.account, s)
         response = requests.get(full_url, headers=self.header)
         orderListJson = response.json()
-        # print orderListJson
  
         for x in orderListJson["orders"]:
             tOrders[x["id"]] = x
-            # y = orderListJson[x]["id"]
-            # print "%r\n" % (y)
         return tOrders
  
     def update_open_orders(self, orders):
@@ -230,6 +227,11 @@ class StockFighter:
             orderBook.seek(0)  # The seek and truncate line wipes out everythin in the orderBook file.
             orderBook.truncate()
             json.dump(self.orderbook, orderBook)        
+        with open("resultOrders.json", "r+b") as orders:
+            orders.seek(0)  # The seek and truncate line wipes out everythin in the orders file.
+            orders.truncate()
+            oBook = self.status_for_all_orders_in_stock(self.tickers)
+            json.dump(oBook, orders)       
                 
         try:
             print "Printing postmordem info into graph..."

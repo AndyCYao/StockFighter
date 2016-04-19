@@ -61,34 +61,16 @@ class BuySell:
         """to be tailored for each level.
             will buy if the price is not above MA20 price.
         """
-        if tBestBid != 0:
-            if tExpectedPosition <= 0 and positionSoFar < 500 and tBestBid < tMA:
-                return True
-        return False
+        if tBestBid > 0 and tExpectedPosition <= 0 and positionSoFar < 500 and tBestBid < tMA:
+            return True
 
     def sell_condition(self, tExpectedPosition, positionSoFar, tBestAsk, tMA):
         """to be tailored for each level.
             will sell if the price is not below MA20 price.
         """
-        if tBestAsk != 0:
-            if tExpectedPosition >= 0 and positionSoFar > -500 and tBestAsk > tMA:
-                return True
-
-    def fluff_orders(self, positionSoFar, tBestAsk, tBestBid, stock):
-        """ if have extreme position in long or short, i will make fill or kill orders to make my orders attractive.
-        ex. if long 500, i will make high bid orders and vice versa. 
-        """
-       
-        if positionSoFar < -500:
-            Order = sf.make_order(int(tBestAsk * 1.3), 700, stock, "sell", "fill-or-kill")
-        elif positionSoFar < 500:
-            return
-        elif positionSoFar < 1000:
-            Order = sf.make_order(int(tBestBid * .7), 700, stock, "buy", "fill-or-kill")
-        
-        print "\n\tFLUFF placed %s ord. %d units at %d ID %d" % (Order.get('direction'), 1000, Order.get('price'),
-                                                                 Order.get('id'))
-      
+        if tBestAsk > 0 and tExpectedPosition >= 0 and positionSoFar > -500 and tBestAsk > tMA:
+            return True
+     
     def run(self):
         ma_20_list = []         # moving average 20 lets the script know current trend.
         ma_20 = 0
@@ -150,13 +132,11 @@ class BuySell:
                         
                         q_actual -= q_increment
 
-                # self.fluff_orders(positionSoFar, bestAsk, bestBid, stock)
-
-            print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)
+            print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)            
+            gameOn = False
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving buy sell"
             gameOn = False
-
 
 class CheckFill:
     

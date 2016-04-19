@@ -31,20 +31,19 @@ ma_20 = 0
 nav = 0
 
 
-def buy_condition(tExpectedPosition, positionSoFar, tBestBid, tMA):
+def buy_condition(tExpectedPosition, positionSoFar, tBestBid, q_size):
     """to be tailored for each level.
-        will buy if the price is not above MA20 price.
     """
-    if tBestBid != 0:
-        if tExpectedPosition <= 0 and positionSoFar < 500 and tBestBid < tMA:
+    if tBestBid > 0 and q_size > 0:
+        if tExpectedPosition <= 0 and positionSoFar < 500:
             return True
     return False
 
-def sell_condition(tExpectedPosition, positionSoFar, tBestAsk, tMA):
+def sell_condition(tExpectedPosition, positionSoFar, tBestAsk, tMA, q_size):
     """to be tailored for each level.
         will sell if the price is not below MA20 price.
     """
-    if tBestAsk != 0:
+    if tBestAsk > 0 and q_size > 0:
         if tExpectedPosition >= 0 and positionSoFar > -500 and tBestAsk > tMA:
             return True
     return False
@@ -76,18 +75,10 @@ def should_cancel_unfilled(order):
     
     timeDiff = datetime.datetime.utcnow() - o_time
     
-    if timeDiff < datetime.timedelta(seconds=3):
-        if order["direction"] == "buy":
-            diff = (s_BestBid - price) / price
-            if diff < -.1:
-                return True
-        else:
-            diff = (s_BestAsk - price) / price
-            if diff > .1:
-                return True
-    else:
+    if timeDiff > datetime.timedelta(seconds=5):
         return True
-    return False
+    else:
+        return False
 
 
 try:
@@ -102,14 +93,6 @@ try:
         BestBid = sf.read_orderbook(oBook, "bids", "price", 1)
         q_bid = min(sf.read_orderbook(oBook, "bids", "qty", 1), 250)  # min of 250 because we only have 1000 on either side of pos to work with.
         q_ask = min(sf.read_orderbook(oBook, "asks", "qty", 1), 250)
-        Difference = BestAsk - BestBid
-        try:
-            if BestBid > 0:
-                Spread = "{0:%}".format(Difference / (BestAsk + 0.0))
-            else:
-                Spread = 0
-        except ZeroDivisionError:
-            Spread = 0
 
         end = time.time()
      
@@ -124,19 +107,19 @@ try:
         print "----\napproximate Pos. %d, Expected Pos. %d, NAV %s" % \
             (sf.positionSoFar, sf.expectedPosition, nav)
 
-        if buy_condition(sf.expectedPosition, sf.positionSoFar, BestBid, ma_20):
-            buyOrder = sf.make_order(BestBid, q_ask, stock, "buy", "limit")
+        if buy_condition(sf.expectedPosition, sf.positionSoFar, BestBid, q_ask):            
+            buyOrder = sf.make_order(int(BestBid * premium), q_ask, stock, "buy", "limit")
             buyPrice = buyOrder.get('price')
             buyID = buyOrder.get('id')
             buyQty = buyOrder.get('qty')
-            print "\tplaced buy ord. - %d units at %d ID %d" % (buyQty, buyPrice, buyID)
+            print "\tplaced buy ord. - %r units at %r ID %r" % (buyQty, buyPrice, buyID)
         
-        if sell_condition(sf.expectedPosition, sf.positionSoFar, BestAsk, ma_20):
+        if sell_condition(sf.expectedPosition, sf.positionSoFar, BestAsk, ma_20, q_bid):            
             sellOrder = sf.make_order(int(BestAsk * premium), q_bid, stock, "sell", "limit")
             sellPrice = sellOrder.get('price')
             sellID = sellOrder.get('id')
             sellQty = sellOrder.get('qty')
-            print "\tplaced sold ord. - %d units at %d ID %d" % (sellQty, sellPrice, sellID)
+            print "\tplaced sold ord. - %r units at %r ID %r" % (sellQty, sellPrice, sellID)
 
         end = time.time()
         orderIDList = sf.status_for_all_orders_in_stock(stock)
