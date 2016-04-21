@@ -112,12 +112,15 @@ class BuySell:
                     worstBid = int(bestBid * (1 - worstCase))
                     q_increment = int(q_bid * gapPercent)
                     q_actual = q_bid
+                    # set first trade as limit order, then the rest to immediate or cancel
+                    orderType = "limit"
                     for actualBid in range(bestBid, worstBid, increment):
-                        buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", "limit")                        
+                        buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", orderType)                        
                         print "\n\tBBBBB placed buy ord. +%d units at %d ID %d" % (q_bid, buyOrder.get('price'),
                                                                                    buyOrder.get('id'))
                         
                         q_actual -= q_increment
+                        orderType = "immediate-or-cancel"
 
                 if self.sell_condition(expectedPosition, positionSoFar, bestAsk, ma_20):
                     # loop through the gapPercent and make multiple asks.
@@ -125,12 +128,14 @@ class BuySell:
                     worstAsk = int(bestAsk * (1 + worstCase))
                     q_increment = int(q_ask * gapPercent)
                     q_actual = q_ask
+                    orderType = "limit"
                     for actualAsk in range(bestAsk, worstAsk, increment):
                         sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", "limit")                        
                         print "\n\tSSSSS placed sell ord. -%d units at %d ID %d" % (q_ask, sellOrder.get('price'),
                                                                                     sellOrder.get('id'))
                         
                         q_actual -= q_increment
+                        orderType = "immediate-or-cancel"
 
             print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)            
             gameOn = False

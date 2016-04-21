@@ -28,6 +28,7 @@ print "\nTrying get orderbook...",
 oBook = sf.get_order_book(sf.tickers)
 print str(oBook.json())[0:80]
 
+"""
 print "\nUsing the read_orderbook to find the best price... Best Bid %r and Best Ask %r" % (sf.read_orderbook(oBook, "bids", "price", 1), 
                                                                                             sf.read_orderbook(oBook, "asks", "price", 1))
 
@@ -35,11 +36,16 @@ print "\nGet last quote...",
 print sf.get_quote(sf.tickers)
 
 print "\nSee all the open orders...",
+"""
 orderList = sf.status_for_all_orders_in_stock(sf.tickers)
-print str(orderList)[0:80]
 
 print "\nLoop through the list and check current current positions, cash, and expected positions...",
 print sf.update_open_orders(orderList)
+
+nav = sf.cash + sf.positionSoFar * sf.get_quote(sf.tickers).get("last") * (.01)
+print "----\napproximate Pos. %d, Expected Pos. %d, NAV %s" % \
+    (sf.positionSoFar, sf.expectedPosition, nav)
+
 print "Ok.. printing graphs."
 sf.make_graphs()
 print "Waiting for ctrl+c..."

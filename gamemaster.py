@@ -139,7 +139,7 @@ class StockFighter:
         orderListJson = response.json()
  
         for x in orderListJson["orders"]:
-            tOrders[x["id"]] = x
+            tOrders[int(x["id"])] = x
         return tOrders
  
     def update_open_orders(self, orders):

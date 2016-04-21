@@ -100,12 +100,14 @@ try:
             ma_20_list.pop(0)
         ma_20_list.append(sf.get_quote(stock).get("last"))
         ma_20 = sum(ma_20_list) / len(ma_20_list)
-     
+        
+        positionSoFar, cash, expectedPosition = sf.update_open_orders(orderIDList)
+        
         nav = sf.cash + sf.positionSoFar * sf.get_quote(stock).get("last") * (.01)
         print "T%d, Best Ask %r , Best Bid %r, average %r" % \
             ((end - start), BestAsk, BestBid, ma_20)
         print "----\napproximate Pos. %d, Expected Pos. %d, NAV %s" % \
-            (sf.positionSoFar, sf.expectedPosition, nav)
+            (sf.positionSoFar, expectedPosition, nav)
 
         if buy_condition(sf.expectedPosition, sf.positionSoFar, BestBid, q_ask):            
             buyOrder = sf.make_order(int(BestBid * premium), q_ask, stock, "buy", "limit")

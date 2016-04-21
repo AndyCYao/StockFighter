@@ -21,8 +21,8 @@ def find_iqr(lst):
 
 def is_outlier(lst, number):
     i_min, i_max, i_iqr = find_iqr(lst)
-    low_outlier = i_min - 3 * i_iqr
-    high_outlier = i_max + 3 * i_iqr
+    low_outlier = i_min - 1.5 * i_iqr
+    high_outlier = i_max + 1.5 * i_iqr
     if number > high_outlier or number < low_outlier:
         print "\tOUTLIER %d is outlier min %d, max %d, iqr %d" % (number, i_min, i_max, i_iqr),  
         return True
@@ -40,13 +40,15 @@ if __name__ == '__main__':
         bid_outlier = False       
 
         if len(bid_stream) > 20:
-            print(is_outlier(bid_stream, x['bidDepth']))
+            bid_outlier = is_outlier(bid_stream, x['bidDepth'])
+            print bid_outlier
         if x['bidDepth'] > 0 and bid_outlier is False:
             bid_stream.append(x["bidDepth"])
-
+        """
         if len(ask_stream) > 20:
             ask_outlier = is_outlier(ask_stream, x['askDepth'])
             print("time %r" % (x['quoteTime']))
 
         if x['askDepth'] > 0 and ask_outlier is False:
             ask_stream.append(x["askDepth"])
+        """
