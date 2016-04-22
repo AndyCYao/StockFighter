@@ -49,6 +49,7 @@ print "----\napproximate Pos. %d, Expected Pos. %d, NAV %s" % \
 print "Ok.. printing graphs."
 sf.make_graphs()
 print "Waiting for ctrl+c..."
+
 try:
     while 1:
         time.sleep(1)

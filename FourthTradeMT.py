@@ -40,8 +40,11 @@ class CurrentStatus:
             time.sleep(3)    # slow things down a bit, because we are querying the same information.
             orders = self.sf.status_for_all_orders_in_stock(stock)
             positionSoFar, cash, expectedPosition = self.sf.update_open_orders(orders)
-
-            nav = cash + positionSoFar * self.sf.get_quote(stock).get("last") * (.01)
+            
+            last = sf.get_quote(stock).get("last")
+            if last is None:
+                last = 0
+            nav = cash + positionSoFar * last * (.01)
             status_queue.put([cash, expectedPosition, nav, tempI])
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             print "----\nT%d approximate Pos. %d, Expected Pos. %d, NAV %s" % \
@@ -116,8 +119,8 @@ class BuySell:
                     orderType = "limit"
                     for actualBid in range(bestBid, worstBid, increment):
                         buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", orderType)                        
-                        print "\n\tBBBBB placed buy ord. +%d units at %d ID %d" % (q_bid, buyOrder.get('price'),
-                                                                                   buyOrder.get('id'))
+                        print "\n\tBBBBB placed  buy ord. +%d units at %d ID %d %r" % (q_bid, buyOrder.get('price'),
+                                                                                       buyOrder.get('id'), orderType)
                         
                         q_actual -= q_increment
                         orderType = "immediate-or-cancel"
@@ -130,14 +133,14 @@ class BuySell:
                     q_actual = q_ask
                     orderType = "limit"
                     for actualAsk in range(bestAsk, worstAsk, increment):
-                        sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", "limit")                        
-                        print "\n\tSSSSS placed sell ord. -%d units at %d ID %d" % (q_ask, sellOrder.get('price'),
-                                                                                    sellOrder.get('id'))
+                        sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", orderType)                        
+                        print "\n\tSSSSS placed  sell ord. -%d units at %d ID %d %r" % (q_ask, sellOrder.get('price'),
+                                                                                        sellOrder.get('id'), orderType)
                         
                         q_actual -= q_increment
                         orderType = "immediate-or-cancel"
 
-            print "BuySell Closed, final values Nav - %d Positions - %d" % (nav, positionSoFar)            
+            print "BuySell Closed, final values Nav. %d Positions. %d" % (nav, positionSoFar)            
             gameOn = False
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving buy sell"
@@ -164,7 +167,7 @@ class CheckFill:
                     self.sf.delete_order(self.stock, x["id"])
 
     def should_cancel_unfilled(self, order):
-        """if this order is out of money, then cancel it"""
+        """if this order is out of money, or outstanding too long then cancel it"""
         oBook = self.sf.get_order_book(self.stock)
         s_BestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
         s_BestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
@@ -193,7 +196,7 @@ class CheckFill:
         global gameOn
         try:
             while gameOn:
-                time.sleep(3)
+                time.sleep(1)
                 orders = self.sf.status_for_all_orders_in_stock(self.stock)
                 self.identify_unfilled_orders(orders, self.should_cancel_unfilled)
         except KeyboardInterrupt:
@@ -222,6 +225,8 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
     finally:
-        sf.make_graphs()
+        printGraph = raw_input("Would you like to chart this level? y/n ")
+        if printGraph.upper() == 'Y':
+            sf.make_graphs()
 
        
