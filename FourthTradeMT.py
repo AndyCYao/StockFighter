@@ -64,21 +64,21 @@ class BuySell:
         """to be tailored for each level.
             will buy if the price is not above MA20 price.
         """
-        if tBestBid > 0 and tExpectedPosition <= 0 and positionSoFar < 500 and tBestBid < tMA:
+        if tBestBid > 0 and tExpectedPosition <= 500 and positionSoFar <= 500 and tBestBid < tMA:
             return True
 
     def sell_condition(self, tExpectedPosition, positionSoFar, tBestAsk, tMA):
         """to be tailored for each level.
             will sell if the price is not below MA20 price.
         """
-        if tBestAsk > 0 and tExpectedPosition >= 0 and positionSoFar > -500 and tBestAsk > tMA:
+        if tBestAsk > 0 and tExpectedPosition >= -500 and positionSoFar >= -500 and tBestAsk > tMA:
             return True
      
     def run(self):
         ma_20_list = []         # moving average 20 lets the script know current trend.
         ma_20 = 0
-        gapPercent = .01        # how much different in % each order will be
-        worstCase = .03         # how much different the best offer and worst offer will be
+        gapPercent = .02        # how much different in % each order will be
+        worstCase = .04         # how much different the best offer and worst offer will be
         stock = self.sf.tickers
         global status_queue
         global gameOn
@@ -110,34 +110,35 @@ class BuySell:
                 # print "temp %d" % (tempII)
 
                 if self.buy_condition(expectedPosition, positionSoFar, bestBid, ma_20):
-                    # loop through the gapPercent and make multiple bids.
+                    # loop through make multiple bids.
                     increment = int(bestBid * gapPercent * -1)
                     worstBid = int(bestBid * (1 - worstCase))
-                    q_increment = int(q_bid * gapPercent)
-                    q_actual = q_bid
-                    # set first trade as limit order, then the rest to immediate or cancel
+                    q_max = 1000 - expectedPosition  # this is the max amount i can bid without game over.
+                    q_actual = int(abs(q_max * .5))
                     orderType = "limit"
+                    actualBid = bestBid
+
                     for actualBid in range(bestBid, worstBid, increment):
                         buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", orderType)                        
-                        print "\n\tBBBBB placed  buy ord. +%d units at %d ID %d %r" % (q_bid, buyOrder.get('price'),
+                        print "\n\tBBBBB placed  buy ord. +%d units at %d ID %r %r" % (q_actual, buyOrder.get('price'),
                                                                                        buyOrder.get('id'), orderType)
-                        
-                        q_actual -= q_increment
+                        q_actual = int(abs(q_max * .25))
                         orderType = "immediate-or-cancel"
 
                 if self.sell_condition(expectedPosition, positionSoFar, bestAsk, ma_20):
-                    # loop through the gapPercent and make multiple asks.
+                    # loop through make multiple asks.
                     increment = int(bestAsk * gapPercent)
                     worstAsk = int(bestAsk * (1 + worstCase))
-                    q_increment = int(q_ask * gapPercent)
-                    q_actual = q_ask
+                    q_max = -1000 - expectedPosition  # this is the max amount i can bid without game over.
+                    q_actual = int(abs(q_max * .5))
                     orderType = "limit"
+                    actualAsk = bestAsk
                     for actualAsk in range(bestAsk, worstAsk, increment):
+                        # print "actual ask %r and q_actual %r" %(actualAsk, q_actual)
                         sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", orderType)                        
-                        print "\n\tSSSSS placed  sell ord. -%d units at %d ID %d %r" % (q_ask, sellOrder.get('price'),
+                        print "\n\tSSSSS placed  sell ord. -%d units at %d ID %r %r" % (q_actual, sellOrder.get('price'),
                                                                                         sellOrder.get('id'), orderType)
-                        
-                        q_actual -= q_increment
+                        q_actual = int(abs(q_max * .25))
                         orderType = "immediate-or-cancel"
 
             print "BuySell Closed, final values Nav. %d Positions. %d" % (nav, positionSoFar)            
