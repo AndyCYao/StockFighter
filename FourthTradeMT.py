@@ -41,7 +41,7 @@ class CurrentStatus:
             orders = self.sf.status_for_all_orders_in_stock(stock)
             positionSoFar, cash, expectedPosition = self.sf.update_open_orders(orders)
             
-            last = sf.get_quote(stock).get("last")
+            last = self.sf.get_quote(stock).get("last")
             if last is None:
                 last = 0
             nav = cash + positionSoFar * last * (.01)
@@ -97,7 +97,7 @@ class BuySell:
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
                 q_bid = min(self.sf.read_orderbook(oBook, "bids", "qty", 1), 100)
                 q_ask = min(self.sf.read_orderbook(oBook, "asks", "qty", 1), 100)
-                
+                discount = .02
                 if len(ma_20_list) > 20:  # Moving average 20 ticks
                     ma_20_list.pop(0)
                 
@@ -113,29 +113,37 @@ class BuySell:
                     # loop through make multiple bids.
                     increment = int(bestBid * gapPercent * -1)
                     worstBid = int(bestBid * (1 - worstCase))
-                    q_max = 1000 - expectedPosition  # this is the max amount i can bid without game over.
+                    q_max = 1000 - max(expectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
                     q_actual = int(abs(q_max * .5))
+                    # orderType = "limit"
                     orderType = "limit"
                     actualBid = bestBid
 
                     for actualBid in range(bestBid, worstBid, increment):
-                        buyOrder = sf.make_order(actualBid, q_actual, stock, "buy", orderType)                        
+                        buyOrder = sf.make_order(int(actualBid * (1 + discount)), q_actual, stock, "buy", orderType)                        
                         print "\n\tBBBBB placed  buy ord. +%d units at %d ID %r %r" % (q_actual, buyOrder.get('price'),
                                                                                        buyOrder.get('id'), orderType)
                         q_actual = int(abs(q_max * .25))
                         orderType = "immediate-or-cancel"
+                        expectedPosition += q_actual
+                """Bug. after we make a series of buy orders. our expectedPosition should change appropriately.
+                but right now it's not. there should be a line here that updates the expectedsofar variable
+                locally before moving on to the sell condition.
+                """
 
+                positionSoFar = sf.positionSoFar
                 if self.sell_condition(expectedPosition, positionSoFar, bestAsk, ma_20):
                     # loop through make multiple asks.
                     increment = int(bestAsk * gapPercent)
                     worstAsk = int(bestAsk * (1 + worstCase))
-                    q_max = -1000 - expectedPosition  # this is the max amount i can bid without game over.
+                    q_max = -1000 - min(expectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
                     q_actual = int(abs(q_max * .5))
+                    # orderType = "limit"
                     orderType = "limit"
                     actualAsk = bestAsk
                     for actualAsk in range(bestAsk, worstAsk, increment):
                         # print "actual ask %r and q_actual %r" %(actualAsk, q_actual)
-                        sellOrder = sf.make_order(actualAsk, q_actual, stock, "sell", orderType)                        
+                        sellOrder = sf.make_order(int(actualAsk * (1 - discount)), q_actual, stock, "sell", orderType)                        
                         print "\n\tSSSSS placed  sell ord. -%d units at %d ID %r %r" % (q_actual, sellOrder.get('price'),
                                                                                         sellOrder.get('id'), orderType)
                         q_actual = int(abs(q_max * .25))
@@ -168,7 +176,9 @@ class CheckFill:
                     self.sf.delete_order(self.stock, x["id"])
 
     def should_cancel_unfilled(self, order):
-        """if this order is out of money, or outstanding too long then cancel it"""
+        """if this order is out of money, or outstanding too long then cancel it. but only if
+        cancelling the order doesn't drive the expectedPosition out of the allowable range.
+        """
         oBook = self.sf.get_order_book(self.stock)
         s_BestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
         s_BestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
@@ -183,11 +193,11 @@ class CheckFill:
         if timeDiff < datetime.timedelta(seconds=self.timeToWait):
             if order["direction"] == "buy":
                 diff = (s_BestBid - price) / price
-                if diff < -.1:
+                if diff < -.03 and sf.expectedPosition - order['qty'] < 1000:
                     return True
             else:
                 diff = (s_BestAsk - price) / price
-                if diff > .1:
+                if diff > .03 and sf.expectedPosition - (order['qty'] * -1) > -1000:
                     return True
         else:
             return True
