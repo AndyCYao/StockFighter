@@ -113,7 +113,7 @@ class BuySell:
                     # loop through make multiple bids.
                     increment = int(bestBid * gapPercent * -1)
                     worstBid = int(bestBid * (1 - worstCase))
-                    q_max = 1000 - max(expectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
+                    q_max = 999 - max(expectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
                     q_actual = int(abs(q_max * .5))
                     # orderType = "limit"
                     orderType = "limit"
@@ -136,7 +136,7 @@ class BuySell:
                     # loop through make multiple asks.
                     increment = int(bestAsk * gapPercent)
                     worstAsk = int(bestAsk * (1 + worstCase))
-                    q_max = -1000 - min(expectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
+                    q_max = -999 - min(expectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
                     q_actual = int(abs(q_max * .5))
                     # orderType = "limit"
                     orderType = "limit"
