@@ -18,6 +18,8 @@ def find_median(lst):
     return median
 
 def find_iqr(lst):
+    """iqr is interquartile range. which indicates the range of a list. from there we can see whether a number is outlier
+    compare to a list."""
     lst.sort()
     q1 = find_median(lst[:len(lst) // 2])
     q3 = find_median(lst[len(lst) // 2:])
@@ -41,19 +43,18 @@ while end - start < 50:
         quote = sf.quotes[-1]
  
         if not quote == prevQuote:
-            # print "bid Depth %r, ask Depth %r ts %r" % (quote['bidDepth'], quote['askDepth'], quote['quoteTime'])
             ask_outlier = False
             bid_outlier = False
 
             if len(bid_stream) > 20:
                 if is_outlier(bid_stream, quote['bidDepth']):
-                    print "%r is an outlier for bid" %(quote['bidDepth'])
+                    print "%r is an outlier for bid" % (quote['bidDepth'])
             if quote['bidDepth'] > 0 and bid_outlier is False:
                 bid_stream.append(quote["bidDepth"])
             
             if len(ask_stream) > 20:
                 if is_outlier(ask_stream, quote['askDepth']):
-                    print "%r is an outlier for ask" %(quote['askDepth'])
+                    print "%r is an outlier for ask" % (quote['askDepth'])
             if quote['askDepth'] > 0 and ask_outlier is False:
                 ask_stream.append(quote["askDepth"])
             prevQuote = quote

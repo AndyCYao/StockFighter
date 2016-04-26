@@ -152,7 +152,7 @@ class StockFighter:
         expectedPosition = 0
         for y in orders:
             x = orders[y]
-            # print x
+            print "\n%r" % (x)
             totalFilled = x["totalFilled"]
             qty = x["qty"] + totalFilled
             direction = x["direction"]
@@ -173,21 +173,18 @@ class StockFighter:
         adds the delta into the module level variables self.cash and self.positionSoFar
         """
         if m is not None:
-            # print m
+            # print "\n%r" % (m)
             # self.orders[m["standingId"]] = m
 
             filled = m["filled"]
             price = m["price"]
             direction = m["order"]["direction"]
-            # qty = m["order"]["qty"] + filled
+
             if direction == "sell":
-                filled = filled * -1
-                # qty = qty * -1
+                filled = filled * -1    
             self.positionSoFar += filled
-            # self.expectedPosition += qty
             # -.01 because we are getting the correct unit
             self.cash += filled * price * (-.01)
-            
             last = self.get_quote(self.tickers).get("last")
             if last is None:
                 last = 0

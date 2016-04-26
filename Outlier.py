@@ -38,7 +38,7 @@ if __name__ == '__main__':
     for x in file:        
         ask_outlier = False
         bid_outlier = False       
-
+        """
         if len(bid_stream) > 20:
             bid_outlier = is_outlier(bid_stream, x['bidDepth'])
             print bid_outlier
@@ -51,4 +51,3 @@ if __name__ == '__main__':
 
         if x['askDepth'] > 0 and ask_outlier is False:
             ask_stream.append(x["askDepth"])
-        """

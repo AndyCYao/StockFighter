@@ -47,8 +47,8 @@ class CurrentStatus:
             nav = cash + positionSoFar * last * (.01)
             status_queue.put([cash, expectedPosition, nav, tempI])
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-            print "----\nT%d approximate Pos. %d, Expected Pos. %d, NAV %s" % \
-                  ((time.time() - self.start), positionSoFar, expectedPosition, nav_currency),
+            print "----\nT%d approximate Pos. %d, Expected Pos. %d, Cash %d, NAV %s" % \
+                  ((time.time() - self.start), positionSoFar, expectedPosition, cash, nav_currency),
             # print "temp %d" % (tempI)
             tempI += 1
 
@@ -215,7 +215,7 @@ class CheckFill:
 
 if __name__ == '__main__':
     
-    sf = gamemaster.StockFighter("dueling_bulldozers")
+    sf = gamemaster.StockFighter("sell_side")
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)
