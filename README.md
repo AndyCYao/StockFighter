@@ -5,9 +5,11 @@ http://www.investopedia.com/terms/o/order-book.asp
 
 To Do List:
 	-Possible bugs in FourthTradeMT
-		A.) buy limit orders seems to be cancelled immediately after placed by the CheckFill class.
-			probably has to do with the cash.
-		B.) the CurrentStatus doesnt produce the same NAV as the execution socket NAV. better to run the same script in thirdTradeTest sell_side, because they have an indicator there to tell us. 
+		Done A.) buy limit orders seems to be cancelled immediately after placed by the CheckFill class.
+			probably has to do with the cash. 
+			this was because of bug in checkign the timestamp of order with current UTC time. i have disable it because doesn't work
+
+		Done B.) the CurrentStatus doesnt produce the same NAV as the execution socket NAV. better to run the same script in thirdTradeTest sell_side, because they have an indicator there to tell us. 
 		turns out execution websocket is more accurate. because it calcaultes individual fill and their price.
 
 	-Implement in fourthTradeMT an outlier checker, if impending outlier, cancel everything in the opposition position. ie. 

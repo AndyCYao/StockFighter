@@ -12,11 +12,12 @@ FourthTrade will be separated by two thread
 due to the internal waits in the Queue library for get and put. we dont need to compensate with
 our own time.wait in our own script.
 """
+from __future__ import division
 import threading
 import gamemaster
 import time
-import datetime
 import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
+
 
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
@@ -184,23 +185,21 @@ class CheckFill:
         s_BestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
         price = order["price"]
 
-        # this is in ISO 8601 time. stripping the microseconds we are not concern
-        ts = order["ts"].split(".")[0]
-        o_time = datetime.datetime.strptime(ts, '%Y-%m-%dT%H:%M:%S')
-        
-        timeDiff = datetime.datetime.utcnow() - o_time
-        
-        if timeDiff < datetime.timedelta(seconds=self.timeToWait):
-            if order["direction"] == "buy":
-                diff = (s_BestBid - price) / price
-                if diff < -.03 and -1000 < (sf.expectedPosition - order['qty']) < 1000:
-                    return True
-            else:
-                diff = (s_BestAsk - price) / price
-                if diff > .03 and -1000 < (sf.expectedPosition - (order['qty'] * -1)) < 1000:
-                    return True
+        if order["direction"] == "buy":
+            diff = (s_BestBid - price) / price * 1.0
+            print "\nJudging Buy order %d, s_BestBid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], s_BestBid, price, 
+                                                                                                                             diff, sf.expectedPosition, order['qty'])
+            if diff < -.03 and -1000 < (sf.expectedPosition - order['qty']) < 1000:
+                return True
+            elif diff > .2:  # if we are bidding under everyone else, no one would buy our order. so might as well cancel.
+                return True
         else:
-            return True
+            diff = (s_BestAsk - price) / price * 1.0
+            if diff > .03 and -1000 < (sf.expectedPosition - (order['qty'] * -1)) < 1000:
+                print "\nJudging Sell order%d, diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], diff, sf.expectedPosition, order['qty'])
+                return True
+            elif diff < -.2:
+                return True
         return False
 
     def run(self):

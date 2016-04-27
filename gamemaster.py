@@ -143,27 +143,31 @@ class StockFighter:
         return tOrders
  
     def update_open_orders(self, orders):
-        """loops through the given dictionary open ids and check them see.
+        """loop through the given dictionary open ids and check them see.
         how many have been filled. i am changing it to loop through the orders from.
-        status_for_all_orders_in_stock
+        status_for_all_orders_in_stock.
         """
         positionSoFar = 0
         cash = 0
         expectedPosition = 0
         for y in orders:
-            x = orders[y]
-            print "\n%r" % (x)
-            totalFilled = x["totalFilled"]
-            qty = x["qty"] + totalFilled
+            totalFilled = 0
+            totalCost = 0
+            x = orders[y]            
+            # print "\n%r" % (x)
+            for fill in x['fills']:
+                totalFilled += fill['qty']
+                totalCost += fill['qty'] * fill["price"]
+
+            qty = x["qty"] + totalFilled  # x['qty'] becomes 0 if the order is cancelled. so we just add that to how much is filled already
             direction = x["direction"]
-            price = x["price"]
-           
             if direction == "sell":
                 totalFilled = totalFilled * -1
+                totalCost = totalCost * -1
                 qty = qty * -1
             positionSoFar += totalFilled
             expectedPosition += qty            
-            cash += totalFilled * price * (-.01)  # -.01 because we are getting the correct unit
+            cash += totalCost * (-.01)  # -.01 because we are getting the correct unit
         return positionSoFar, cash, expectedPosition
 
     def execution_socket(self, m):
@@ -173,13 +177,10 @@ class StockFighter:
         adds the delta into the module level variables self.cash and self.positionSoFar
         """
         if m is not None:
-            # print "\n%r" % (m)
-            # self.orders[m["standingId"]] = m
-
+            # print "\n%r" % (m)          
             filled = m["filled"]
             price = m["price"]
             direction = m["order"]["direction"]
-
             if direction == "sell":
                 filled = filled * -1    
             self.positionSoFar += filled
