@@ -187,18 +187,15 @@ class CheckFill:
 
         if order["direction"] == "buy":
             diff = (s_BestBid - price) / price * 1.0
-            print "\nJudging Buy order %d, s_BestBid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], s_BestBid, price, 
-                                                                                                                             diff, sf.expectedPosition, order['qty'])
-            if diff < -.03 and -1000 < (sf.expectedPosition - order['qty']) < 1000:
+            # print "\nJudging Buy order %d, s_BestBid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], s_BestBid, price, 
+            #                                                                                                                  diff, sf.expectedPosition, order['qty'])
+            if (diff < -.03 or diff > .15) and -1000 < (sf.expectedPosition - order['qty']) < 1000:
                 return True
-            elif diff > .2:  # if we are bidding under everyone else, no one would buy our order. so might as well cancel.
-                return True
+  
         else:
             diff = (s_BestAsk - price) / price * 1.0
-            if diff > .03 and -1000 < (sf.expectedPosition - (order['qty'] * -1)) < 1000:
-                print "\nJudging Sell order%d, diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], diff, sf.expectedPosition, order['qty'])
-                return True
-            elif diff < -.2:
+            if (diff > .03 or diff < -.15) and -1000 < (sf.expectedPosition - (order['qty'] * -1)) < 1000:
+                # print "\nJudging Sell order%d, diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], diff, sf.expectedPosition, order['qty'])
                 return True
         return False
 

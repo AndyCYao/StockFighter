@@ -4,7 +4,8 @@ http://www.investopedia.com/ask/answers/06/quoteorderdrivenmarket.asp
 http://www.investopedia.com/terms/o/order-book.asp
 
 To Do List:
-	-Possible bugs in FourthTradeMT
+
+		
 		Done A.) buy limit orders seems to be cancelled immediately after placed by the CheckFill class.
 			probably has to do with the cash. 
 			this was because of bug in checkign the timestamp of order with current UTC time. i have disable it because doesn't work
