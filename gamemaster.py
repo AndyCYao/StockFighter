@@ -192,7 +192,7 @@ class StockFighter:
             nav = self.cash + self.positionSoFar * last * (.01)
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             
-            print "\tUPDATE id:%d,Fill %d @ %d\tCurrent pos is %d,cash $%d,nav %s" % (m['order']['id'], filled, price, self.positionSoFar,
+            print "\tUPDATE id:%d,Units %d @ %d\tCurrent pos is %d,cash $%d,nav %s" % (m['order']['id'], filled, price, self.positionSoFar,
                                                                                     self.cash, nav_currency)
      
         else:

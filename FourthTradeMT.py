@@ -122,8 +122,8 @@ class BuySell:
 
                     for actualBid in range(bestBid, worstBid, increment):
                         buyOrder = sf.make_order(int(actualBid * (1 + discount)), q_actual, stock, "buy", orderType)                        
-                        print "\n\tBBBBB placed  buy ord. +%d units at %d ID %r %r" % (q_actual, buyOrder.get('price'),
-                                                                                       buyOrder.get('id'), orderType)
+                        print "\n\tPlaced BUY ord. id:%r +%d units @ %d %r" % (buyOrder.get('id'), q_actual, buyOrder.get('price'),
+                                                                               orderType)
                         q_actual = int(abs(q_max * .25))
                         orderType = "immediate-or-cancel"
                         expectedPosition += q_actual
@@ -145,8 +145,8 @@ class BuySell:
                     for actualAsk in range(bestAsk, worstAsk, increment):
                         # print "actual ask %r and q_actual %r" %(actualAsk, q_actual)
                         sellOrder = sf.make_order(int(actualAsk * (1 - discount)), q_actual, stock, "sell", orderType)                        
-                        print "\n\tSSSSS placed  sell ord. -%d units at %d ID %r %r" % (q_actual, sellOrder.get('price'),
-                                                                                        sellOrder.get('id'), orderType)
+                        print "\n\tPlaced SELL ord. id:%r -%d units @ %d %r" % (sellOrder.get('id'), q_actual, sellOrder.get('price'),
+                                                                                orderType)
                         q_actual = int(abs(q_max * .25))
                         orderType = "immediate-or-cancel"
 
@@ -172,10 +172,11 @@ class CheckFill:
         for y in orderList:
             x = orderList[y]
             if x["open"]:
+                print "\n%r" %(x)
                 if callback(x):
-                    print "\n\tCancelling %s %s units at %s ID %s" % (x["direction"], x["qty"], x["price"], x["id"])
+                    print "\n\tCancelling %s id:%r %d units @ %d" % (x["direction"], x["id"], x["qty"], x["price"])
                     self.sf.delete_order(self.stock, x["id"])
-
+                    
     def should_cancel_unfilled(self, order):
         """if this order is out of money, or outstanding too long then cancel it. but only if
         cancelling the order doesn't drive the expectedPosition out of the allowable range.
