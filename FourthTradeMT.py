@@ -61,19 +61,33 @@ class BuySell:
         print "Initializing BuySell..."
         self.sf = stockfighter
         self.start = time.time()
+        self.stock = self.sf.tickers
 
     def buy_condition(self, tExpectedPosition, positionSoFar, tBestBid, tMA):
         """to be tailored for each level.
-            will buy if the price is not above MA20 price.
+            will buy if the price is not above MA20 price. and current open order + positionSoFar < 1000 for buy
         """
-        if tBestBid > 0 and tExpectedPosition <= 500 and positionSoFar <= 500 and tBestBid < tMA:
+        orders_list = self.sf.status_for_all_orders_in_stock(self.stock)
+        remaining = 0
+        for x in orders_list:
+            o = orders_list[x]
+            if o["open"] and o["direction"] == "buy":
+                remaining += o['qty']
+        if tBestBid > 0 and tBestBid < tMA and (positionSoFar + remaining < 1000):
             return True
 
     def sell_condition(self, tExpectedPosition, positionSoFar, tBestAsk, tMA):
         """to be tailored for each level.
-            will sell if the price is not below MA20 price.
+            will sell if the price is not below MA20 price. and current open order + positionSoFar > -1000 for sell
         """
-        if tBestAsk > 0 and tExpectedPosition >= -500 and positionSoFar >= -500 and tBestAsk > tMA:
+        orders_list = self.sf.status_for_all_orders_in_stock(self.stock)
+        remaining = 0
+        for x in orders_list:
+            o = orders_list[x]
+            if o["open"] and o["direction"] == "sell":
+                remaining += o['qty']
+            remaining * (-1)
+        if tBestAsk > 0 and tBestAsk > tMA and (positionSoFar + remaining > -1000):
             return True
      
     def run(self):
@@ -81,10 +95,8 @@ class BuySell:
         ma_20 = 0
         gapPercent = .02        # how much different in % each order will be
         worstCase = .04         # how much different the best offer and worst offer will be
-        stock = self.sf.tickers
         global status_queue
         global gameOn
-        # global quote_queue
         positionSoFar = 0
         nav = 0
         try:
@@ -93,7 +105,7 @@ class BuySell:
                     gameOn = False
                     break
 
-                oBook = self.sf.get_order_book(stock)
+                oBook = self.sf.get_order_book(self.stock)
                 # will multiply base on the below info with gapPercent
                 bestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
@@ -101,7 +113,7 @@ class BuySell:
                 if len(ma_20_list) > 20:  # Moving average 20 ticks
                     ma_20_list.pop(0)
                 
-                ma_20_list.append(self.sf.get_quote(stock).get("last"))
+                ma_20_list.append(self.sf.get_quote(self.stock).get("last"))
                 ma_20 = sum(ma_20_list) / len(ma_20_list)
                              
                 cash, expectedPosition, nav, tempII = status_queue.get()
@@ -115,12 +127,11 @@ class BuySell:
                     worstBid = int(bestBid * (1 - worstCase))
                     q_max = 999 - max(expectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
                     q_actual = int(abs(q_max * .5))
-                    # orderType = "limit"
                     orderType = "limit"
                     actualBid = bestBid
 
                     for actualBid in range(bestBid, worstBid, increment):
-                        buyOrder = sf.make_order(int(actualBid * (1 + discount)), q_actual, stock, "buy", orderType)                        
+                        buyOrder = sf.make_order(int(actualBid * (1 + discount)), q_actual, self.stock, "buy", orderType)                        
                         print "\n\tPlaced BUY ord. id:%r +%d units @ %d %r" % (buyOrder.get('id'), q_actual, buyOrder.get('price'),
                                                                                orderType)
                         q_actual = int(abs(q_max * .25))
@@ -140,7 +151,7 @@ class BuySell:
                     actualAsk = bestAsk
                     for actualAsk in range(bestAsk, worstAsk, increment):
                         # print "actual ask %r and q_actual %r" %(actualAsk, q_actual)
-                        sellOrder = sf.make_order(int(actualAsk * (1 - discount)), q_actual, stock, "sell", orderType)                        
+                        sellOrder = sf.make_order(int(actualAsk * (1 - discount)), q_actual, self.stock, "sell", orderType)                        
                         print "\n\tPlaced SELL ord. id:%r -%d units @ %d %r" % (sellOrder.get('id'), q_actual, sellOrder.get('price'),
                                                                                 orderType)
                         q_actual = int(abs(q_max * .25))
@@ -167,12 +178,6 @@ class CheckFill:
         """
         for y in orderList:
             x = orderList[y]
-            """
-                if buy :
-                find all the buy orders thats still open , add their unfill portion up. say x.
-                if positionSoFar + x is > 1000. 
-                    then cancel the order with the most favourable price.
-            """
             if x["open"]:
                 # print "\n%r" %(x)
                 if callback(x):
@@ -187,21 +192,17 @@ class CheckFill:
         s_BestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
         s_BestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
         price = order["price"]
-        """
-        tentatively replace the clause '-1000 < (sf.expectedPosition - order['qty']) < 1000' with 
-            another checker above.
-        """
 
         if order["direction"] == "buy":
             diff = (s_BestBid - price) / price * 1.0
             # print "\nJudging Buy order %d, s_BestBid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], s_BestBid, price, 
             #                                                                                                                  diff, sf.expectedPosition, order['qty'])
-            if (diff < -.03 or diff > .15) and -1000 < (sf.expectedPosition - order['qty']) < 1000:
+            if (diff < -.03 or diff > .15) and -1000 < (self.sf.expectedPosition - order['qty']) < 1000:
                 return True
   
         else:
             diff = (s_BestAsk - price) / price * 1.0
-            if (diff > .03 or diff < -.15) and -1000 < (sf.expectedPosition - (order['qty'] * -1)) < 1000:
+            if (diff > .03 or diff < -.15) and -1000 < (self.sf.expectedPosition - (order['qty'] * -1)) < 1000:
                 # print "\nJudging Sell order%d, diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], diff, sf.expectedPosition, order['qty'])
                 return True
         return False
