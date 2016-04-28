@@ -22,6 +22,7 @@ import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for mu
 status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
 
+
 class CurrentStatus:
     """is now separated from BuySell. runs and update
     positionSoFar, cash, expectedPosition, NAV. AKA the producer thread.
@@ -87,8 +88,8 @@ class BuySell:
         positionSoFar = 0
         nav = 0
         try:
-            while nav < 250000 and sf.heartbeat():
-                if abs(positionSoFar) > 1000:
+            while nav < 250000 and self.sf.heartbeat():
+                if abs(self.sf.positionSoFar) > 1000:
                     gameOn = False
                     break
 
@@ -96,8 +97,6 @@ class BuySell:
                 # will multiply base on the below info with gapPercent
                 bestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
-                q_bid = min(self.sf.read_orderbook(oBook, "bids", "qty", 1), 100)
-                q_ask = min(self.sf.read_orderbook(oBook, "asks", "qty", 1), 100)
                 discount = .02
                 if len(ma_20_list) > 20:  # Moving average 20 ticks
                     ma_20_list.pop(0)
@@ -106,8 +105,8 @@ class BuySell:
                 ma_20 = sum(ma_20_list) / len(ma_20_list)
                              
                 cash, expectedPosition, nav, tempII = status_queue.get()
-                positionSoFar = sf.positionSoFar  # the sf.positionSoFar is updated by the execution thread. much faster
-                print "\nB_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20),
+                positionSoFar = self.sf.positionSoFar  # the sf.positionSoFar is updated by the execution thread. much faster
+                # print "\nB_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20),
                 # print "temp %d" % (tempII)
 
                 if self.buy_condition(expectedPosition, positionSoFar, bestBid, ma_20):
@@ -127,12 +126,9 @@ class BuySell:
                         q_actual = int(abs(q_max * .25))
                         orderType = "immediate-or-cancel"
                         expectedPosition += q_actual
-                """Bug. after we make a series of buy orders. our expectedPosition should change appropriately.
-                but right now it's not. there should be a line here that updates the expectedsofar variable
-                locally before moving on to the sell condition.
-                """
+                
+                positionSoFar = self.sf.positionSoFar
 
-                positionSoFar = sf.positionSoFar
                 if self.sell_condition(expectedPosition, positionSoFar, bestAsk, ma_20):
                     # loop through make multiple asks.
                     increment = int(bestAsk * gapPercent)
@@ -171,10 +167,16 @@ class CheckFill:
         """
         for y in orderList:
             x = orderList[y]
+            """
+                if buy :
+                find all the buy orders thats still open , add their unfill portion up. say x.
+                if positionSoFar + x is > 1000. 
+                    then cancel the order with the most favourable price.
+            """
             if x["open"]:
-                print "\n%r" %(x)
+                # print "\n%r" %(x)
                 if callback(x):
-                    print "\n\tCancelling %s id:%r %d units @ %d" % (x["direction"], x["id"], x["qty"], x["price"])
+                    print "\n\tCancelling %s id:%r units %d @ %d" % (x["direction"], x["id"], x["qty"], x["price"])
                     self.sf.delete_order(self.stock, x["id"])
                     
     def should_cancel_unfilled(self, order):
@@ -185,6 +187,10 @@ class CheckFill:
         s_BestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
         s_BestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
         price = order["price"]
+        """
+        tentatively replace the clause '-1000 < (sf.expectedPosition - order['qty']) < 1000' with 
+            another checker above.
+        """
 
         if order["direction"] == "buy":
             diff = (s_BestBid - price) / price * 1.0
@@ -204,7 +210,7 @@ class CheckFill:
         global gameOn
         try:
             while gameOn:
-                time.sleep(1)
+                time.sleep(3)
                 orders = self.sf.status_for_all_orders_in_stock(self.stock)
                 self.identify_unfilled_orders(orders, self.should_cancel_unfilled)
         except KeyboardInterrupt:

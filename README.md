@@ -6,17 +6,21 @@ http://www.investopedia.com/terms/o/order-book.asp
 To Do List:
 
 		
-		Done A.) buy limit orders seems to be cancelled immediately after placed by the CheckFill class.
-			probably has to do with the cash. 
-			this was because of bug in checkign the timestamp of order with current UTC time. i have disable it because doesn't work
 
-		Done B.) the CurrentStatus doesnt produce the same NAV as the execution socket NAV. better to run the same script in thirdTradeTest sell_side, because they have an indicator there to tell us. 
-		turns out execution websocket is more accurate. because it calcaultes individual fill and their price.
 
 	-Implement in fourthTradeMT an outlier checker, if impending outlier, cancel everything in the opposition position. ie. 
 		Outlier in AskDepth, cancel all the existing buy orders (as they would be filled super quickly). 
 		Outlier in BidDepth, cancel all the existing sell orders. 
 	
+	-Implement a way to examin the orderbook and filter out the orders that are from myself.
+
+
+	Done A.) buy limit orders seems to be cancelled immediately after placed by the CheckFill class.
+		probably has to do with the cash. 
+		this was because of bug in checkign the timestamp of order with current UTC time. i have disable it because doesn't work
+
+	Done B.) the CurrentStatus doesnt produce the same NAV as the execution socket NAV. better to run the same script in thirdTradeTest sell_side, because they have an indicator 		  there to tell us. 
+			turns out execution websocket is more accurate. because it calcaultes individual fill and their price.
 
 	-DONE Quotesocket sends msgs even when there are changes unseen in the quotes themselves. such as failed 	FOK or cancel orders on closed. so need to make a checker in the quotesocket client for it.
 	-Done in the sd.py, finish up the outliers checker in the bid depth and ask depth.
