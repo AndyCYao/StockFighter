@@ -3,6 +3,7 @@ import requests
 import json
 from ws4py.client.threadedclient import WebSocketClient
 
+
 class GameMaster:
     """Contains the codes necessary to start the instance."""
 
@@ -14,7 +15,7 @@ class GameMaster:
         pass
 
     def check_if_instance_is_active(self, instanceID):
-        "returns the state of instance."
+        """Return the state of instance."""
         is_true = False
         header = {'X-Starfighter-Authorization': self.get_api_key()}
         full_url = "%s/instances/%s" % (self.gm_url, instanceID)
@@ -23,7 +24,7 @@ class GameMaster:
         return is_true
             
     def restart_level(self, instanceID):
-        """ restart but keep the same info."""
+        """Restart but keep the same info."""
         header = {'X-Starfighter-Authorization': self.get_api_key()}
         full_url = "%s/instances/%s/restart" % (self.gm_url, instanceID)
         response = requests.post(full_url, headers=header)
@@ -36,7 +37,7 @@ class GameMaster:
         return apikey
 
     def get_instance_id(self):
-        """returns a list of instances, not working yet"""
+        """Return a list of instances, not working yet."""
         header = {'X-Starfighter-Authorization': self.get_api_key}
         full_url = "%s/levels" % (self.gm_url)
         response = requests.get(full_url, headers=header)
@@ -59,7 +60,8 @@ class GameMaster:
 
 
 class StockFighter:
-    """Contains the methods neccessary to make API calls."""
+    """Contain the methods neccessary to make API calls."""
+
     def __init__(self, LevelName):
         gm = GameMaster()
         apikey = gm.get_api_key()
@@ -101,12 +103,15 @@ class StockFighter:
 
     @classmethod
     def test_mode(cls):
-        """learn about factory design pattern and overload in python."""
+        """Enable test mode with preset variables.
+
+        Factory design pattern and overload in python.
+        """
         test = cls("test")
         return test
 
     def heartbeat(self):
-        """ check if venue is still up """
+        """Check if venue is still up."""
         full_url = "%s/venues/%s/heartbeat" % (self.base_url, self.venues)
         response = requests.get(full_url).json()
         # print response.json()
@@ -116,15 +121,17 @@ class StockFighter:
         return response["ok"]
 
     def get_order_book(self, s):
-        """retrieve the order book"""
+        """retrieve the order book."""
         full_url = "%s/venues/%s/stocks/%s" % (self.base_url, self.venues, s)
         response = requests.get(full_url, headers=self.header)
         self.orderbook.append(response.json())
         return response
  
     def read_orderbook(self, oBook, direction, type, rank):
-        # this returns the best price of buy or sell, the
-        # lowest ask and highest bid is 1, and ++ as price gets worse.
+        """Return the detail of a orderbook node given the parameters.
+
+        The lowest ask and highest bid is 1, and ++ as price gets worse.
+        """
         try:
             best_result = oBook.json().get(direction)[rank].get(type)
         except (RuntimeError, TypeError, NameError, IndexError):
@@ -132,49 +139,47 @@ class StockFighter:
         return best_result
 
     def status_for_all_orders_in_stock(self, s):
-        """ retrieve all orders in a given account, loads into a dictionary object"""
-        tOrders = {}
+        """Retrieve all orders in a given account, loads into a dictionary object."""
+        my_orders = {}
         full_url = "%s/venues/%s/accounts/%s/stocks/%s/orders" % (self.base_url, self.venues, self.account, s)
         response = requests.get(full_url, headers=self.header)
-        orderListJson = response.json()
+        my_orders_json = response.json()
  
-        for x in orderListJson["orders"]:
-            tOrders[int(x["id"])] = x
-        return tOrders
+        for x in my_orders_json["orders"]:
+            my_orders[int(x["id"])] = x
+        return my_orders
  
     def update_open_orders(self, orders):
-        """loop through the given dictionary open ids and check them see.
-        how many have been filled. i am changing it to loop through the orders from.
-        status_for_all_orders_in_stock.
-        """
-        positionSoFar = 0
+        """Loop through my orders and return positionSoFar, cash, and expectedPosition."""
+        position_so_far = 0
         cash = 0
-        expectedPosition = 0
+        expected_positions = 0
         for y in orders:
-            totalFilled = 0
-            totalCost = 0
+            total_filled = 0
+            total_cost = 0
             x = orders[y]            
             # print "\n%r" % (x)
             for fill in x['fills']:
-                totalFilled += fill['qty']
-                totalCost += fill['qty'] * fill["price"]
+                total_filled += fill['qty']
+                total_cost += fill['qty'] * fill["price"]
 
-            qty = x["qty"] + totalFilled  # x['qty'] becomes 0 if the order is cancelled. so we just add that to how much is filled already
+            qty = x["qty"] + total_filled  # x['qty'] becomes 0 if the order is cancelled. so we just add that to how much is filled already
             direction = x["direction"]
             if direction == "sell":
-                totalFilled = totalFilled * -1
-                totalCost = totalCost * -1
+                total_filled = total_filled * -1
+                total_cost = total_cost * -1
                 qty = qty * -1
-            positionSoFar += totalFilled
-            expectedPosition += qty            
-            cash += totalCost * (-.01)  # -.01 because we are getting the correct unit
-        return positionSoFar, cash, expectedPosition
+            position_so_far += total_filled
+            expected_positions += qty            
+            cash += total_cost * (-.01)  # -.01 because we are getting the correct unit
+        return position_so_far, cash, expected_positions
 
     def execution_socket(self, m):
-        """provides the same data as update_open_orders, just
+        """provide the same data as update_open_orders.
+
         done in a websocket way and faster, updates the self.positionSoFar,
         self.cash As the websocket sends message, this method
-        adds the delta into the module level variables self.cash and self.positionSoFar
+        adds the delta into the module level variables self.cash and self.positionSoFar.
         """
         if m is not None:
             # print "\n%r" % (m)          
@@ -193,7 +198,7 @@ class StockFighter:
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             
             print "\tUPDATE id:%d,Units %d @ %d\tCurrent pos is %d,cash $%d,nav %s" % (m['order']['id'], filled, price, self.positionSoFar,
-                                                                                    self.cash, nav_currency)
+                                                                                       self.cash, nav_currency)
      
         else:
             if self.heartbeat():  # sometimes m is None because venue is dead, this checks it.
@@ -201,11 +206,13 @@ class StockFighter:
                 self.execution_venue_ticker(self.execution_socket)
 
     def quote_socket(self, m):
-        """receives quotes from websocket, and put them in a data list of dictionary, then 
+        """Receive quotes from websocket, and put them in a data list of dictionary.
+
         when game ends, push everything into draw graph.(using the make_graphs method). note 
         the socket sends LOTS of messages, even for any server side change unseen in the market,
         such as cancelled orders or unfill FOK. so need to do a comparison check before appending
-        to the self.quote"""
+        to the self.quote
+        """
         if m is not None:
             if len(self.quotes) > 1:  # just comparing two quotes without quoteTime
                 this_m = {i: m[i] for i in m if i != 'quoteTime'}
@@ -216,7 +223,7 @@ class StockFighter:
                 self.quotes.append(m)
 
     def make_graphs(self):
-        """using the dictionaries gathered in self.quotes to update the graphs"""
+        """using the dictionaries gathered in self.quotes to update the graphs."""
         with open("currentInfo.json", "r+b") as settings:
             settings.seek(0)  # The seek and truncate line wipes out everythin in the settings file.
             settings.truncate()
@@ -228,8 +235,8 @@ class StockFighter:
         with open("resultOrders.json", "r+b") as orders:
             orders.seek(0)  # The seek and truncate line wipes out everythin in the orders file.
             orders.truncate()
-            oBook = self.status_for_all_orders_in_stock(self.tickers)
-            json.dump(oBook, orders)       
+            my_orders = self.status_for_all_orders_in_stock(self.tickers)
+            json.dump(my_orders, orders)       
                 
         try:
             print "Printing postmordem info into graph..."
@@ -289,7 +296,7 @@ class StockFighter:
         self.SFSocket(url, wrapper)
 
     class SFSocket(WebSocketClient):
-        # with template from jchristma/Stockfighter.
+        """with template from github jchristma/Stockfighter."""
 
         def __init__(self, url, m_callback):
             WebSocketClient.__init__(self, url)
