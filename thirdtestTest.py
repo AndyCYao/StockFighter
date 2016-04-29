@@ -12,6 +12,7 @@ FourthTrade will be separated by two thread
 due to the internal waits in the Queue library for get and put. we dont need to compensate with
 our own time.wait in our own script.
 """
+from __future__ import division
 import threading
 import gamemaster
 import time
@@ -79,12 +80,12 @@ class BuySell:
         """to be tailored for each level.
             will buy if the price is not above MA20 price. and current open order qtys + positionSoFar < 1000 for buy
         """        
-        already_bought = self.find_ordered("buy")
+        alreadyBought = self.find_ordered("buy")
         # basically we want 
         #  1000 => positionSoFar +  already bought + to be ordered aka q_max
         # q_max = 1000 - max(tExpectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
-        q_max = 1000 - positionSoFar - already_bought
-        print "\nIn BuyCond. tBestBid %r, ma %r 1000 - positionSoFar %r - already_bought %r = q_max %r" % (tBestBid, tMA, positionSoFar, already_bought, q_max)
+        q_max = 1000 - positionSoFar - alreadyBought
+        print "\nIn BuyCond. tBestBid %r, ma %r 1000 - positionSoFar %r - alreadyBought %r = q_max %r" % (tBestBid, tMA, positionSoFar, alreadyBought, q_max)
         if 0 < tBestBid < tMA and q_max > 4:  # q_max > 4 because we still want reasonable bid quantity per each order
             return True
 
@@ -92,11 +93,11 @@ class BuySell:
         """to be tailored for each level.
             will sell if the price is not below MA20 price. and current open order + positionSoFar > -1000 for sell
         """
-        already_sold = self.find_ordered("sell")        
+        alreadySold = self.find_ordered("sell")        
         # q_max = abs(-1000 - min(tExpectedPosition, positionSoFar))
-        # we want -1000 >= positionSoFar + already_sold + To be ordered aka q_max
-        q_max = abs(1000 - abs(positionSoFar) - already_sold)
-        print "\nIn SellCond. tBestAsk %r,ma %r 1000 - positionSoFar %r - already_sold %r = q_max %r" % (tBestAsk, tMA, positionSoFar, already_sold, q_max)
+        # we want -1000 >= positionSoFar + alreadySold + To be ordered aka q_max
+        q_max = abs(1000 - abs(positionSoFar) - alreadySold)
+        print "\nIn SellCond. tBestAsk %r,ma %r 1000 - positionSoFar %r - alreadySold %r = q_max %r" % (tBestAsk, tMA, positionSoFar, alreadySold, q_max)
         if tBestAsk > tMA and q_max > 4:
             return True
      
@@ -242,7 +243,7 @@ class CheckFill:
 
 if __name__ == '__main__':
     
-    sf = gamemaster.StockFighter("dueling_bulldozers")
+    sf = gamemaster.StockFighter("sell_side")
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)
