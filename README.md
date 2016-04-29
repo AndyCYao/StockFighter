@@ -4,13 +4,7 @@ http://www.investopedia.com/ask/answers/06/quoteorderdrivenmarket.asp
 http://www.investopedia.com/terms/o/order-book.asp
 
 To Do List:
-
-		
-
-
-	-Implement in fourthTradeMT an outlier checker, if impending outlier, cancel everything in the opposition position. ie. 
-		Outlier in AskDepth, cancel all the existing buy orders (as they would be filled super quickly). 
-		Outlier in BidDepth, cancel all the existing sell orders. 
+	-Bug- noticed that sometimes the BuySell would not have the most updated positionSoFar, as the execution websocket had updated it by the time BuySell calls it. need to find a better way to track everything.
 	
 	-Implement a way to examin the orderbook and filter out the orders that are from myself.
 

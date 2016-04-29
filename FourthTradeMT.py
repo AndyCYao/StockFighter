@@ -92,7 +92,7 @@ class BuySell:
         """to be tailored for each level.
             will sell if the price is not below MA20 price. and current open order + positionSoFar > -1000 for sell
         """
-        already_sold = self.find_ordered("sell")
+        already_sold = self.find_ordered("sell") * -1
         # q_max = abs(-1000 - min(tExpectedPosition, positionSoFar))
         # we want -1000 >= positionSoFar + already_sold + To be ordered aka q_max
         q_max = abs(-1000 - positionSoFar - already_sold)
@@ -155,7 +155,7 @@ class BuySell:
                     # loop through make multiple asks.
                     increment = int(bestAsk * gapPercent)
                     worstAsk = int(bestAsk * (1 + worstCase))
-                    already_sold = self.find_ordered("sell")        
+                    already_sold = self.find_ordered("sell") * -1       
                     # q_max = abs(-1000 - min(tExpectedPosition, positionSoFar))
                     # we want -1000 >= positionSoFar + already_sold + To be ordered aka q_max
                     q_max = abs(-1000 - positionSoFar - already_sold)
