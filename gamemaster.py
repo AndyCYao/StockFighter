@@ -278,7 +278,6 @@ class StockFighter:
             if msg is None:
                 callback(None)
             else:
-                # msg=json.loads(msg.data)
                 callback(msg['quote'])
 
         url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/tickertape/stocks/%s' % (self.account, self.venues, self.tickers)
@@ -290,7 +289,6 @@ class StockFighter:
             if msg is None:
                 callback(None)
             else:
-                # msg=json.loads(msg)
                 callback(msg)
 
         url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/executions/stocks/%s' % (self.account, self.venues, self.tickers)
