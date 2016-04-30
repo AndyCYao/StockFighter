@@ -4,8 +4,9 @@ http://www.investopedia.com/ask/answers/06/quoteorderdrivenmarket.asp
 http://www.investopedia.com/terms/o/order-book.asp
 
 To Do List:
+	-Done -add timestamp on all the print out messages. 
 	-Bug- noticed that sometimes the BuySell would not have the most updated positionSoFar, as the execution websocket had updated it by the time BuySell calls it. need to find a better way to track everything.
-	
+	-Bug -the alreadyBought and alreadySold arnt always accurate. i have taken out the [open] filter, and im just looping through all the orders to get the result. seems to work so far.
 	-Implement a way to examin the orderbook and filter out the orders that are from myself.
 
 

@@ -71,8 +71,7 @@ class BuySell:
         already_order = 0
         for x in orders_list:
             o = orders_list[x]
-            # if o["open"] and o["direction"] == direction:
-            if o["direction"] == direction:
+            if o["open"] and o["direction"] == direction:
                 already_order += o['qty']
         return already_order   
 
@@ -85,11 +84,9 @@ class BuySell:
         #  1000 => positionSoFar +  already bought + to be ordered aka q_max
         # q_max = 1000 - max(tExpectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
         q_max = 1000 - positionSoFar - already_bought
-        print "\n\tIn BuyCond. tBestBid %r, ma %r 1000 - positionSoFar %r - already_bought %r = q_max %r can buy?" % (tBestBid, tMA, positionSoFar, already_bought, q_max),
+        print "\n\tIn BuyCond. tBestBid %r, ma %r 1000 - positionSoFar %r - already_bought %r = q_max %r" % (tBestBid, tMA, positionSoFar, already_bought, q_max)
         if 0 < tBestBid < tMA and q_max > 4 and already_bought + positionSoFar < 1000:  # q_max > 4 because we still want reasonable bid quantity per each order
-            print "..yes"
             return True
-        print "..no"
 
     def sell_condition(self, tExpectedPosition, positionSoFar, tBestAsk, tMA):
         """to be tailored for each level.
@@ -99,12 +96,10 @@ class BuySell:
         # q_max = abs(-1000 - min(tExpectedPosition, positionSoFar))
         # we want -1000 >= positionSoFar + already_sold + To be ordered aka q_max
         q_max = abs(-1000 - positionSoFar - already_sold)
-        print "\n\tIn SellCond. tBestAsk %r,ma %r -1000 - positionSoFar %r - already_sold %r = q_max %r can sell?" % (tBestAsk, tMA, positionSoFar, already_sold, q_max),
+        print "\n\tIn SellCond. tBestAsk %r,ma %r -1000 - positionSoFar %r - already_sold %r = q_max %r" % (tBestAsk, tMA, positionSoFar, already_sold, q_max)
         if tBestAsk > tMA and q_max > 4 and already_sold + positionSoFar > -1000:
-            print "..yes"
             return True
-        print "..no"
-
+     
     def run(self):
         ma_20_list = []         # moving average 20 lets the script know current trend.
         ma_20 = 0
@@ -150,7 +145,7 @@ class BuySell:
                         buyOrder = sf.make_order(int(actualBid * (1 + discount)), q_actual, self.stock, "buy", orderType)                        
                         print "\n\tPlaced BUY ord. id:%r +%r units @ %r %r time ordered %r" % (buyOrder.get('id'), q_actual, 
                                                                                                buyOrder.get('price'), orderType,
-                                                                                               buyOrder.get('ts')[buyOrder.get('ts').index('T'):])
+                                                                                               buyOrder.get('ts'))
                         q_actual = int(abs(q_max * .25))
                         orderType = "immediate-or-cancel"
                         expectedPosition += q_actual
@@ -173,7 +168,7 @@ class BuySell:
                         sellOrder = sf.make_order(int(actualAsk * (1 - discount)), q_actual, self.stock, "sell", orderType)                        
                         print "\n\tPlaced SELL ord. id:%r -%r units @ %r %r time ordered %r" % (sellOrder.get('id'), q_actual, 
                                                                                                 sellOrder.get('price'), orderType,
-                                                                                                sellOrder.get('ts')[sellOrder.get('ts').index('T'):])
+                                                                                                sellOrder.get('ts'))
                         q_actual = int(q_max * .25)
                         orderType = "immediate-or-cancel"
 
@@ -240,7 +235,7 @@ class CheckFill:
         global gameOn
         try:
             while gameOn:
-                time.sleep(2)
+                time.sleep(3)
                 orders = self.sf.status_for_all_orders_in_stock(self.stock)
                 self.identify_unfilled_orders(orders, self.should_cancel_unfilled)
         except KeyboardInterrupt:
@@ -248,7 +243,7 @@ class CheckFill:
 
 if __name__ == '__main__':
     
-    sf = gamemaster.StockFighter("dueling_bulldozers")
+    sf = gamemaster.StockFighter("sell_side")
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)

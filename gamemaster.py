@@ -196,9 +196,10 @@ class StockFighter:
                 last = 0
             nav = self.cash + self.positionSoFar * last * (.01)
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
-            
-            print "\tUPDATE id:%d,Units %d @ %d\tCurrent pos is %d,cash $%d,nav %s" % (m['order']['id'], filled, price, self.positionSoFar,
-                                                                                       self.cash, nav_currency)
+            filled_at = m['filledAt'][m['filledAt'].index('T'):]
+            print "\tUPDATE id:%d,Units %d @ %d\tCurrent pos is %d, " \
+                  " cash $%d,nav %s Filled At %r" % (m['order']['id'], filled, price, self.positionSoFar,
+                                                     self.cash, nav_currency, filled_at)
      
         else:
             if self.heartbeat():  # sometimes m is None because venue is dead, this checks it.
@@ -224,7 +225,7 @@ class StockFighter:
 
     def make_graphs(self):
         """using the dictionaries gathered in self.quotes to update the graphs."""
-        with open("currentInfo.json", "r+b") as settings:
+        with open("ResultQuoteSocket.json", "r+b") as settings:
             settings.seek(0)  # The seek and truncate line wipes out everythin in the settings file.
             settings.truncate()
             json.dump(self.quotes, settings)        
@@ -240,8 +241,8 @@ class StockFighter:
                 
         try:
             print "Printing postmordem info into graph..."
-            import CurrentInfoChart
-            CurrentInfoChart.main()
+            import QuoteSocketChart
+            QuoteSocketChart.main()
         except Exception as e:
             # raise e
             print "Oops found error while making graph, please try again\n%r" % (e)
