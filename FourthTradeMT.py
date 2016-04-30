@@ -72,7 +72,8 @@ class BuySell:
         for x in orders_list:
             o = orders_list[x]
             # if o["open"] and o["direction"] == direction:
-            if o["direction"] == direction:
+            if o["direction"] == direction and o['qty'] != 0:
+                print "id: %d %r qty %d " % (o['id'], o['direction'], o['qty'])
                 already_order += o['qty']
         return already_order   
 
