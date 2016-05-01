@@ -55,13 +55,15 @@ class CurrentStatus:
 
 
 class BuySell:
-    
+
     def __init__(self, stockfighter):
         print "Initializing BuySell..."
         self.sf = stockfighter
         self.start = time.time()
         self.stock = self.sf.tickers
+        self.order_limit = 1000 # we can go +/- in this range. the game officially has 1000 but since my codes suck i will use 1000 to accomodate the error.
 
+        
     def find_ordered(self, direction):
         """        
         find the maximum q we can order in either direction.
@@ -79,29 +81,31 @@ class BuySell:
 
     def buy_condition(self, tExpectedPosition, positionSoFar, tBestBid, tMA):
         """to be tailored for each level.
-            will buy if the price is not above MA20 price. and current open order qtys + positionSoFar < 1000 for buy
+            will buy if the price is not above MA20 price. and current open order qtys + positionSoFar < self.order_limit for buy
         """        
         already_bought = self.find_ordered("buy")
         # basically we want 
-        #  1000 => positionSoFar +  already bought + to be ordered aka q_max
-        # q_max = 1000 - max(tExpectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
-        q_max = 1000 - positionSoFar - already_bought
-        print "\n\tIn BuyCond. tBestBid %r, ma %r 1000 - positionSoFar %r - already_bought %r = q_max %r can buy?" % (tBestBid, tMA, positionSoFar, already_bought, q_max),
-        if 0 < tBestBid < tMA and q_max > 4 and already_bought + positionSoFar < 1000:  # q_max > 4 because we still want reasonable bid quantity per each order
+        #  self.order_limit => positionSoFar +  already bought + to be ordered aka q_max
+        # q_max = self.order_limit - max(tExpectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
+        q_max = self.order_limit - positionSoFar - already_bought
+        print "\n\tIn BuyCond. tBestBid %r, ma %r max order %r - positionSoFar %r - already_bought %r = q_max %r can buy?" % 
+        (tBestBid, tMA, self.order_limit, positionSoFar, already_bought, q_max),
+        if 0 < tBestBid < tMA and q_max > 4 and already_bought + positionSoFar < self.order_limit:  # q_max > 4 because we still want reasonable bid quantity per each order
             print "..yes"
             return True
         print "..no"
 
     def sell_condition(self, tExpectedPosition, positionSoFar, tBestAsk, tMA):
         """to be tailored for each level.
-            will sell if the price is not below MA20 price. and current open order + positionSoFar > -1000 for sell
+            will sell if the price is not below MA20 price. and current open order + positionSoFar > -self.order_limit for sell
         """
         already_sold = self.find_ordered("sell") * -1
-        # q_max = abs(-1000 - min(tExpectedPosition, positionSoFar))
-        # we want -1000 >= positionSoFar + already_sold + To be ordered aka q_max
-        q_max = abs(-1000 - positionSoFar - already_sold)
-        print "\n\tIn SellCond. tBestAsk %r,ma %r -1000 - positionSoFar %r - already_sold %r = q_max %r can sell?" % (tBestAsk, tMA, positionSoFar, already_sold, q_max),
-        if tBestAsk > tMA and q_max > 4 and already_sold + positionSoFar > -1000:
+        # q_max = abs(-self.order_limit - min(tExpectedPosition, positionSoFar))
+        # we want -self.order_limit >= positionSoFar + already_sold + To be ordered aka q_max
+        q_max = abs(-1 * self.order_limit - positionSoFar - already_sold)
+        print "\n\tIn SellCond. tBestAsk %r,ma %r max order %r - positionSoFar %r - already_sold %r = q_max %r can sell?" % 
+        (tBestAsk, tMA, self.order_limit, positionSoFar, already_sold, q_max),
+        if tBestAsk > tMA and q_max > 4 and already_sold + positionSoFar > -1 * self.order_limit:
             print "..yes"
             return True
         print "..no"
@@ -142,7 +146,7 @@ class BuySell:
                     increment = int(bestBid * gapPercent * -1)
                     worstBid = int(bestBid * (1 - worstCase))
                     already_bought = self.find_ordered("buy")  # this is the max amount i can bid without game over.
-                    q_max = 1000 - positionSoFar - already_bought
+                    q_max = self.order_limit - positionSoFar - already_bought
                     q_actual = int(abs(q_max * .5))
                     orderType = "limit"
                     actualBid = bestBid
@@ -162,10 +166,9 @@ class BuySell:
                     # loop through make multiple asks.
                     increment = int(bestAsk * gapPercent)
                     worstAsk = int(bestAsk * (1 + worstCase))
-                    already_sold = self.find_ordered("sell") * -1       
-                    # q_max = abs(-1000 - min(tExpectedPosition, positionSoFar))
-                    # we want -1000 >= positionSoFar + already_sold + To be ordered aka q_max
-                    q_max = abs(-1000 - positionSoFar - already_sold)
+                    already_sold = self.find_ordered("sell") * -1  
+                    # we want -self.order_limit >= positionSoFar + already_sold + To be ordered aka q_max
+                    q_max = abs(-1 * self.order_limit - positionSoFar - already_sold)
                     q_actual = int(q_max * .5)
                     orderType = "limit"
                     actualAsk = bestAsk

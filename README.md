@@ -9,8 +9,11 @@ To Do List:
 	the below bugs almost seems like for every trade. i need to check a position, i cant just do 1 check, and make 3 orders out of it. espceially when i am working with such a wide margin of quantity at a time.
 	propose doing a check everytime theres a new change.
 
+
 	-Bug- noticed that sometimes the BuySell would not have the most updated positionSoFar, as the execution websocket had updated it by the time BuySell calls it. need to find a better way to track everything.
-	-Bug -the alreadyBought and alreadySold arnt always accurate. an order would be showing up at one time, but later it wouldnt, but the execution ticker wouldnt hav eupdate it.
+	
+	-Bug -the alreadyBought and alreadySold arnt always accurate. an order would be showing up at one time, but later it wouldnt, but the execution ticker wouldnt hav eupdate it. or that it shows no outstanding order, but infact there is.
+	
 	-Implement a way to examin the orderbook and filter out the orders that are from myself.
 
 	Done A.) buy limit orders seems to be cancelled immediately after placed by the CheckFill class.
