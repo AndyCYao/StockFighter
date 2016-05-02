@@ -8,9 +8,6 @@ FourthTrade will be separated by two thread
 2nd Thread -> Read through open order and cancel unfilled
     i.)     check the order list for open orders.
 3rd Thread -> Current Status-> prints out what is the current NAV, Position, Expected Position etc.
-
-due to the internal waits in the Queue library for get and put. we dont need to compensate with
-our own time.wait in our own script.
 """
 import threading
 import gamemaster
@@ -69,14 +66,26 @@ class BuySell:
         find the maximum q we can order in either direction.
         This looks at all open order of that direction and tally their qty.
         """
-        orders_list = self.sf.status_for_all_orders_in_stock(self.stock)
         already_order = 0
+
+        # print "****\nthis is from self.orders"
+        for x in self.sf.orders:
+            o = self.sf.orders[x]
+            if o["direction"] == direction and o['qty'] != 0:
+                # print o
+                # print "id: %d %r qty %d @ %d" % (o['id'], o['direction'], o['qty'], o['price'])
+                already_order += o['qty']
+        """
+        print "this is from status_for_all_orders_in_stock" 
+        already_order = 0
+        orders_list = self.sf.status_for_all_orders_in_stock(self.stock)
+        
         for x in orders_list:
             o = orders_list[x]
-            # if o["open"] and o["direction"] == direction:
             if o["direction"] == direction and o['qty'] != 0:
                 print "id: %d %r qty %d @ %d" % (o['id'], o['direction'], o['qty'], o['price'])
                 already_order += o['qty']
+        """
         return already_order   
 
     def buy_condition(self, tExpectedPosition, positionSoFar, tBestBid, tMA):
@@ -86,10 +95,9 @@ class BuySell:
         already_bought = self.find_ordered("buy")
         # basically we want 
         #  self.order_limit => positionSoFar +  already bought + to be ordered aka q_max
-        # q_max = self.order_limit - max(tExpectedPosition, positionSoFar)  # this is the max amount i can bid without game over.
-        q_max = self.order_limit - positionSoFar - already_bought
-        print "\n\tIn BuyCond. tBestBid %r, ma %r max order %r - positionSoFar %r - already_bought %r = q_max %r can buy?" % 
-        (tBestBid, tMA, self.order_limit, positionSoFar, already_bought, q_max),
+        q_max = self.order_limit - positionSoFar - already_bought # this is the max amount i can bid without game over.
+        print "\n\tIn BuyCond. tBestBid %r, ma %r max order %r - positionSoFar %r" \
+              " - already_bought %r = q_max %r can buy?" % (tBestBid, tMA, self.order_limit, positionSoFar, already_bought, q_max),
         if 0 < tBestBid < tMA and q_max > 4 and already_bought + positionSoFar < self.order_limit:  # q_max > 4 because we still want reasonable bid quantity per each order
             print "..yes"
             return True
@@ -100,11 +108,10 @@ class BuySell:
             will sell if the price is not below MA20 price. and current open order + positionSoFar > -self.order_limit for sell
         """
         already_sold = self.find_ordered("sell") * -1
-        # q_max = abs(-self.order_limit - min(tExpectedPosition, positionSoFar))
         # we want -self.order_limit >= positionSoFar + already_sold + To be ordered aka q_max
         q_max = abs(-1 * self.order_limit - positionSoFar - already_sold)
-        print "\n\tIn SellCond. tBestAsk %r,ma %r max order %r - positionSoFar %r - already_sold %r = q_max %r can sell?" % 
-        (tBestAsk, tMA, self.order_limit, positionSoFar, already_sold, q_max),
+        print "\n\tIn SellCond. tBestAsk %r,ma %r max order %r - positionSoFar %r " \
+              " - already_sold %r = q_max %r can sell?" % (tBestAsk, tMA, self.order_limit, positionSoFar, already_sold, q_max),
         if tBestAsk > tMA and q_max > 4 and already_sold + positionSoFar > -1 * self.order_limit:
             print "..yes"
             return True
@@ -117,7 +124,6 @@ class BuySell:
         worstCase = .04         # how much different the best offer and worst offer will be
         global status_queue
         global gameOn
-        positionSoFar = 0
         nav = 0
         try:
             while nav < 250000 and self.sf.heartbeat():
@@ -126,7 +132,6 @@ class BuySell:
                     break
 
                 oBook = self.sf.get_order_book(self.stock)
-                # will multiply base on the below info with gapPercent
                 bestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
                 discount = .01
@@ -160,7 +165,7 @@ class BuySell:
                         orderType = "immediate-or-cancel"
                         expectedPosition += q_actual
                 
-                positionSoFar = self.sf.positionSoFar
+                positionSoFar = self.sf.positionSoFar   # check again because it might have been outdated.
 
                 if self.sell_condition(expectedPosition, positionSoFar, bestAsk, ma_20):
                     # loop through make multiple asks.
@@ -253,6 +258,7 @@ class CheckFill:
 if __name__ == '__main__':
     
     sf = gamemaster.StockFighter("dueling_bulldozers")
+    #sf = gamemaster.StockFighter("sell_side")
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)

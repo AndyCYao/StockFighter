@@ -182,10 +182,24 @@ class StockFighter:
         adds the delta into the module level variables self.cash and self.positionSoFar.
         """
         if m is not None:
-            # print "\n%r" % (m)          
+            # testing updating the self.orders straight from here. especially to see whether i can
+            # see the remaining of the order. 
+            id = m['order']['id']
+            """
+            try:
+                print "\nPREUPDATE%r" % (self.orders[id])          
+            except:
+                pass
+            """
+            #if id in self.orders:
+            self.orders[id] = m['order']
+            # print "\nPOSTUPDATE%r" % (self.orders[id])  
+
             filled = m["filled"]
             price = m["price"]
             direction = m["order"]["direction"]
+            original_qty = m["order"]["originalQty"]
+            total_filled = m["order"]["totalFilled"]
             if direction == "sell":
                 filled = filled * -1    
             self.positionSoFar += filled
@@ -197,8 +211,8 @@ class StockFighter:
             nav = self.cash + self.positionSoFar * last * (.01)
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             filled_at = m['filledAt'][m['filledAt'].index('T'):]
-            print "\tUPDATE id:%d,Units %d @ %d\tCurrent pos is %d, " \
-                  " cash $%d,nav %s Filled At %r" % (m['order']['id'], filled, price, self.positionSoFar,
+            print "\tUPDATE id:%d,Units %d @ %d %d/%d filled\tCurrent pos is %d, " \
+                  " cash $%d,nav %s Filled At %r" % (id, filled, price, total_filled ,original_qty, self.positionSoFar,
                                                      self.cash, nav_currency, filled_at)
      
         else:
@@ -259,12 +273,20 @@ class StockFighter:
         }
         full_url = "%s/venues/%s/stocks/%s/orders" % (self.base_url, self.venues, s)
         response = requests.post(full_url, headers=self.header, data=json.dumps(order))
-        return response.json()
+        
+        # if order is ok, then load it into self.orders dictionary
+        response_order = response.json()
+        self.orders[response_order['id']] = response_order
+        return response_order
 
     def delete_order(self, s, o_id):
         full_url = "%s/venues/%s/stocks/%s/orders/%s/cancel" % (self.base_url, self.venues, s, o_id)
         response = requests.post(full_url, headers=self.header)
+        response_order = response.json()
+        self.orders[response_order['id']] = response_order
+
         return response.json()
+
 
     def get_quote(self, s):
         # Get last quote.
