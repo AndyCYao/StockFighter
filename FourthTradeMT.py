@@ -31,8 +31,8 @@ class CurrentStatus:
 
     def run(self):
         stock = self.sf.tickers
-        tempI = 0  # i use this to check whether the info pass on to the status_queue is the same as the one read on BuySell.
-        global status_queue
+        # tempI = 0  # i use this to check whether the info pass on to the status_queue is the same as the one read on BuySell.
+        # global status_queue
         global gameOn
         while gameOn:
             time.sleep(1.5)    # slow things down a bit, because we are querying the same information.
@@ -43,12 +43,12 @@ class CurrentStatus:
             if last is None:
                 last = 0
             nav = cash + positionSoFar * last * (.01)
-            status_queue.put([cash, expectedPosition, nav, tempI])
+            # status_queue.put([cash, expectedPosition, nav, tempI])
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             print "----\nT%d approximate Pos. %d, Expected Pos. %d, Cash %d, NAV %s" % \
                   ((time.time() - self.start), positionSoFar, expectedPosition, cash, nav_currency),
             # print "temp %d" % (tempI)
-            tempI += 1
+            # tempI += 1
 
 
 class BuySell:
@@ -58,8 +58,7 @@ class BuySell:
         self.sf = stockfighter
         self.start = time.time()
         self.stock = self.sf.tickers
-        self.order_limit = 1000 # we can go +/- in this range. the game officially has 1000 but since my codes suck i will use 1000 to accomodate the error.
-
+        self.order_limit = 1000  # we can go +/- in this range. the game officially has 1000 but since my codes suck i will use 1000 to accomodate the error.
         
     def find_ordered(self, direction):
         """        
@@ -88,14 +87,14 @@ class BuySell:
         """
         return already_order   
 
-    def buy_condition(self, tExpectedPosition, positionSoFar, tBestBid, tMA):
+    def buy_condition(self, positionSoFar, tBestBid, tMA):
         """to be tailored for each level.
             will buy if the price is not above MA20 price. and current open order qtys + positionSoFar < self.order_limit for buy
         """        
         already_bought = self.find_ordered("buy")
         # basically we want 
         #  self.order_limit => positionSoFar +  already bought + to be ordered aka q_max
-        q_max = self.order_limit - positionSoFar - already_bought # this is the max amount i can bid without game over.
+        q_max = self.order_limit - positionSoFar - already_bought  # this is the max amount i can bid without game over.
         print "\n\tIn BuyCond. tBestBid %r, ma %r max order %r - positionSoFar %r" \
               " - already_bought %r = q_max %r can buy?" % (tBestBid, tMA, self.order_limit, positionSoFar, already_bought, q_max),
         if 0 < tBestBid < tMA and q_max > 4 and already_bought + positionSoFar < self.order_limit:  # q_max > 4 because we still want reasonable bid quantity per each order
@@ -103,7 +102,7 @@ class BuySell:
             return True
         print "..no"
 
-    def sell_condition(self, tExpectedPosition, positionSoFar, tBestAsk, tMA):
+    def sell_condition(self, positionSoFar, tBestAsk, tMA):
         """to be tailored for each level.
             will sell if the price is not below MA20 price. and current open order + positionSoFar > -self.order_limit for sell
         """
@@ -122,7 +121,7 @@ class BuySell:
         ma_20 = 0
         gapPercent = .02        # how much different in % each order will be
         worstCase = .04         # how much different the best offer and worst offer will be
-        global status_queue
+        # global status_queue
         global gameOn
         nav = 0
         try:
@@ -141,12 +140,13 @@ class BuySell:
                 ma_20_list.append(self.sf.get_quote(self.stock).get("last"))
                 ma_20 = sum(ma_20_list) / len(ma_20_list)
                              
-                cash, expectedPosition, nav, tempII = status_queue.get()
+                # cash, expectedPosition, nav, tempII = status_queue.get()
+
                 positionSoFar = self.sf.positionSoFar  # the sf.positionSoFar is updated by the execution thread. much faster
                 # print "\nB_Bid %d, B_Ask %d Last %d, average %d" % (bestBid, bestAsk, ma_20_list[-1], ma_20),
                 # print "temp %d" % (tempII)
 
-                if self.buy_condition(expectedPosition, positionSoFar, bestBid, ma_20):
+                if self.buy_condition(positionSoFar, bestBid, ma_20):
                     # loop through make multiple bids.
                     increment = int(bestBid * gapPercent * -1)
                     worstBid = int(bestBid * (1 - worstCase))
@@ -163,11 +163,10 @@ class BuySell:
                                                                                                buyOrder.get('ts')[buyOrder.get('ts').index('T'):])
                         q_actual = int(abs(q_max * .25))
                         orderType = "immediate-or-cancel"
-                        expectedPosition += q_actual
                 
                 positionSoFar = self.sf.positionSoFar   # check again because it might have been outdated.
 
-                if self.sell_condition(expectedPosition, positionSoFar, bestAsk, ma_20):
+                if self.sell_condition(positionSoFar, bestAsk, ma_20):
                     # loop through make multiple asks.
                     increment = int(bestAsk * gapPercent)
                     worstAsk = int(bestAsk * (1 + worstCase))
@@ -192,8 +191,10 @@ class BuySell:
             print "ctrl+c pressed! leaving buy sell"
             gameOn = False
 
+
 class CheckFill:
-    
+    """Decide if orders in my book should be cancelled or not."""
+
     def __init__(self, stockfighter):
         print "Initializing CheckFill.."
         self.sf = stockfighter
@@ -201,10 +202,7 @@ class CheckFill:
         self.timeToWait = 3     # for how long the unfill orders can last.
 
     def identify_unfilled_orders(self, orderList, callback):
-        """check through orderIDlist, and return a list of
-        orders that is not gonna be filled at the moment because
-        the price is out the money.
-        """
+        """check through orderIDlist, run them against callback should_cancel_unfilled, then cancel the order if true."""
         for y in orderList:
             x = orderList[y]
             if x["open"]:
@@ -214,31 +212,34 @@ class CheckFill:
                     self.sf.delete_order(self.stock, x["id"])
                     
     def should_cancel_unfilled(self, order):
-        """if this order is out of money, or outstanding too long then cancel it. but only if
-        cancelling the order doesn't drive the expectedPosition out of the allowable range.
+        """Check if a given order should be cancelled.
+
+        the main checking conditions are:
+            whether the order price is out of money. ie. placed too high or too low the best price range.
+            whether if this order is cancelled. will it drive the account out of the allowable condition. -1000 and 1000 units.
         """
-        oBook = self.sf.get_order_book(self.stock)
-        s_BestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
-        s_BestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
+        order_book = self.sf.get_order_book(self.stock)
+        best_ask = self.sf.read_orderbook(order_book, "asks", "price", 1)
+        best_bid = self.sf.read_orderbook(order_book, "bids", "price", 1)
         price = order["price"]
-        if s_BestAsk == 0:
-            s_BestAsk = price
-        if s_BestBid == 0:
-            s_BestBid = price
+        if best_ask == 0:
+            best_ask = price
+        if best_bid == 0:
+            best_bid = price
 
         if order["direction"] == "buy":
-            diff = (s_BestBid - price) / price * 1.0
+            diff = (best_bid - price) / price * 1.0
             """
-            print "\nJudging Buy order %d, s_BestBid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], s_BestBid, price, 
+            print "\nJudging Buy order %d, best_bid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_bid, price, 
                                                                                                                              diff, self.sf.expectedPosition, order['qty'])
             """
             if (diff < -.03 or diff > .15) and -1000 < (self.sf.expectedPosition - order['qty']) < 1000:
                 return True
   
         else:
-            diff = (s_BestAsk - price) / price * 1.0
+            diff = (best_ask - price) / price * 1.0
             """
-            print "\nJudging Sell order%d, s_BestAsk %r, Price %r,diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], s_BestAsk, price, 
+            print "\nJudging Sell order%d, best_ask %r, Price %r,diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_ask, price, 
                                                                                                                            diff, self.sf.expectedPosition, order['qty'])
             """
             if (diff > .03 or diff < -.15) and -1000 < (self.sf.expectedPosition - (order['qty'] * -1)) < 1000:
@@ -251,6 +252,7 @@ class CheckFill:
             while gameOn:
                 time.sleep(2)
                 orders = self.sf.status_for_all_orders_in_stock(self.stock)
+                # orders = sf.orders
                 self.identify_unfilled_orders(orders, self.should_cancel_unfilled)
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving checking fills"
@@ -258,7 +260,7 @@ class CheckFill:
 if __name__ == '__main__':
     
     sf = gamemaster.StockFighter("dueling_bulldozers")
-    #sf = gamemaster.StockFighter("sell_side")
+    # sf = gamemaster.StockFighter("sell_side")
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)
@@ -275,7 +277,7 @@ if __name__ == '__main__':
 
     try: 
         while gameOn and sf.heartbeat():          
-            time.sleep(1)
+            time.sleep(3)
     except KeyboardInterrupt:
         print "ctrl+c pressed! leaving FourthTradeMT"
     finally:
