@@ -7,7 +7,11 @@ Fourth Level - Dueling Bulldozers -
 	best try so far. Reached NAV $205k before the instance time was up around 2506 secs 41 minutes
 
 To Do List:
-	make BuySell independent of CurrentStatus, as in take out the queue reliance.
+	-make all the parameters for each class adjustable in the init of each class.
+	
+	-Done Made CheckFill reliant on the self.order rather than check_status_order method to pump out the list of current orders.
+	since self.order is kept in memory, rather than check_status_order is a HTTP request. so its much faster and should be accurate.
+	-Done make BuySell independent of CurrentStatus, as in take out the queue reliance.
 	-Done -add timestamp on all the print out messages. 	
 	-Done -the alreadyBought and alreadySold arnt always accurate. an order would be showing up at one time, but later it wouldnt, but the execution ticker wouldnt hav eupdate it. or that it shows no outstanding order, but infact there is. 
 		I've solve this by implementing a order dictionary that tracks locally my current orders. 
