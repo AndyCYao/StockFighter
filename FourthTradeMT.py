@@ -231,25 +231,28 @@ class CheckFill:
         best_ask = self.sf.read_orderbook(order_book, "asks", "price", 1)
         best_bid = self.sf.read_orderbook(order_book, "bids", "price", 1)
         price = order["price"]
+       
         if best_ask == 0:
             best_ask = price
         if best_bid == 0:
             best_bid = price
-
+       
         if order["direction"] == "buy":
-            diff = (best_bid - price) / price * 1.0
+            diff = (best_bid - price) / float(price)
             """
             print "\nJudging Buy order %d, best_bid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_bid, price, 
-                                                                                                                             diff, self.sf.expectedPosition, order['qty'])
+                                                                                                                            diff, self.sf.expectedPosition, order['qty'])
+            
             """
             if (diff < -.03 or diff > .15) and -1000 < (self.sf.expectedPosition - order['qty']) < 1000:
                 return True
   
         else:
-            diff = (best_ask - price) / price * 1.0
+            diff = (best_ask - price) / float(price)
+            # diff = '{:.1%}'.format(diff)
             """
             print "\nJudging Sell order%d, best_ask %r, Price %r,diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_ask, price, 
-                                                                                                                           diff, self.sf.expectedPosition, order['qty'])
+                                                                                                                          diff, self.sf.expectedPosition, order['qty'])
             """
             if (diff > .03 or diff < -.15) and -1000 < (self.sf.expectedPosition - (order['qty'] * -1)) < 1000:
                 return True
