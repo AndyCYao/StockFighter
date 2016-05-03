@@ -12,10 +12,10 @@ FourthTrade will be separated by two thread
 import threading
 import gamemaster
 import time
-import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
+# import Queue  # Queue encapsulates ideas of wait() , notify() , acquire() for multithread use
 
 
-status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
+# status_queue = Queue.Queue(maxsize=0)  # maxsize = 0 -> queue size is infinite.
 gameOn = True
 
 
@@ -97,7 +97,7 @@ class BuySell:
         q_max = self.order_limit - positionSoFar - already_bought  # this is the max amount i can bid without game over.
         print "\n\tIn BuyCond. tBestBid %r, ma %r max order %r - positionSoFar %r" \
               " - already_bought %r = q_max %r can buy?" % (tBestBid, tMA, self.order_limit, positionSoFar, already_bought, q_max),
-        if 0 < tBestBid < tMA and q_max > 4 and already_bought + positionSoFar < self.order_limit:  # q_max > 4 because we still want reasonable bid quantity per each order
+        if 0 < tBestBid < tMA and q_max > 50 and already_bought + positionSoFar < self.order_limit:  # q_max > 50 because we still want reasonable bid quantity per each order
             print "..yes"
             return True
         print "..no"
@@ -111,7 +111,7 @@ class BuySell:
         q_max = abs(-1 * self.order_limit - positionSoFar - already_sold)
         print "\n\tIn SellCond. tBestAsk %r,ma %r max order %r - positionSoFar %r " \
               " - already_sold %r = q_max %r can sell?" % (tBestAsk, tMA, self.order_limit, positionSoFar, already_sold, q_max),
-        if tBestAsk > tMA and q_max > 4 and already_sold + positionSoFar > -1 * self.order_limit:
+        if tBestAsk > tMA and q_max > 50 and already_sold + positionSoFar > -1 * self.order_limit:
             print "..yes"
             return True
         print "..no"
@@ -130,6 +130,7 @@ class BuySell:
                     gameOn = False
                     break
 
+                time.sleep(1.5)
                 oBook = self.sf.get_order_book(self.stock)
                 bestAsk = self.sf.read_orderbook(oBook, "asks", "price", 1)
                 bestBid = self.sf.read_orderbook(oBook, "bids", "price", 1)
@@ -162,7 +163,7 @@ class BuySell:
                                                                                                buyOrder.get('price'), orderType,
                                                                                                buyOrder.get('ts')[buyOrder.get('ts').index('T'):])
                         q_actual = int(abs(q_max * .25))
-                        orderType = "immediate-or-cancel"
+                        # orderType = "immediate-or-cancel"
                 
                 positionSoFar = self.sf.positionSoFar   # check again because it might have been outdated.
 
@@ -183,7 +184,7 @@ class BuySell:
                                                                                                 sellOrder.get('price'), orderType,
                                                                                                 sellOrder.get('ts')[sellOrder.get('ts').index('T'):])
                         q_actual = int(q_max * .25)
-                        orderType = "immediate-or-cancel"
+                        # orderType = "immediate-or-cancel"
 
             print "BuySell Closed, final values Nav. %d Positions. %d" % (nav, positionSoFar)            
             gameOn = False
@@ -203,6 +204,7 @@ class CheckFill:
 
     def identify_unfilled_orders(self, orderList, callback):
         """check through orderIDlist, run them against callback should_cancel_unfilled, then cancel the order if true."""
+        """
         for y in orderList:
             x = orderList[y]
             if x["open"]:
@@ -210,7 +212,14 @@ class CheckFill:
                 if callback(x):
                     print "\n\tCancelling %s id:%r units %d @ %d" % (x["direction"], x["id"], x["qty"], x["price"])
                     self.sf.delete_order(self.stock, x["id"])
-                    
+        """
+        for k, x in list(orderList.items()):  # list creates a snap shot of the dictionary so that we can proceed.
+            if x["open"]:
+                # print "\n%r" %(x)
+                if callback(x):
+                    print "\n\tCancelling %s id:%r units %d @ %d" % (x["direction"], x["id"], x["qty"], x["price"])
+                    self.sf.delete_order(self.stock, x["id"])
+
     def should_cancel_unfilled(self, order):
         """Check if a given order should be cancelled.
 
@@ -251,8 +260,8 @@ class CheckFill:
         try:
             while gameOn:
                 time.sleep(2)
-                orders = self.sf.status_for_all_orders_in_stock(self.stock)
-                # orders = sf.orders
+                # orders = self.sf.status_for_all_orders_in_stock(self.stock)
+                orders = sf.orders
                 self.identify_unfilled_orders(orders, self.should_cancel_unfilled)
         except KeyboardInterrupt:
             print "ctrl+c pressed! leaving checking fills"

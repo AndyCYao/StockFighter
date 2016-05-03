@@ -3,6 +3,9 @@ References used and good readings on Stockfighter
 http://www.investopedia.com/ask/answers/06/quoteorderdrivenmarket.asp
 http://www.investopedia.com/terms/o/order-book.asp
 
+Fourth Level - Dueling Bulldozers -
+	best try so far. Reached NAV $205k before the instance time was up around 2506 secs 41 minutes
+
 To Do List:
 	make BuySell independent of CurrentStatus, as in take out the queue reliance.
 	-Done -add timestamp on all the print out messages. 	
