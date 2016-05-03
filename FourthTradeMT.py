@@ -47,6 +47,7 @@ class CurrentStatus:
             print "----\nT%d approximate Pos. %d, Expected Pos. %d, Cash %d, NAV %s" % \
                   ((time.time() - self.start), positionSoFar, expectedPosition, cash, nav_currency),
 
+
 class BuySell:
 
     def __init__(self, stockfighter):
@@ -83,7 +84,7 @@ class BuySell:
         q_max = self.order_limit - positionSoFar - already_bought  # this is the max amount i can bid without game over.
         print "\n\tIn BuyCond. tBestBid %r, ma %r max order %r - positionSoFar %r" \
               " - already_bought %r = q_max %r can buy?" % (tBestBid, tMA, self.order_limit, positionSoFar, already_bought, q_max),
-        if 0 < tBestBid < tMA and q_max > self.q_max and already_bought + positionSoFar < self.order_limit:  # q_max > 50 because we still want reasonable bid quantity per each order
+        if (0 < tBestBid < tMA) and (q_max > self.q_max) and (already_bought + positionSoFar < self.order_limit):  # q_max > 50 because we still want reasonable bid quantity per each order
             print "..yes"
             return True
         print "..no"
@@ -98,7 +99,7 @@ class BuySell:
         q_max = abs(-1 * self.order_limit - positionSoFar - already_sold)
         print "\n\tIn SellCond. tBestAsk %r,ma %r max order %r - positionSoFar %r " \
               " - already_sold %r = q_max %r can sell?" % (tBestAsk, tMA, self.order_limit, positionSoFar, already_sold, q_max),
-        if tBestAsk > tMA and q_max > self.q_max and already_sold + positionSoFar > -1 * self.order_limit:
+        if (tBestAsk > tMA) and (q_max > self.q_max) and (already_sold + positionSoFar > -1 * self.order_limit):
             print "..yes"
             return True
         print "..no"
@@ -112,7 +113,7 @@ class BuySell:
 
         try:
             while nav < 250000 and self.sf.heartbeat():
-                if abs(self.sf.positionSoFar) > 1000:
+                if abs(self.sf.get_position_so_far()) > 1000:
                     gameOn = False
                     break
 
@@ -129,7 +130,7 @@ class BuySell:
                              
                 # cash, expectedPosition, nav, tempII = status_queue.get()
 
-                position_so_far = self.sf.positionSoFar  # the sf.position_so_far is updated by the execution thread. much faster
+                position_so_far = self.sf.get_position_so_far()  # the sf.position_so_far is updated by the execution thread. much faster
                 # print "\nB_Bid %d, B_Ask %d Last %d, average %d" % (best_bid, best_ask, ma_20_list[-1], ma_20),
                 # print "temp %d" % (tempII)
 
@@ -144,14 +145,14 @@ class BuySell:
                     actual_bid = best_bid
 
                     for actual_bid in range(best_bid, worst_bid, increment):
-                        buy_order = sf.make_order(int(actual_bid * (1 + discount)), q_actual, self.stock, "buy", order_type)                        
+                        buy_order = self.sf.make_order(int(actual_bid * (1 + discount)), q_actual, self.stock, "buy", order_type)                        
                         print "\n\tPlaced BUY ord. id:%r +%r units @ %r %r time ordered %r" % (buy_order.get('id'), q_actual, 
                                                                                                buy_order.get('price'), order_type,
                                                                                                buy_order.get('ts')[buy_order.get('ts').index('T'):])
                         q_actual = int(abs(q_max * .25))
                         # order_type = "immediate-or-cancel"
                 
-                position_so_far = self.sf.positionSoFar   # check again because it might have been outdated.
+                position_so_far = self.sf.get_position_so_far()   # check again because it might have been outdated.
 
                 if self.sell_condition(position_so_far, best_ask, ma_20):
                     # loop through make multiple asks.
@@ -165,7 +166,7 @@ class BuySell:
                     actual_ask = best_ask
                     for actual_ask in range(best_ask, worst_ask, increment):
                         # print "actual ask %r and q_actual %r" %(actual_ask, q_actual)
-                        sell_order = sf.make_order(int(actual_ask * (1 - discount)), q_actual, self.stock, "sell", order_type)                        
+                        sell_order = self.sf.make_order(int(actual_ask * (1 - discount)), q_actual, self.stock, "sell", order_type)                        
                         print "\n\tPlaced SELL ord. id:%r -%r units @ %r %r time ordered %r" % (sell_order.get('id'), q_actual, 
                                                                                                 sell_order.get('price'), order_type,
                                                                                                 sell_order.get('ts')[sell_order.get('ts').index('T'):])
@@ -222,19 +223,19 @@ class CheckFill:
             diff = (best_bid - price) / float(price)
             """
             print "\nJudging Buy order %d, best_bid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_bid, price, 
-                                                                                                                            diff, self.sf.expectedPosition, order['qty'])
+                                                                                                                            diff, self.sf.get_expected_position(), order['qty'])
             
             """
-            if (diff < self.bid_diff_minimum or diff > self.bid_diff_maximum) and -1000 < (self.sf.expectedPosition - order['qty']) < 1000:
+            if (diff < self.bid_diff_minimum or diff > self.bid_diff_maximum) and -1000 < (self.sf.get_expected_position() - order['qty']) < 1000:
                 return True
   
         else:
             diff = (best_ask - price) / float(price)
             """
             print "\nJudging Sell order%d, best_ask %r, Price %r,diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_ask, price, 
-                                                                                                                          diff, self.sf.expectedPosition, order['qty'])
+                                                                                                                          diff, self.sf.get_expected_position(), order['qty'])
             """
-            if (diff > self.ask_diff_maximum or diff < self.ask_diff_minimum) and -1000 < (self.sf.expectedPosition - (order['qty'] * -1)) < 1000:
+            if (diff > self.ask_diff_maximum or diff < self.ask_diff_minimum) and -1000 < (self.sf.get_expected_position() - (order['qty'] * -1)) < 1000:
                 return True
         return False
 

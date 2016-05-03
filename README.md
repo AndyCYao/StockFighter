@@ -7,8 +7,9 @@ Fourth Level - Dueling Bulldozers -
 	best try so far. Reached NAV $205k before the instance time was up around 2506 secs 41 minutes
 
 To Do List:
-	-make all the parameters for each class adjustable in the init of each class.
-	
+	Done make sf.positionSoFar , cash, nav expected position in gamemaster private instance variables.
+	Done -make all the parameters for each class adjustable in the init of each class.
+
 	-Done Made CheckFill reliant on the self.order rather than check_status_order method to pump out the list of current orders.
 	since self.order is kept in memory, rather than check_status_order is a HTTP request. so its much faster and should be accurate.
 	-Done make BuySell independent of CurrentStatus, as in take out the queue reliance.

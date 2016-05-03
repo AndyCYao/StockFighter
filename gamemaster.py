@@ -2,6 +2,7 @@
 import requests
 import json
 from ws4py.client.threadedclient import WebSocketClient
+import Queue
 
 
 class GameMaster:
@@ -92,10 +93,12 @@ class StockFighter:
         self.header = {'X-Starfighter-Authorization': apikey}
         self.base_url = "https://api.stockfighter.io/ob/api"
         self.orders = self.status_for_all_orders_in_stock(self.tickers)
-        self.positionSoFar, self.cash, self.expectedPosition = self.update_open_orders(self.orders)
-        print "Game started...Actual Pos. is %d, expectedPosition %d, Cash %d" % (self.positionSoFar,
-                                                                                  self.expectedPosition,
-                                                                                  self.cash)
+        self._positionSoFar, self._cash, self._expectedPosition = self.update_open_orders(self.orders)
+        print "Game started...Actual Pos. is %d, expectedPosition %d, Cash %d" % (self._positionSoFar,
+                                                                                  self._expectedPosition,
+                                                                                  self._cash)
+        # self.position_so_far_queue = Queue.Queue(maxsize=0)
+        # self.position_so_far_queue.put(self._positionSoFar)  # this will be the outward facing variable.
         print "\nConnecting to quote socket...",
         self.quote_venue_ticker(self.quote_socket)
         print "\nConnecting to execution socket...",
@@ -119,6 +122,14 @@ class StockFighter:
             print "%s's on fire" % (self.venues)
 
         return response["ok"]
+
+    def get_position_so_far(self):
+        # rst = self.position_so_far_queue.get()
+        rst = self._positionSoFar
+        return rst 
+
+    def get_expected_position(self):
+        return self._expectedPosition
 
     def get_order_book(self, s):
         """retrieve the order book."""
@@ -177,9 +188,9 @@ class StockFighter:
     def execution_socket(self, m):
         """provide the same data as update_open_orders.
 
-        done in a websocket way and faster, updates the self.positionSoFar,
-        self.cash As the websocket sends message, this method
-        adds the delta into the module level variables self.cash and self.positionSoFar.
+        done in a websocket way and faster, updates the self._positionSoFar,
+        self._cash As the websocket sends message, this method
+        adds the delta into the module level variables self._cash and self._positionSoFar.
         """
         if m is not None:
             # testing updating the self.orders straight from here. especially to see whether i can
@@ -191,7 +202,6 @@ class StockFighter:
             except:
                 pass
             """
-            #if id in self.orders:
             self.orders[id] = m['order']
             # print "\nPOSTUPDATE%r" % (self.orders[id])  
 
@@ -202,18 +212,19 @@ class StockFighter:
             total_filled = m["order"]["totalFilled"]
             if direction == "sell":
                 filled = filled * -1    
-            self.positionSoFar += filled
+            self._positionSoFar += filled
+            # self.position_so_far_queue.put(self._positionSoFar) # disabled for now.
             # -.01 because we are getting the correct unit
-            self.cash += filled * price * (-.01)
+            self._cash += filled * price * (-.01)
             last = self.get_quote(self.tickers).get("last")
             if last is None:
                 last = 0
-            nav = self.cash + self.positionSoFar * last * (.01)
+            nav = self._cash + self._positionSoFar * last * (.01)
             nav_currency = '${:,.2f}'.format(nav)   # look prettier in the output below
             filled_at = m['filledAt'][m['filledAt'].index('T'):]
             print "\tUPDATE id:%d,Units %d @ %d %d/%d filled\tCurrent pos is %d, " \
-                  " cash $%d,nav %s Filled At %r" % (id, filled, price, total_filled ,original_qty, self.positionSoFar,
-                                                     self.cash, nav_currency, filled_at)
+                  " cash $%d,nav %s Filled At %r" % (id, filled, price, total_filled, original_qty, self._positionSoFar,
+                                                     self._cash, nav_currency, filled_at)
      
         else:
             if self.heartbeat():  # sometimes m is None because venue is dead, this checks it.
@@ -286,7 +297,6 @@ class StockFighter:
         self.orders[response_order['id']] = response_order
 
         return response.json()
-
 
     def get_quote(self, s):
         # Get last quote.
