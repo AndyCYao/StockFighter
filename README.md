@@ -4,7 +4,10 @@ http://www.investopedia.com/ask/answers/06/quoteorderdrivenmarket.asp
 http://www.investopedia.com/terms/o/order-book.asp
 
 Fourth Level - Dueling Bulldozers -
-	best try so far. Reached NAV $205k before the instance time was up around 2506 secs 41 minutes
+	best try so far. 
+	Reached NAV $225 before instance time up. 
+	Reached NAV $205k before the instance time was up around 2506 secs 41 minutes
+
 
 To Do List:
 	Bug- the self.order got updated before the self.position_so_far did. so the BuySell had incorrect numbers to make decision with, causing losing games.

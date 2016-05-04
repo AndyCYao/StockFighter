@@ -189,8 +189,8 @@ class CheckFill:
         self.stock = self.sf.tickers
         self.timeToWait = 3     # for how long the unfill orders can last.
         self.bid_diff_minimum = -.03
-        self.bid_diff_maximum = .15
-        self.ask_diff_minimum = -.15
+        self.bid_diff_maximum = .10
+        self.ask_diff_minimum = -.10
         self.ask_diff_maximum = .03
 
     def identify_unfilled_orders(self, orderList, callback):
@@ -222,19 +222,19 @@ class CheckFill:
         if order["direction"] == "buy":
             diff = (best_bid - price) / float(price)
      
-            print "\nJudging Buy order %d, best_bid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_bid, price, 
-                                                                                                                            diff, self.sf.get_expected_position(), order['qty'])
+            print "\nJudging Buy order %d, best_bid %d, Price %d,  diff is %r, position_so_far %d, and order qty is %d" % (order['id'], best_bid, price, 
+                                                                                                                            diff, self.sf.get_position_so_far(), order['qty'])
                       
-            if (diff < self.bid_diff_minimum or diff > self.bid_diff_maximum) and -1000 < (self.sf.get_expected_position() - order['qty']) < 1000:
+            if (diff < self.bid_diff_minimum or diff > self.bid_diff_maximum):
                 return True
   
         else:
             diff = (best_ask - price) / float(price)
-            """
-            print "\nJudging Sell order%d, best_ask %r, Price %r,diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_ask, price, 
-                                                                                                                          diff, self.sf.get_expected_position(), order['qty'])
-            """
-            if (diff > self.ask_diff_maximum or diff < self.ask_diff_minimum) and -1000 < (self.sf.get_expected_position() - (order['qty'] * -1)) < 1000:
+            
+            print "\nJudging Sell order%d, best_ask %r, Price %r,diff is %r, position_so_far %d, and order qty is %d" % (order['id'], best_ask, price, 
+                                                                                                                          diff, self.sf.get_position_so_far(), order['qty'])
+            
+            if (diff > self.ask_diff_maximum or diff < self.ask_diff_minimum):
                 return True
         return False
 
