@@ -7,6 +7,8 @@ Fourth Level - Dueling Bulldozers -
 	best try so far. Reached NAV $205k before the instance time was up around 2506 secs 41 minutes
 
 To Do List:
+	Bug- the self.order got updated before the self.position_so_far did. so the BuySell had incorrect numbers to make decision with, causing losing games.
+
 	Done make sf.positionSoFar , cash, nav expected position in gamemaster private instance variables.
 	Done -make all the parameters for each class adjustable in the init of each class.
 

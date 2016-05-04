@@ -56,7 +56,7 @@ class BuySell:
         self.start = time.time()
         self.stock = self.sf.tickers
         self.order_limit = 1000  # we can go +/- in this range. the game officially has 1000 but since my codes suck i will use 1000 to accomodate the error.
-        self.q_max = 50
+        self.threshold = 200  # this is the qty i want to cross before placing order, otherwise im flooding too much tiny orders 
         self.gap_percent = .02
         self.worst_case = .04
 
@@ -81,10 +81,10 @@ class BuySell:
         already_bought = self.find_ordered("buy")
         # basically we want 
         #  self.order_limit => positionSoFar +  already bought + to be ordered aka q_max
-        q_max = self.order_limit - positionSoFar - already_bought  # this is the max amount i can bid without game over.
+        q_max = self.order_limit - positionSoFar - already_bought  # this is the qty i can order without going over.
         print "\n\tIn BuyCond. tBestBid %r, ma %r max order %r - positionSoFar %r" \
               " - already_bought %r = q_max %r can buy?" % (tBestBid, tMA, self.order_limit, positionSoFar, already_bought, q_max),
-        if (0 < tBestBid < tMA) and (q_max > self.q_max) and (already_bought + positionSoFar < self.order_limit):  # q_max > 50 because we still want reasonable bid quantity per each order
+        if (0 < tBestBid < tMA) and (q_max > self.threshold) and (already_bought + positionSoFar < self.order_limit):  # q_max > 50 because we still want reasonable bid quantity per each order
             print "..yes"
             return True
         print "..no"
@@ -99,7 +99,7 @@ class BuySell:
         q_max = abs(-1 * self.order_limit - positionSoFar - already_sold)
         print "\n\tIn SellCond. tBestAsk %r,ma %r max order %r - positionSoFar %r " \
               " - already_sold %r = q_max %r can sell?" % (tBestAsk, tMA, self.order_limit, positionSoFar, already_sold, q_max),
-        if (tBestAsk > tMA) and (q_max > self.q_max) and (already_sold + positionSoFar > -1 * self.order_limit):
+        if (tBestAsk > tMA) and (q_max > self.threshold) and (already_sold + positionSoFar > -1 * self.order_limit):
             print "..yes"
             return True
         print "..no"
@@ -146,9 +146,9 @@ class BuySell:
 
                     for actual_bid in range(best_bid, worst_bid, increment):
                         buy_order = self.sf.make_order(int(actual_bid * (1 + discount)), q_actual, self.stock, "buy", order_type)                        
-                        print "\n\tPlaced BUY ord. id:%r +%r units @ %r %r time ordered %r" % (buy_order.get('id'), q_actual, 
-                                                                                               buy_order.get('price'), order_type,
-                                                                                               buy_order.get('ts')[buy_order.get('ts').index('T'):])
+                        print "\tPlaced BUY ord. id:%r +%r units @ %r %r time ordered %r" % (buy_order.get('id'), q_actual, 
+                                                                                             buy_order.get('price'), order_type,
+                                                                                             buy_order.get('ts')[buy_order.get('ts').index('T'):])
                         q_actual = int(abs(q_max * .25))
                         # order_type = "immediate-or-cancel"
                 
@@ -167,9 +167,9 @@ class BuySell:
                     for actual_ask in range(best_ask, worst_ask, increment):
                         # print "actual ask %r and q_actual %r" %(actual_ask, q_actual)
                         sell_order = self.sf.make_order(int(actual_ask * (1 - discount)), q_actual, self.stock, "sell", order_type)                        
-                        print "\n\tPlaced SELL ord. id:%r -%r units @ %r %r time ordered %r" % (sell_order.get('id'), q_actual, 
-                                                                                                sell_order.get('price'), order_type,
-                                                                                                sell_order.get('ts')[sell_order.get('ts').index('T'):])
+                        print "\tPlaced SELL ord. id:%r -%r units @ %r %r time ordered %r" % (sell_order.get('id'), q_actual, 
+                                                                                              sell_order.get('price'), order_type,
+                                                                                              sell_order.get('ts')[sell_order.get('ts').index('T'):])
                         q_actual = int(q_max * .25)
                         # order_type = "immediate-or-cancel"
 
@@ -221,11 +221,10 @@ class CheckFill:
        
         if order["direction"] == "buy":
             diff = (best_bid - price) / float(price)
-            """
+     
             print "\nJudging Buy order %d, best_bid %d, Price %d,  diff is %r, expectedPosition %d, and order qty is %d" % (order['id'], best_bid, price, 
                                                                                                                             diff, self.sf.get_expected_position(), order['qty'])
-            
-            """
+                      
             if (diff < self.bid_diff_minimum or diff > self.bid_diff_maximum) and -1000 < (self.sf.get_expected_position() - order['qty']) < 1000:
                 return True
   
