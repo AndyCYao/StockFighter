@@ -253,16 +253,16 @@ class StockFighter:
         with open("ResultQuoteSocket.json", "r+b") as settings:
             settings.seek(0)  # The seek and truncate line wipes out everythin in the settings file.
             settings.truncate()
-            json.dump(self.quotes, settings)        
+            json.dump(self.quotes, settings, indent=2)        
         with open("resultOrderBook.json", "r+b") as orderBook:
             orderBook.seek(0)  # The seek and truncate line wipes out everythin in the orderBook file.
             orderBook.truncate()
-            json.dump(self.orderbook, orderBook)        
+            json.dump(self.orderbook, orderBook, indent=2)        
         with open("resultOrders.json", "r+b") as orders:
             orders.seek(0)  # The seek and truncate line wipes out everythin in the orders file.
             orders.truncate()
             my_orders = self.status_for_all_orders_in_stock(self.tickers)
-            json.dump(my_orders, orders)       
+            json.dump(my_orders, orders, indent=2)       
                 
         try:
             print "Printing postmordem info into graph..."
