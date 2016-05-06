@@ -20,7 +20,7 @@ class GameMaster:
         header = {'X-Starfighter-Authorization': self.get_api_key()}
         full_url = "%s/instances/%s" % (self.gm_url, instanceID)
         response = requests.get(full_url, headers=header)
-        print json.dumps(response.json(), indent=4)
+        # print json.dumps(response.json(), indent=4)
         is_true = response.json().get("state")
         return is_true
             
@@ -88,9 +88,10 @@ class StockFighter:
 
         print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account,
                                                                  self.instanceID, self.tickers)
-        # used for storing a list of active orders made during this session.
+        
         self.header = {'X-Starfighter-Authorization': apikey}
         self.base_url = "https://api.stockfighter.io/ob/api"
+        # used for storing a list of active orders made during this session.
         self.orders = self.status_for_all_orders_in_stock(self.tickers)
         self._positionSoFar, self._cash, self._expectedPosition = self.update_open_orders(self.orders)
         print "Game started...Actual Pos. is %d, expectedPosition %d, Cash %d" % (self._positionSoFar,
@@ -102,8 +103,6 @@ class StockFighter:
         self.quote_venue_ticker(self.quote_socket)
         print "\nConnecting to execution socket...",
         self.execution_venue_ticker(self.execution_socket)
-        print "checking instance detail"
-        gm.get_is_instance_active(self.instanceID)
 
     @classmethod
     def test_mode(cls):
@@ -122,6 +121,12 @@ class StockFighter:
         if not response["ok"]:
             print "%s's on fire" % (self.venues)
         return response["ok"]
+
+    def get_stocks_on_a_venue(self):
+        """List the stocks available for trading on a venue."""
+        full_url = "%s/venues/%s/stocks" % (self.base_url, self.venues)
+        response = requests.get(full_url, headers=self.header)
+        return response
 
     def get_position_so_far(self):
         # rst = self.position_so_far_queue.get()
@@ -196,8 +201,8 @@ class StockFighter:
             # testing updating the self.orders straight from here. especially to see whether i can
             # see the remaining of the order. 
             id = m['order']['id']
-            print "Execution Socket"
-            print json.dumps(m, indent=4)
+            # print "Execution Socket"
+            # print json.dumps(m, indent=4)
 
             self.orders[id] = m['order']
             filled = m["filled"]

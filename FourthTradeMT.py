@@ -188,10 +188,10 @@ class CheckFill:
         self.sf = stockfighter
         self.stock = self.sf.tickers
         self.timeToWait = 3     # for how long the unfill orders can last.
-        self.bid_diff_minimum = -.03
-        self.bid_diff_maximum = .10
-        self.ask_diff_minimum = -.10
-        self.ask_diff_maximum = .03
+        self.bid_diff_minimum = -.02
+        self.bid_diff_maximum = .08
+        self.ask_diff_minimum = -.08
+        self.ask_diff_maximum = .02
 
     def identify_unfilled_orders(self, orderList, callback):
         """check through orderIDlist, run them against callback should_cancel_unfilled, then cancel the order if true."""
@@ -222,19 +222,19 @@ class CheckFill:
         if order["direction"] == "buy":
             diff = (best_bid - price) / float(price)
      
-            print "\nJudging Buy order %d, best_bid %d, Price %d,  diff is %r, position_so_far %d, and order qty is %d" % (order['id'], best_bid, price, 
-                                                                                                                            diff, self.sf.get_position_so_far(), order['qty'])
+            # print "\nJudging Buy order %d, best_bid %d, Price %d,  diff is %r, position_so_far %d, and order qty is %d" % (order['id'], best_bid, price, 
+            #                                                                                                                 diff, self.sf.get_position_so_far(), order['qty'])
                       
-            if (diff < self.bid_diff_minimum or diff > self.bid_diff_maximum):
+            if (diff < self.bid_diff_minimum or diff > self.bid_diff_maximum):  # if i am overbidding, or underbidding
                 return True
   
         else:
             diff = (best_ask - price) / float(price)
             
-            print "\nJudging Sell order%d, best_ask %r, Price %r,diff is %r, position_so_far %d, and order qty is %d" % (order['id'], best_ask, price, 
-                                                                                                                          diff, self.sf.get_position_so_far(), order['qty'])
+            # print "\nJudging Sell order%d, best_ask %r, Price %r,diff is %r, position_so_far %d, and order qty is %d" % (order['id'], best_ask, price, 
+            #                                                                                                               diff, self.sf.get_position_so_far(), order['qty'])
             
-            if (diff > self.ask_diff_maximum or diff < self.ask_diff_minimum):
+            if (diff > self.ask_diff_maximum or diff < self.ask_diff_minimum):  # if i am underselling or overselling
                 return True
         return False
 
@@ -253,6 +253,9 @@ if __name__ == '__main__':
     
     sf = gamemaster.StockFighter("dueling_bulldozers")
     # sf = gamemaster.StockFighter("sell_side")
+    x = sf.get_stocks_on_a_venue()  # check what is traded in this venue.
+    print x.json()
+
     bs = BuySell(sf)
     cf = CheckFill(sf)
     cs = CurrentStatus(sf)

@@ -3,8 +3,16 @@ References used and good readings on Stockfighter
 http://www.investopedia.com/ask/answers/06/quoteorderdrivenmarket.asp
 http://www.investopedia.com/terms/o/order-book.asp
 
+Fifth Level - Irrational Exuberance
+	-Goal -> short everything, pop the bubble, then buy everything back.
+
+	-interstingly. the orderbook api doesn't capture market order. it only shows what orders are standing in there.
+	-i think theres a finite amount of units available. if i can corner the market , selling lots incrementally, 
+	-one of the bot always makes market order in 1 unit quantity, this can drive the last traded price up.
+
 Fourth Level - Dueling Bulldozers -
 	best try so far. 
+	Beat lvl 4 at tick 1464 , roughly 292 day
 	Reached NAV $225 before instance time up. 
 	Reached NAV $205k before the instance time was up around 2506 secs 41 minutes
 

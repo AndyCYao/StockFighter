@@ -3,4432 +3,3493 @@
     "ok": true, 
     "asks": [
       {
-        "price": 10350, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8043
+        "qty": 62
       }, 
       {
-        "price": 10401, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8043
-      }, 
-      {
-        "price": 10452, 
-        "isBuy": false, 
-        "qty": 8043
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10248, 
+        "price": 7893, 
         "isBuy": true, 
-        "qty": 1956
+        "qty": 499
       }, 
       {
-        "price": 10197, 
+        "price": 7854, 
         "isBuy": true, 
-        "qty": 1956
+        "qty": 499
       }, 
       {
-        "price": 10146, 
+        "price": 7815, 
         "isBuy": true, 
-        "qty": 1956
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 703
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:41:59.406520974Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:25.279267118Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10350, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8043
+        "qty": 62
       }, 
       {
-        "price": 10401, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8043
-      }, 
-      {
-        "price": 10452, 
-        "isBuy": false, 
-        "qty": 8043
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10248, 
+        "price": 7893, 
         "isBuy": true, 
-        "qty": 1956
+        "qty": 499
       }, 
       {
-        "price": 10197, 
+        "price": 7854, 
         "isBuy": true, 
-        "qty": 1956
+        "qty": 499
       }, 
       {
-        "price": 10146, 
+        "price": 7815, 
         "isBuy": true, 
-        "qty": 1956
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 703
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:01.064140272Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:26.932888377Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10423, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7946
+        "qty": 62
       }, 
       {
-        "price": 10474, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7946
-      }, 
-      {
-        "price": 10525, 
-        "isBuy": false, 
-        "qty": 7946
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10000, 
+        "price": 7893, 
         "isBuy": true, 
-        "qty": 703
+        "qty": 499
+      }, 
+      {
+        "price": 7854, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7815, 
+        "isBuy": true, 
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:02.682737868Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:28.534303774Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10423, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7946
+        "qty": 58
       }, 
       {
-        "price": 10474, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7946
-      }, 
-      {
-        "price": 10525, 
-        "isBuy": false, 
-        "qty": 7946
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10000, 
+        "price": 8051, 
         "isBuy": true, 
-        "qty": 703
+        "qty": 499
+      }, 
+      {
+        "price": 8011, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7971, 
+        "isBuy": true, 
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:04.326169416Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:30.15104211Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10423, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7946
+        "qty": 58
       }, 
       {
-        "price": 10474, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7946
-      }, 
-      {
-        "price": 10525, 
-        "isBuy": false, 
-        "qty": 7946
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10000, 
+        "price": 8051, 
         "isBuy": true, 
-        "qty": 703
+        "qty": 499
+      }, 
+      {
+        "price": 8011, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7971, 
+        "isBuy": true, 
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:05.93086272Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:31.828819427Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10569, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7829
+        "qty": 58
       }, 
       {
-        "price": 10621, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7829
-      }, 
-      {
-        "price": 10673, 
-        "isBuy": false, 
-        "qty": 7829
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10073, 
+        "price": 8051, 
         "isBuy": true, 
-        "qty": 2063
+        "qty": 499
       }, 
       {
-        "price": 10023, 
+        "price": 8011, 
         "isBuy": true, 
-        "qty": 2105
+        "qty": 499
       }, 
       {
-        "price": 10000, 
+        "price": 7971, 
         "isBuy": true, 
-        "qty": 703
-      }, 
-      {
-        "price": 9973, 
-        "isBuy": true, 
-        "qty": 2105
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:07.54558497Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:33.428727305Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10569, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7829
+        "qty": 53
       }, 
       {
-        "price": 10621, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7829
-      }, 
-      {
-        "price": 10673, 
-        "isBuy": false, 
-        "qty": 7829
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10073, 
+        "price": 8345, 
         "isBuy": true, 
-        "qty": 2063
+        "qty": 499
       }, 
       {
-        "price": 10023, 
+        "price": 8304, 
         "isBuy": true, 
-        "qty": 2105
+        "qty": 499
       }, 
       {
-        "price": 10000, 
+        "price": 8263, 
         "isBuy": true, 
-        "qty": 703
-      }, 
-      {
-        "price": 9973, 
-        "isBuy": true, 
-        "qty": 2105
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:09.396208243Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:35.03319757Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10569, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7829
+        "qty": 53
       }, 
       {
-        "price": 10621, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7829
-      }, 
-      {
-        "price": 10673, 
-        "isBuy": false, 
-        "qty": 7829
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10073, 
+        "price": 8345, 
         "isBuy": true, 
-        "qty": 2063
+        "qty": 499
       }, 
       {
-        "price": 10023, 
+        "price": 8304, 
         "isBuy": true, 
-        "qty": 2105
+        "qty": 499
       }, 
       {
-        "price": 10000, 
+        "price": 8263, 
         "isBuy": true, 
-        "qty": 703
-      }, 
-      {
-        "price": 9973, 
-        "isBuy": true, 
-        "qty": 2105
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:11.01150013Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:36.722165044Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10945, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7726
+        "qty": 53
       }, 
       {
-        "price": 10999, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7726
-      }, 
-      {
-        "price": 11053, 
-        "isBuy": false, 
-        "qty": 7726
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10000, 
+        "price": 8345, 
         "isBuy": true, 
-        "qty": 703
+        "qty": 499
+      }, 
+      {
+        "price": 8304, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8263, 
+        "isBuy": true, 
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:12.78080738Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:38.322960321Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10945, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7726
+        "qty": 52
       }, 
       {
-        "price": 10999, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7726
-      }, 
-      {
-        "price": 11053, 
-        "isBuy": false, 
-        "qty": 7726
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10000, 
+        "price": 8057, 
         "isBuy": true, 
-        "qty": 703
+        "qty": 499
+      }, 
+      {
+        "price": 8017, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7977, 
+        "isBuy": true, 
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:14.397733678Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:39.928781128Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10945, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7726
+        "qty": 52
       }, 
       {
-        "price": 10999, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7726
-      }, 
-      {
-        "price": 11053, 
-        "isBuy": false, 
-        "qty": 7726
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10000, 
+        "price": 8057, 
         "isBuy": true, 
-        "qty": 703
+        "qty": 499
+      }, 
+      {
+        "price": 8017, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7977, 
+        "isBuy": true, 
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:16.00916499Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:41.535483179Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10403, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7757
+        "qty": 52
       }, 
       {
-        "price": 10454, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7757
-      }, 
-      {
-        "price": 10505, 
-        "isBuy": false, 
-        "qty": 7757
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10352, 
+        "price": 8057, 
         "isBuy": true, 
-        "qty": 99
+        "qty": 499
       }, 
       {
-        "price": 10323, 
+        "price": 8017, 
         "isBuy": true, 
-        "qty": 139
+        "qty": 499
       }, 
       {
-        "price": 10302, 
+        "price": 7977, 
         "isBuy": true, 
-        "qty": 92
-      }, 
-      {
-        "price": 10154, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10103, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10052, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 703
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:17.633199957Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:43.134255198Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10403, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7757
+        "qty": 51
       }, 
       {
-        "price": 10454, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 7757
-      }, 
-      {
-        "price": 10505, 
-        "isBuy": false, 
-        "qty": 7757
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10352, 
-        "isBuy": true, 
-        "qty": 99
-      }, 
-      {
-        "price": 10323, 
-        "isBuy": true, 
-        "qty": 139
-      }, 
-      {
-        "price": 10302, 
-        "isBuy": true, 
-        "qty": 92
-      }, 
-      {
-        "price": 10154, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10103, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10052, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 703
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:19.240410333Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10403, 
-        "isBuy": false, 
-        "qty": 7757
-      }, 
-      {
-        "price": 10454, 
-        "isBuy": false, 
-        "qty": 7757
-      }, 
-      {
-        "price": 10505, 
-        "isBuy": false, 
-        "qty": 7757
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10352, 
-        "isBuy": true, 
-        "qty": 99
-      }, 
-      {
-        "price": 10323, 
-        "isBuy": true, 
-        "qty": 139
-      }, 
-      {
-        "price": 10302, 
-        "isBuy": true, 
-        "qty": 92
-      }, 
-      {
-        "price": 10154, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10103, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10052, 
-        "isBuy": true, 
-        "qty": 2242
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 703
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:20.851311682Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 6542, 
-        "isBuy": false, 
-        "qty": 110049
+        "qty": 500
       }
     ], 
     "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:22.461769761Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:44.763750991Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 6542, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 110049
+        "qty": 51
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8467, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8425, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8383, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:46.370453679Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 51
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8467, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8425, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8383, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:47.969948106Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 51
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8467, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8425, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8383, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:49.677842511Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 50
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8086, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8046, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8006, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:51.286529789Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 50
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8086, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8046, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8006, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:52.996756684Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 49
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
       }
     ], 
     "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:24.075603371Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:54.748494213Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 6542, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 110049
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:25.679496748Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10330, 
-        "isBuy": false, 
-        "qty": 8888
+        "qty": 48
       }, 
       {
-        "price": 10381, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8888
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:27.288085997Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10279, 
-        "isBuy": false, 
-        "qty": 8888
-      }, 
-      {
-        "price": 10330, 
-        "isBuy": false, 
-        "qty": 8888
-      }, 
-      {
-        "price": 10381, 
-        "isBuy": false, 
-        "qty": 8888
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:28.911554484Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10279, 
-        "isBuy": false, 
-        "qty": 8888
-      }, 
-      {
-        "price": 10330, 
-        "isBuy": false, 
-        "qty": 8888
-      }, 
-      {
-        "price": 10381, 
-        "isBuy": false, 
-        "qty": 8888
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:30.51748777Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10279, 
-        "isBuy": false, 
-        "qty": 8888
-      }, 
-      {
-        "price": 10330, 
-        "isBuy": false, 
-        "qty": 8888
-      }, 
-      {
-        "price": 10381, 
-        "isBuy": false, 
-        "qty": 8888
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:32.118957417Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10433, 
-        "isBuy": false, 
-        "qty": 8826
-      }, 
-      {
-        "price": 10484, 
-        "isBuy": false, 
-        "qty": 8826
-      }, 
-      {
-        "price": 10535, 
-        "isBuy": false, 
-        "qty": 8826
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:33.730160348Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10433, 
-        "isBuy": false, 
-        "qty": 8826
-      }, 
-      {
-        "price": 10484, 
-        "isBuy": false, 
-        "qty": 8826
-      }, 
-      {
-        "price": 10535, 
-        "isBuy": false, 
-        "qty": 8826
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:35.330622253Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10433, 
-        "isBuy": false, 
-        "qty": 8826
-      }, 
-      {
-        "price": 10484, 
-        "isBuy": false, 
-        "qty": 8826
-      }, 
-      {
-        "price": 10535, 
-        "isBuy": false, 
-        "qty": 8826
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:36.934876622Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10967, 
-        "isBuy": false, 
-        "qty": 8898
-      }, 
-      {
-        "price": 11021, 
-        "isBuy": false, 
-        "qty": 8898
-      }, 
-      {
-        "price": 11075, 
-        "isBuy": false, 
-        "qty": 8898
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:38.535698118Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10967, 
-        "isBuy": false, 
-        "qty": 8898
-      }, 
-      {
-        "price": 11021, 
-        "isBuy": false, 
-        "qty": 8898
-      }, 
-      {
-        "price": 11075, 
-        "isBuy": false, 
-        "qty": 8898
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:40.137892851Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10967, 
-        "isBuy": false, 
-        "qty": 8898
-      }, 
-      {
-        "price": 11021, 
-        "isBuy": false, 
-        "qty": 8898
-      }, 
-      {
-        "price": 11075, 
-        "isBuy": false, 
-        "qty": 8898
-      }
-    ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:41.743902524Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10360, 
-        "isBuy": false, 
-        "qty": 8876
-      }, 
-      {
-        "price": 10411, 
-        "isBuy": false, 
-        "qty": 8876
-      }, 
-      {
-        "price": 10413, 
-        "isBuy": false, 
-        "qty": 39
-      }, 
-      {
-        "price": 10462, 
-        "isBuy": false, 
-        "qty": 8876
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10258, 
+        "price": 8060, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }, 
       {
-        "price": 10207, 
+        "price": 8020, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }, 
       {
-        "price": 10156, 
+        "price": 7980, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:43.351222186Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:56.349868237Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10360, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8876
+        "qty": 48
       }, 
       {
-        "price": 10411, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8876
-      }, 
-      {
-        "price": 10413, 
-        "isBuy": false, 
-        "qty": 39
-      }, 
-      {
-        "price": 10462, 
-        "isBuy": false, 
-        "qty": 8876
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": false, 
-        "qty": 1000
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10258, 
+        "price": 8060, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }, 
       {
-        "price": 10207, 
+        "price": 8020, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }, 
       {
-        "price": 10156, 
+        "price": 7980, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:44.95910642Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:58.079461351Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10360, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8876
+        "qty": 48
       }, 
       {
-        "price": 10411, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8876
-      }, 
-      {
-        "price": 10413, 
-        "isBuy": false, 
-        "qty": 39
-      }, 
-      {
-        "price": 10462, 
-        "isBuy": false, 
-        "qty": 8876
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": false, 
-        "qty": 1000
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10258, 
+        "price": 8060, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }, 
       {
-        "price": 10207, 
+        "price": 8020, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }, 
       {
-        "price": 10156, 
+        "price": 7980, 
         "isBuy": true, 
-        "qty": 1123
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:46.565281069Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:12:59.684643406Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10500, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 1000
+        "qty": 43
       }, 
       {
-        "price": 10616, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8823
-      }, 
-      {
-        "price": 10668, 
-        "isBuy": false, 
-        "qty": 8823
-      }, 
-      {
-        "price": 10720, 
-        "isBuy": false, 
-        "qty": 8823
+        "qty": 500
       }
     ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:48.17924984Z"
+    "bids": [
+      {
+        "price": 8224, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8183, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8142, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:01.376893563Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10500, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 1000
+        "qty": 43
       }, 
       {
-        "price": 10616, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8823
-      }, 
-      {
-        "price": 10668, 
-        "isBuy": false, 
-        "qty": 8823
-      }, 
-      {
-        "price": 10720, 
-        "isBuy": false, 
-        "qty": 8823
+        "qty": 500
       }
     ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:49.783157804Z"
+    "bids": [
+      {
+        "price": 8224, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8183, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8142, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:02.975834823Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10500, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 1000
+        "qty": 43
       }, 
       {
-        "price": 10616, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 8823
-      }, 
-      {
-        "price": 10668, 
-        "isBuy": false, 
-        "qty": 8823
-      }, 
-      {
-        "price": 10720, 
-        "isBuy": false, 
-        "qty": 8823
+        "qty": 500
       }
     ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:51.387027386Z"
+    "bids": [
+      {
+        "price": 8224, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8183, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8142, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:04.619079246Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 14320, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 6744
+        "qty": 40
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 14251, 
+        "price": 8093, 
         "isBuy": true, 
-        "qty": 18500
+        "qty": 499
       }, 
       {
-        "price": 10806, 
+        "price": 8053, 
         "isBuy": true, 
-        "qty": 750
+        "qty": 499
       }, 
       {
-        "price": 10752, 
+        "price": 8013, 
         "isBuy": true, 
-        "qty": 750
-      }, 
-      {
-        "price": 10698, 
-        "isBuy": true, 
-        "qty": 750
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:52.994470497Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:06.229031069Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 14320, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 6744
+        "qty": 40
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 14251, 
+        "price": 8093, 
         "isBuy": true, 
-        "qty": 18500
+        "qty": 499
       }, 
       {
-        "price": 10806, 
+        "price": 8053, 
         "isBuy": true, 
-        "qty": 750
+        "qty": 499
       }, 
       {
-        "price": 10752, 
+        "price": 8013, 
         "isBuy": true, 
-        "qty": 750
-      }, 
-      {
-        "price": 10698, 
-        "isBuy": true, 
-        "qty": 750
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:54.621771627Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:07.85536737Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 14320, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 6744
+        "qty": 40
+      }, 
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 14251, 
+        "price": 8093, 
         "isBuy": true, 
-        "qty": 18500
+        "qty": 499
       }, 
       {
-        "price": 10806, 
+        "price": 8053, 
         "isBuy": true, 
-        "qty": 750
+        "qty": 499
       }, 
       {
-        "price": 10752, 
+        "price": 8013, 
         "isBuy": true, 
-        "qty": 750
-      }, 
-      {
-        "price": 10698, 
-        "isBuy": true, 
-        "qty": 750
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:56.267470275Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:09.462539122Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10779, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5518
+        "qty": 37
       }, 
       {
-        "price": 10832, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5518
-      }, 
-      {
-        "price": 10885, 
-        "isBuy": false, 
-        "qty": 5518
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10673, 
+        "price": 7944, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }, 
       {
-        "price": 10620, 
+        "price": 7905, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }, 
       {
-        "price": 10567, 
+        "price": 7866, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:57.887185135Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:11.112245812Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10779, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5518
+        "qty": 37
       }, 
       {
-        "price": 10832, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5518
-      }, 
-      {
-        "price": 10885, 
-        "isBuy": false, 
-        "qty": 5518
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10673, 
+        "price": 7944, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }, 
       {
-        "price": 10620, 
+        "price": 7905, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }, 
       {
-        "price": 10567, 
+        "price": 7866, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:42:59.510923915Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:12.714938004Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10779, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5518
+        "qty": 37
       }, 
       {
-        "price": 10832, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5518
-      }, 
-      {
-        "price": 10885, 
-        "isBuy": false, 
-        "qty": 5518
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10673, 
+        "price": 7944, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }, 
       {
-        "price": 10620, 
+        "price": 7905, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }, 
       {
-        "price": 10567, 
+        "price": 7866, 
         "isBuy": true, 
-        "qty": 4447
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:01.119193305Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:14.314027556Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11093, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5554
+        "qty": 31
       }, 
       {
-        "price": 11148, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5554
-      }, 
-      {
-        "price": 11203, 
-        "isBuy": false, 
-        "qty": 5554
+        "qty": 500
       }
     ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:02.735209716Z"
+    "bids": [
+      {
+        "price": 8446, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8404, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8362, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:15.944680379Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11093, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5554
+        "qty": 31
       }, 
       {
-        "price": 11148, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5554
-      }, 
-      {
-        "price": 11203, 
-        "isBuy": false, 
-        "qty": 5554
+        "qty": 500
       }
     ], 
-    "bids": null, 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:04.584678285Z"
+    "bids": [
+      {
+        "price": 8446, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8404, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8362, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:17.600341906Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10576, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5514
+        "qty": 31
       }, 
       {
-        "price": 10628, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 5628
-      }, 
-      {
-        "price": 10680, 
-        "isBuy": false, 
-        "qty": 5628
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10256, 
+        "price": 8446, 
         "isBuy": true, 
-        "qty": 4365
+        "qty": 499
       }, 
       {
-        "price": 10205, 
+        "price": 8404, 
         "isBuy": true, 
-        "qty": 4365
+        "qty": 499
       }, 
       {
-        "price": 10154, 
+        "price": 8362, 
         "isBuy": true, 
-        "qty": 4365
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:11.259117558Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:19.20460694Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10551, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 94
+        "qty": 29
       }, 
       {
-        "price": 14396, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 31249
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10310, 
+        "price": 8069, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }, 
       {
-        "price": 10259, 
+        "price": 8029, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }, 
       {
-        "price": 10208, 
+        "price": 7989, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:12.898525492Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:20.807375846Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10551, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 94
+        "qty": 29
       }, 
       {
-        "price": 14396, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 31249
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10310, 
+        "price": 8069, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }, 
       {
-        "price": 10259, 
+        "price": 8029, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }, 
       {
-        "price": 10208, 
+        "price": 7989, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:14.511394991Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:22.408746368Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10551, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 94
+        "qty": 29
       }, 
       {
-        "price": 14396, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 31249
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 10310, 
+        "price": 8069, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }, 
       {
-        "price": 10259, 
+        "price": 8029, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }, 
       {
-        "price": 10208, 
+        "price": 7989, 
         "isBuy": true, 
-        "qty": 4389
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:16.115453955Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": null, 
-    "bids": [
-      {
-        "price": 10741, 
-        "isBuy": true, 
-        "qty": 5980
-      }, 
-      {
-        "price": 10688, 
-        "isBuy": true, 
-        "qty": 5980
-      }, 
-      {
-        "price": 10635, 
-        "isBuy": true, 
-        "qty": 5980
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:17.731585232Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": null, 
-    "bids": [
-      {
-        "price": 10741, 
-        "isBuy": true, 
-        "qty": 5980
-      }, 
-      {
-        "price": 10688, 
-        "isBuy": true, 
-        "qty": 5980
-      }, 
-      {
-        "price": 10635, 
-        "isBuy": true, 
-        "qty": 5980
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:19.346346405Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": null, 
-    "bids": [
-      {
-        "price": 10741, 
-        "isBuy": true, 
-        "qty": 5980
-      }, 
-      {
-        "price": 10688, 
-        "isBuy": true, 
-        "qty": 5980
-      }, 
-      {
-        "price": 10635, 
-        "isBuy": true, 
-        "qty": 5980
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:20.958139226Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": null, 
-    "bids": [
-      {
-        "price": 10679, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10626, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10573, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:22.590415526Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": null, 
-    "bids": [
-      {
-        "price": 10679, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10626, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10573, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:24.216849055Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": null, 
-    "bids": [
-      {
-        "price": 10679, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10626, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10573, 
-        "isBuy": true, 
-        "qty": 5910
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:25.832323507Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:24.066998939Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11119, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4140
+        "qty": 28
       }, 
       {
-        "price": 11174, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4140
-      }, 
-      {
-        "price": 11229, 
-        "isBuy": false, 
-        "qty": 4140
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 11009, 
+        "price": 8039, 
         "isBuy": true, 
-        "qty": 5859
+        "qty": 499
       }, 
       {
-        "price": 11003, 
+        "price": 7999, 
         "isBuy": true, 
-        "qty": 147
+        "qty": 499
       }, 
       {
-        "price": 10954, 
+        "price": 7959, 
         "isBuy": true, 
-        "qty": 5859
-      }, 
-      {
-        "price": 10899, 
-        "isBuy": true, 
-        "qty": 5859
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:27.439454817Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:25.673988307Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11119, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4140
+        "qty": 28
       }, 
       {
-        "price": 11174, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4140
-      }, 
-      {
-        "price": 11229, 
-        "isBuy": false, 
-        "qty": 4140
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 11009, 
+        "price": 8039, 
         "isBuy": true, 
-        "qty": 5859
+        "qty": 499
       }, 
       {
-        "price": 11003, 
+        "price": 7999, 
         "isBuy": true, 
-        "qty": 147
+        "qty": 499
       }, 
       {
-        "price": 10954, 
+        "price": 7959, 
         "isBuy": true, 
-        "qty": 5859
-      }, 
-      {
-        "price": 10899, 
-        "isBuy": true, 
-        "qty": 5859
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:29.061314915Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:27.316226881Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11119, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4140
+        "qty": 28
       }, 
       {
-        "price": 11174, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4140
-      }, 
-      {
-        "price": 11229, 
-        "isBuy": false, 
-        "qty": 4140
+        "qty": 500
       }
     ], 
     "bids": [
       {
-        "price": 11009, 
+        "price": 8039, 
         "isBuy": true, 
-        "qty": 5859
+        "qty": 499
       }, 
       {
-        "price": 11003, 
+        "price": 7999, 
         "isBuy": true, 
-        "qty": 147
+        "qty": 499
       }, 
       {
-        "price": 10954, 
+        "price": 7959, 
         "isBuy": true, 
-        "qty": 5859
-      }, 
-      {
-        "price": 10899, 
-        "isBuy": true, 
-        "qty": 5859
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:30.681812509Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:28.918616572Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 10495, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4210
-      }, 
-      {
-        "price": 10547, 
-        "isBuy": false, 
-        "qty": 4210
-      }, 
-      {
-        "price": 10599, 
-        "isBuy": false, 
-        "qty": 4210
+        "qty": 24
       }
     ], 
     "bids": [
       {
-        "price": 10000, 
+        "price": 8101, 
         "isBuy": true, 
-        "qty": 1000
+        "qty": 499
+      }, 
+      {
+        "price": 8061, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8021, 
+        "isBuy": true, 
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:32.287229704Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": null, 
-    "bids": [
-      {
-        "price": 10391, 
-        "isBuy": true, 
-        "qty": 5790
-      }, 
-      {
-        "price": 10339, 
-        "isBuy": true, 
-        "qty": 5790
-      }, 
-      {
-        "price": 10287, 
-        "isBuy": true, 
-        "qty": 5790
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:34.193511527Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": null, 
-    "bids": [
-      {
-        "price": 10391, 
-        "isBuy": true, 
-        "qty": 5790
-      }, 
-      {
-        "price": 10339, 
-        "isBuy": true, 
-        "qty": 5790
-      }, 
-      {
-        "price": 10287, 
-        "isBuy": true, 
-        "qty": 5790
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:35.836930712Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:30.543774527Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11399, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4210
-      }, 
-      {
-        "price": 11455, 
-        "isBuy": false, 
-        "qty": 4210
-      }, 
-      {
-        "price": 11511, 
-        "isBuy": false, 
-        "qty": 4210
+        "qty": 24
       }
     ], 
     "bids": [
       {
-        "price": 11219, 
+        "price": 8101, 
         "isBuy": true, 
-        "qty": 211
+        "qty": 499
       }, 
       {
-        "price": 11055, 
+        "price": 8061, 
         "isBuy": true, 
-        "qty": 98
+        "qty": 499
       }, 
       {
-        "price": 11053, 
+        "price": 8021, 
         "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10998, 
-        "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10943, 
-        "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:37.440273949Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:32.149997958Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11399, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4210
-      }, 
-      {
-        "price": 11455, 
-        "isBuy": false, 
-        "qty": 4210
-      }, 
-      {
-        "price": 11511, 
-        "isBuy": false, 
-        "qty": 4210
+        "qty": 24
       }
     ], 
     "bids": [
       {
-        "price": 11219, 
+        "price": 8101, 
         "isBuy": true, 
-        "qty": 211
+        "qty": 499
       }, 
       {
-        "price": 11055, 
+        "price": 8061, 
         "isBuy": true, 
-        "qty": 98
+        "qty": 499
       }, 
       {
-        "price": 11053, 
+        "price": 8021, 
         "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10998, 
-        "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10943, 
-        "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:39.261642724Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:33.7759905Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11399, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4210
-      }, 
-      {
-        "price": 11455, 
-        "isBuy": false, 
-        "qty": 4210
-      }, 
-      {
-        "price": 11511, 
-        "isBuy": false, 
-        "qty": 4210
+        "qty": 21
       }
     ], 
     "bids": [
       {
-        "price": 11219, 
+        "price": 8006, 
         "isBuy": true, 
-        "qty": 211
+        "qty": 499
       }, 
       {
-        "price": 11055, 
+        "price": 7966, 
         "isBuy": true, 
-        "qty": 98
+        "qty": 499
       }, 
       {
-        "price": 11053, 
+        "price": 7926, 
         "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10998, 
-        "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10943, 
-        "isBuy": true, 
-        "qty": 5770
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:40.885409681Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:35.382282434Z"
   }, 
   {
     "ok": true, 
     "asks": [
       {
-        "price": 11108, 
+        "price": 51000, 
         "isBuy": false, 
-        "qty": 4367
-      }, 
-      {
-        "price": 11163, 
-        "isBuy": false, 
-        "qty": 4367
-      }, 
-      {
-        "price": 11218, 
-        "isBuy": false, 
-        "qty": 4367
+        "qty": 21
       }
     ], 
     "bids": [
       {
-        "price": 10750, 
+        "price": 8006, 
         "isBuy": true, 
-        "qty": 5632
+        "qty": 499
       }, 
       {
-        "price": 10696, 
+        "price": 7966, 
         "isBuy": true, 
-        "qty": 5632
+        "qty": 499
       }, 
       {
-        "price": 10642, 
+        "price": 7926, 
         "isBuy": true, 
-        "qty": 5632
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:42.495309705Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:36.983936429Z"
   }, 
   {
     "ok": true, 
-    "asks": null, 
-    "bids": [
+    "asks": [
       {
-        "price": 10750, 
-        "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10696, 
-        "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10642, 
-        "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 21
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:44.114141706Z"
+    "bids": [
+      {
+        "price": 8006, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7966, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7926, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:38.626531247Z"
   }, 
   {
     "ok": true, 
-    "asks": null, 
-    "bids": [
+    "asks": [
       {
-        "price": 10750, 
-        "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10696, 
-        "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10642, 
-        "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 20
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:45.714033299Z"
+    "bids": [
+      {
+        "price": 7936, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7897, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7858, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:40.229127847Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 20
+      }
+    ], 
+    "bids": [
+      {
+        "price": 7936, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7897, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7858, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:41.845732592Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 20
+      }
+    ], 
+    "bids": [
+      {
+        "price": 7936, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7897, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7858, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:43.447452454Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 16
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8449, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8407, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8365, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:45.075448304Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 16
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8449, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8407, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8365, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:46.713567556Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 16
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8449, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8407, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8365, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:48.352015987Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 16
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8579, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8536, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8493, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:50.002319629Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 16
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8579, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8536, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8493, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:51.601703814Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 16
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8579, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8536, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8493, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:53.223692434Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 12
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8067, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8027, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7987, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:54.839478499Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 12
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8067, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8027, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7987, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:56.447548579Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 12
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8067, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8027, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7987, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:58.044935045Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 12
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8067, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8027, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7987, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:13:59.644224622Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 8
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8404, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8362, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8320, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:01.271175916Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 8
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8404, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8362, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8320, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:04.109446634Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 6
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8090, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8050, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8010, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:05.721104736Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 6
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8090, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8050, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8010, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:07.443101285Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 6
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8090, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8050, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8010, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:09.178799079Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 3
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8031, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7991, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7951, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:10.805810449Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 3
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8031, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7991, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7951, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:12.472933185Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": [
+      {
+        "price": 51000, 
+        "isBuy": false, 
+        "qty": 3
+      }
+    ], 
+    "bids": [
+      {
+        "price": 8031, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7991, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7951, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:14.076607932Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10502, 
+        "price": 8415, 
         "isBuy": true, 
-        "qty": 5645
+        "qty": 499
       }, 
       {
-        "price": 10450, 
+        "price": 8373, 
         "isBuy": true, 
-        "qty": 5645
+        "qty": 499
       }, 
       {
-        "price": 10398, 
+        "price": 8331, 
         "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:47.336787104Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:15.713184543Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10502, 
+        "price": 8415, 
         "isBuy": true, 
-        "qty": 5645
+        "qty": 499
       }, 
       {
-        "price": 10450, 
+        "price": 8373, 
         "isBuy": true, 
-        "qty": 5645
+        "qty": 499
       }, 
       {
-        "price": 10398, 
+        "price": 8331, 
         "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:48.939494005Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:17.330841186Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10502, 
+        "price": 8415, 
         "isBuy": true, 
-        "qty": 5645
+        "qty": 499
       }, 
       {
-        "price": 10450, 
+        "price": 8373, 
         "isBuy": true, 
-        "qty": 5645
+        "qty": 499
       }, 
       {
-        "price": 10398, 
+        "price": 8331, 
         "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:50.549431474Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:18.93730917Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10502, 
+        "price": 8065, 
         "isBuy": true, 
-        "qty": 5645
+        "qty": 499
       }, 
       {
-        "price": 10450, 
+        "price": 8025, 
         "isBuy": true, 
-        "qty": 5645
+        "qty": 499
       }, 
       {
-        "price": 10398, 
+        "price": 7985, 
         "isBuy": true, 
-        "qty": 5645
-      }, 
-      {
-        "price": 10000, 
-        "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:52.151419482Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11258, 
-        "isBuy": false, 
-        "qty": 4355
-      }, 
-      {
-        "price": 11314, 
-        "isBuy": false, 
-        "qty": 4355
-      }, 
-      {
-        "price": 11370, 
-        "isBuy": false, 
-        "qty": 4355
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10887, 
-        "isBuy": true, 
-        "qty": 166
-      }, 
-      {
-        "price": 10678, 
-        "isBuy": true, 
-        "qty": 5644
-      }, 
-      {
-        "price": 10625, 
-        "isBuy": true, 
-        "qty": 5644
-      }, 
-      {
-        "price": 10572, 
-        "isBuy": true, 
-        "qty": 5644
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:54.754289756Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11258, 
-        "isBuy": false, 
-        "qty": 4355
-      }, 
-      {
-        "price": 11314, 
-        "isBuy": false, 
-        "qty": 4355
-      }, 
-      {
-        "price": 11370, 
-        "isBuy": false, 
-        "qty": 4355
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10887, 
-        "isBuy": true, 
-        "qty": 166
-      }, 
-      {
-        "price": 10678, 
-        "isBuy": true, 
-        "qty": 5644
-      }, 
-      {
-        "price": 10625, 
-        "isBuy": true, 
-        "qty": 5644
-      }, 
-      {
-        "price": 10572, 
-        "isBuy": true, 
-        "qty": 5644
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:56.360512Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:20.543224321Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10500, 
+        "price": 8065, 
         "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }, 
       {
-        "price": 10449, 
+        "price": 8025, 
         "isBuy": true, 
-        "qty": 5584
+        "qty": 499
       }, 
       {
-        "price": 10397, 
+        "price": 7985, 
         "isBuy": true, 
-        "qty": 5584
-      }, 
-      {
-        "price": 10345, 
-        "isBuy": true, 
-        "qty": 5584
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:57.988098126Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:22.13702007Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10500, 
+        "price": 8065, 
         "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }, 
       {
-        "price": 10449, 
+        "price": 8025, 
         "isBuy": true, 
-        "qty": 5584
+        "qty": 499
       }, 
       {
-        "price": 10397, 
+        "price": 7985, 
         "isBuy": true, 
-        "qty": 5584
-      }, 
-      {
-        "price": 10345, 
-        "isBuy": true, 
-        "qty": 5584
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:43:59.60542486Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:23.741838492Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10500, 
+        "price": 7926, 
         "isBuy": true, 
-        "qty": 1000
+        "qty": 499
       }, 
       {
-        "price": 10449, 
+        "price": 7887, 
         "isBuy": true, 
-        "qty": 5584
+        "qty": 499
       }, 
       {
-        "price": 10397, 
+        "price": 7848, 
         "isBuy": true, 
-        "qty": 5584
-      }, 
-      {
-        "price": 10345, 
-        "isBuy": true, 
-        "qty": 5584
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:01.265931547Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11650, 
-        "isBuy": false, 
-        "qty": 4289
-      }, 
-      {
-        "price": 11707, 
-        "isBuy": false, 
-        "qty": 4289
-      }, 
-      {
-        "price": 11764, 
-        "isBuy": false, 
-        "qty": 4289
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }, 
-      {
-        "price": 10436, 
-        "isBuy": true, 
-        "qty": 5618
-      }, 
-      {
-        "price": 10384, 
-        "isBuy": true, 
-        "qty": 5618
-      }, 
-      {
-        "price": 10332, 
-        "isBuy": true, 
-        "qty": 5618
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:02.884475772Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11650, 
-        "isBuy": false, 
-        "qty": 4289
-      }, 
-      {
-        "price": 11707, 
-        "isBuy": false, 
-        "qty": 4289
-      }, 
-      {
-        "price": 11764, 
-        "isBuy": false, 
-        "qty": 4289
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }, 
-      {
-        "price": 10436, 
-        "isBuy": true, 
-        "qty": 5618
-      }, 
-      {
-        "price": 10384, 
-        "isBuy": true, 
-        "qty": 5618
-      }, 
-      {
-        "price": 10332, 
-        "isBuy": true, 
-        "qty": 5618
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:04.491097781Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11650, 
-        "isBuy": false, 
-        "qty": 4289
-      }, 
-      {
-        "price": 11707, 
-        "isBuy": false, 
-        "qty": 4289
-      }, 
-      {
-        "price": 11764, 
-        "isBuy": false, 
-        "qty": 4289
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }, 
-      {
-        "price": 10436, 
-        "isBuy": true, 
-        "qty": 5618
-      }, 
-      {
-        "price": 10384, 
-        "isBuy": true, 
-        "qty": 5618
-      }, 
-      {
-        "price": 10332, 
-        "isBuy": true, 
-        "qty": 5618
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:06.105405043Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10836, 
-        "isBuy": false, 
-        "qty": 4276
-      }, 
-      {
-        "price": 10889, 
-        "isBuy": false, 
-        "qty": 4276
-      }, 
-      {
-        "price": 10942, 
-        "isBuy": false, 
-        "qty": 4276
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10730, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10677, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10624, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:07.72949651Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10836, 
-        "isBuy": false, 
-        "qty": 4276
-      }, 
-      {
-        "price": 10889, 
-        "isBuy": false, 
-        "qty": 4276
-      }, 
-      {
-        "price": 10942, 
-        "isBuy": false, 
-        "qty": 4276
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10730, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10677, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10624, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:09.335851827Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 10836, 
-        "isBuy": false, 
-        "qty": 4276
-      }, 
-      {
-        "price": 10889, 
-        "isBuy": false, 
-        "qty": 4276
-      }, 
-      {
-        "price": 10942, 
-        "isBuy": false, 
-        "qty": 4276
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10730, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10677, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10624, 
-        "isBuy": true, 
-        "qty": 5710
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:10.944760921Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11568, 
-        "isBuy": false, 
-        "qty": 4274
-      }, 
-      {
-        "price": 11625, 
-        "isBuy": false, 
-        "qty": 4274
-      }, 
-      {
-        "price": 11682, 
-        "isBuy": false, 
-        "qty": 4274
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:12.594550369Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11568, 
-        "isBuy": false, 
-        "qty": 4274
-      }, 
-      {
-        "price": 11625, 
-        "isBuy": false, 
-        "qty": 4274
-      }, 
-      {
-        "price": 11682, 
-        "isBuy": false, 
-        "qty": 4274
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:14.206219626Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11568, 
-        "isBuy": false, 
-        "qty": 4274
-      }, 
-      {
-        "price": 11625, 
-        "isBuy": false, 
-        "qty": 4274
-      }, 
-      {
-        "price": 11682, 
-        "isBuy": false, 
-        "qty": 4274
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:16.04298694Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11116, 
-        "isBuy": false, 
-        "qty": 4321
-      }, 
-      {
-        "price": 11171, 
-        "isBuy": false, 
-        "qty": 4321
-      }, 
-      {
-        "price": 11226, 
-        "isBuy": false, 
-        "qty": 4321
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11084, 
-        "isBuy": true, 
-        "qty": 236
-      }, 
-      {
-        "price": 11061, 
-        "isBuy": true, 
-        "qty": 243
-      }, 
-      {
-        "price": 10901, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10847, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10793, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:17.645866915Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11116, 
-        "isBuy": false, 
-        "qty": 4321
-      }, 
-      {
-        "price": 11171, 
-        "isBuy": false, 
-        "qty": 4321
-      }, 
-      {
-        "price": 11226, 
-        "isBuy": false, 
-        "qty": 4321
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11084, 
-        "isBuy": true, 
-        "qty": 236
-      }, 
-      {
-        "price": 11061, 
-        "isBuy": true, 
-        "qty": 243
-      }, 
-      {
-        "price": 10901, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10847, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10793, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:19.255014746Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11116, 
-        "isBuy": false, 
-        "qty": 4321
-      }, 
-      {
-        "price": 11171, 
-        "isBuy": false, 
-        "qty": 4321
-      }, 
-      {
-        "price": 11226, 
-        "isBuy": false, 
-        "qty": 4321
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11084, 
-        "isBuy": true, 
-        "qty": 236
-      }, 
-      {
-        "price": 11061, 
-        "isBuy": true, 
-        "qty": 243
-      }, 
-      {
-        "price": 10901, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10847, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10793, 
-        "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 1000
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:20.86130035Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:25.370841702Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10500, 
+        "price": 7926, 
         "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }, 
       {
-        "price": 10471, 
+        "price": 7887, 
         "isBuy": true, 
-        "qty": 5678
+        "qty": 499
       }, 
       {
-        "price": 10419, 
+        "price": 7848, 
         "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10367, 
-        "isBuy": true, 
-        "qty": 5678
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:22.531689565Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:26.993450042Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10500, 
+        "price": 7926, 
         "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }, 
       {
-        "price": 10471, 
+        "price": 7887, 
         "isBuy": true, 
-        "qty": 5678
+        "qty": 499
       }, 
       {
-        "price": 10419, 
+        "price": 7848, 
         "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10367, 
-        "isBuy": true, 
-        "qty": 5678
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:24.177600434Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:28.600501404Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10500, 
+        "price": 8503, 
         "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }, 
       {
-        "price": 10471, 
+        "price": 8461, 
         "isBuy": true, 
-        "qty": 5678
+        "qty": 499
       }, 
       {
-        "price": 10419, 
+        "price": 8419, 
         "isBuy": true, 
-        "qty": 5678
-      }, 
-      {
-        "price": 10367, 
-        "isBuy": true, 
-        "qty": 5678
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:26.023565024Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11288, 
-        "isBuy": false, 
-        "qty": 4235
-      }, 
-      {
-        "price": 11344, 
-        "isBuy": false, 
-        "qty": 4255
-      }, 
-      {
-        "price": 11400, 
-        "isBuy": false, 
-        "qty": 4255
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11176, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 11120, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 11064, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:27.655149361Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11288, 
-        "isBuy": false, 
-        "qty": 4235
-      }, 
-      {
-        "price": 11344, 
-        "isBuy": false, 
-        "qty": 4255
-      }, 
-      {
-        "price": 11400, 
-        "isBuy": false, 
-        "qty": 4255
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11176, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 11120, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 11064, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:29.268750089Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11288, 
-        "isBuy": false, 
-        "qty": 4235
-      }, 
-      {
-        "price": 11344, 
-        "isBuy": false, 
-        "qty": 4255
-      }, 
-      {
-        "price": 11400, 
-        "isBuy": false, 
-        "qty": 4255
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11176, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 11120, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 11064, 
-        "isBuy": true, 
-        "qty": 5744
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:30.876644947Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:30.199273781Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 11338, 
+        "price": 8503, 
         "isBuy": true, 
-        "qty": 288
+        "qty": 499
       }, 
       {
-        "price": 10960, 
+        "price": 8461, 
         "isBuy": true, 
-        "qty": 5666
+        "qty": 499
       }, 
       {
-        "price": 10905, 
+        "price": 8419, 
         "isBuy": true, 
-        "qty": 5666
-      }, 
-      {
-        "price": 10850, 
-        "isBuy": true, 
-        "qty": 5666
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:32.484127903Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:31.798473394Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 11338, 
+        "price": 8503, 
         "isBuy": true, 
-        "qty": 288
+        "qty": 499
       }, 
       {
-        "price": 10960, 
+        "price": 8461, 
         "isBuy": true, 
-        "qty": 5666
+        "qty": 499
       }, 
       {
-        "price": 10905, 
+        "price": 8419, 
         "isBuy": true, 
-        "qty": 5666
-      }, 
-      {
-        "price": 10850, 
-        "isBuy": true, 
-        "qty": 5666
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:34.086681423Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:33.467514309Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 11338, 
+        "price": 8003, 
         "isBuy": true, 
-        "qty": 288
+        "qty": 499
       }, 
       {
-        "price": 10960, 
+        "price": 7963, 
         "isBuy": true, 
-        "qty": 5666
+        "qty": 499
       }, 
       {
-        "price": 10905, 
+        "price": 7923, 
         "isBuy": true, 
-        "qty": 5666
-      }, 
-      {
-        "price": 10850, 
-        "isBuy": true, 
-        "qty": 5666
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:35.70739608Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:35.100513235Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 11338, 
+        "price": 8003, 
         "isBuy": true, 
-        "qty": 288
+        "qty": 499
       }, 
       {
-        "price": 10960, 
+        "price": 7963, 
         "isBuy": true, 
-        "qty": 5666
+        "qty": 499
       }, 
       {
-        "price": 10905, 
+        "price": 7923, 
         "isBuy": true, 
-        "qty": 5666
-      }, 
-      {
-        "price": 10850, 
-        "isBuy": true, 
-        "qty": 5666
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:37.314741169Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11381, 
-        "isBuy": false, 
-        "qty": 4448
-      }, 
-      {
-        "price": 11437, 
-        "isBuy": false, 
-        "qty": 4448
-      }, 
-      {
-        "price": 11493, 
-        "isBuy": false, 
-        "qty": 4448
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11008, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10953, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10898, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:38.928378576Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11381, 
-        "isBuy": false, 
-        "qty": 4448
-      }, 
-      {
-        "price": 11437, 
-        "isBuy": false, 
-        "qty": 4448
-      }, 
-      {
-        "price": 11493, 
-        "isBuy": false, 
-        "qty": 4448
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11008, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10953, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10898, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:40.534652413Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11381, 
-        "isBuy": false, 
-        "qty": 4448
-      }, 
-      {
-        "price": 11437, 
-        "isBuy": false, 
-        "qty": 4448
-      }, 
-      {
-        "price": 11493, 
-        "isBuy": false, 
-        "qty": 4448
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11008, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10953, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10898, 
-        "isBuy": true, 
-        "qty": 5551
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:42.1447432Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11623, 
-        "isBuy": false, 
-        "qty": 4571
-      }, 
-      {
-        "price": 11680, 
-        "isBuy": false, 
-        "qty": 4571
-      }, 
-      {
-        "price": 11737, 
-        "isBuy": false, 
-        "qty": 4571
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:43.756798565Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11623, 
-        "isBuy": false, 
-        "qty": 4571
-      }, 
-      {
-        "price": 11680, 
-        "isBuy": false, 
-        "qty": 4571
-      }, 
-      {
-        "price": 11737, 
-        "isBuy": false, 
-        "qty": 4571
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:45.433289607Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11623, 
-        "isBuy": false, 
-        "qty": 4571
-      }, 
-      {
-        "price": 11680, 
-        "isBuy": false, 
-        "qty": 4571
-      }, 
-      {
-        "price": 11737, 
-        "isBuy": false, 
-        "qty": 4571
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:47.035245302Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11492, 
-        "isBuy": false, 
-        "qty": 76
-      }, 
-      {
-        "price": 11667, 
-        "isBuy": false, 
-        "qty": 4496
-      }, 
-      {
-        "price": 11725, 
-        "isBuy": false, 
-        "qty": 4496
-      }, 
-      {
-        "price": 11783, 
-        "isBuy": false, 
-        "qty": 4496
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10885, 
-        "isBuy": true, 
-        "qty": 5081
-      }, 
-      {
-        "price": 10831, 
-        "isBuy": true, 
-        "qty": 5421
-      }, 
-      {
-        "price": 10777, 
-        "isBuy": true, 
-        "qty": 5421
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:48.639676803Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11492, 
-        "isBuy": false, 
-        "qty": 76
-      }, 
-      {
-        "price": 11667, 
-        "isBuy": false, 
-        "qty": 4496
-      }, 
-      {
-        "price": 11725, 
-        "isBuy": false, 
-        "qty": 4496
-      }, 
-      {
-        "price": 11783, 
-        "isBuy": false, 
-        "qty": 4496
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10885, 
-        "isBuy": true, 
-        "qty": 5081
-      }, 
-      {
-        "price": 10831, 
-        "isBuy": true, 
-        "qty": 5421
-      }, 
-      {
-        "price": 10777, 
-        "isBuy": true, 
-        "qty": 5421
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:50.261141302Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11492, 
-        "isBuy": false, 
-        "qty": 76
-      }, 
-      {
-        "price": 11667, 
-        "isBuy": false, 
-        "qty": 4496
-      }, 
-      {
-        "price": 11725, 
-        "isBuy": false, 
-        "qty": 4496
-      }, 
-      {
-        "price": 11783, 
-        "isBuy": false, 
-        "qty": 4496
-      }
-    ], 
-    "bids": [
-      {
-        "price": 10885, 
-        "isBuy": true, 
-        "qty": 5081
-      }, 
-      {
-        "price": 10831, 
-        "isBuy": true, 
-        "qty": 5421
-      }, 
-      {
-        "price": 10777, 
-        "isBuy": true, 
-        "qty": 5421
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:51.873097946Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11117, 
-        "isBuy": false, 
-        "qty": 2336
-      }, 
-      {
-        "price": 11172, 
-        "isBuy": false, 
-        "qty": 2336
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11007, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10952, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10897, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:53.48468853Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11117, 
-        "isBuy": false, 
-        "qty": 2336
-      }, 
-      {
-        "price": 11172, 
-        "isBuy": false, 
-        "qty": 2336
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11007, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10952, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10897, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:55.092067655Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11117, 
-        "isBuy": false, 
-        "qty": 2336
-      }, 
-      {
-        "price": 11172, 
-        "isBuy": false, 
-        "qty": 2336
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11007, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10952, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10897, 
-        "isBuy": true, 
-        "qty": 6861
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:56.695221787Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:36.70944604Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 11141, 
+        "price": 8003, 
         "isBuy": true, 
-        "qty": 352
+        "qty": 499
       }, 
       {
-        "price": 10869, 
+        "price": 7963, 
         "isBuy": true, 
-        "qty": 7658
+        "qty": 499
       }, 
       {
-        "price": 10815, 
+        "price": 7923, 
         "isBuy": true, 
-        "qty": 7658
-      }, 
-      {
-        "price": 10761, 
-        "isBuy": true, 
-        "qty": 7658
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:58.299508593Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:38.309656198Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 11141, 
+        "price": 8214, 
         "isBuy": true, 
-        "qty": 352
+        "qty": 499
       }, 
       {
-        "price": 10869, 
+        "price": 8173, 
         "isBuy": true, 
-        "qty": 7658
+        "qty": 499
       }, 
       {
-        "price": 10815, 
+        "price": 8132, 
         "isBuy": true, 
-        "qty": 7658
-      }, 
-      {
-        "price": 10761, 
-        "isBuy": true, 
-        "qty": 7658
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:44:59.90652226Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:39.913340655Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 11141, 
+        "price": 8214, 
         "isBuy": true, 
-        "qty": 352
+        "qty": 499
       }, 
       {
-        "price": 10869, 
+        "price": 8173, 
         "isBuy": true, 
-        "qty": 7658
+        "qty": 499
       }, 
       {
-        "price": 10815, 
+        "price": 8132, 
         "isBuy": true, 
-        "qty": 7658
-      }, 
-      {
-        "price": 10761, 
-        "isBuy": true, 
-        "qty": 7658
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:01.528761004Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11348, 
-        "isBuy": false, 
-        "qty": 2285
-      }, 
-      {
-        "price": 11404, 
-        "isBuy": false, 
-        "qty": 2285
-      }, 
-      {
-        "price": 11460, 
-        "isBuy": false, 
-        "qty": 2285
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11236, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 11180, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 11124, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:03.136230703Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11348, 
-        "isBuy": false, 
-        "qty": 2285
-      }, 
-      {
-        "price": 11404, 
-        "isBuy": false, 
-        "qty": 2285
-      }, 
-      {
-        "price": 11460, 
-        "isBuy": false, 
-        "qty": 2285
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11236, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 11180, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 11124, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:04.745170011Z"
-  }, 
-  {
-    "ok": true, 
-    "asks": [
-      {
-        "price": 11348, 
-        "isBuy": false, 
-        "qty": 2285
-      }, 
-      {
-        "price": 11404, 
-        "isBuy": false, 
-        "qty": 2285
-      }, 
-      {
-        "price": 11460, 
-        "isBuy": false, 
-        "qty": 2285
-      }
-    ], 
-    "bids": [
-      {
-        "price": 11236, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 11180, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 11124, 
-        "isBuy": true, 
-        "qty": 7654
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
-      }
-    ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:06.363018775Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:41.542101428Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10697, 
+        "price": 8214, 
         "isBuy": true, 
-        "qty": 7720
+        "qty": 499
       }, 
       {
-        "price": 10644, 
+        "price": 8173, 
         "isBuy": true, 
-        "qty": 7720
+        "qty": 499
       }, 
       {
-        "price": 10591, 
+        "price": 8132, 
         "isBuy": true, 
-        "qty": 7720
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:07.970083422Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:43.150556774Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10697, 
+        "price": 7962, 
         "isBuy": true, 
-        "qty": 7720
+        "qty": 499
       }, 
       {
-        "price": 10644, 
+        "price": 7922, 
         "isBuy": true, 
-        "qty": 7720
+        "qty": 499
       }, 
       {
-        "price": 10591, 
+        "price": 7882, 
         "isBuy": true, 
-        "qty": 7720
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:09.574815231Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:46.151467087Z"
   }, 
   {
     "ok": true, 
     "asks": null, 
     "bids": [
       {
-        "price": 10697, 
+        "price": 7962, 
         "isBuy": true, 
-        "qty": 7720
+        "qty": 499
       }, 
       {
-        "price": 10644, 
+        "price": 7922, 
         "isBuy": true, 
-        "qty": 7720
+        "qty": 499
       }, 
       {
-        "price": 10591, 
+        "price": 7882, 
         "isBuy": true, 
-        "qty": 7720
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:11.176050089Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:47.74965073Z"
   }, 
   {
     "ok": true, 
-    "asks": [
-      {
-        "price": 11771, 
-        "isBuy": false, 
-        "qty": 2288
-      }, 
-      {
-        "price": 11829, 
-        "isBuy": false, 
-        "qty": 2288
-      }, 
-      {
-        "price": 11887, 
-        "isBuy": false, 
-        "qty": 2288
-      }
-    ], 
+    "asks": null, 
     "bids": [
       {
-        "price": 11319, 
+        "price": 7962, 
         "isBuy": true, 
-        "qty": 319
+        "qty": 499
       }, 
       {
-        "price": 11151, 
+        "price": 7922, 
         "isBuy": true, 
-        "qty": 7665
+        "qty": 499
       }, 
       {
-        "price": 11095, 
+        "price": 7882, 
         "isBuy": true, 
-        "qty": 7665
-      }, 
-      {
-        "price": 11074, 
-        "isBuy": true, 
-        "qty": 192
-      }, 
-      {
-        "price": 11039, 
-        "isBuy": true, 
-        "qty": 7665
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:12.780208255Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:49.36271066Z"
   }, 
   {
     "ok": true, 
-    "asks": [
-      {
-        "price": 11771, 
-        "isBuy": false, 
-        "qty": 2288
-      }, 
-      {
-        "price": 11829, 
-        "isBuy": false, 
-        "qty": 2288
-      }, 
-      {
-        "price": 11887, 
-        "isBuy": false, 
-        "qty": 2288
-      }
-    ], 
+    "asks": null, 
     "bids": [
       {
-        "price": 11319, 
+        "price": 7872, 
         "isBuy": true, 
-        "qty": 319
+        "qty": 499
       }, 
       {
-        "price": 11151, 
+        "price": 7833, 
         "isBuy": true, 
-        "qty": 7665
+        "qty": 499
       }, 
       {
-        "price": 11095, 
+        "price": 7794, 
         "isBuy": true, 
-        "qty": 7665
-      }, 
-      {
-        "price": 11074, 
-        "isBuy": true, 
-        "qty": 192
-      }, 
-      {
-        "price": 11039, 
-        "isBuy": true, 
-        "qty": 7665
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:14.389571515Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:50.966761995Z"
   }, 
   {
     "ok": true, 
-    "asks": [
-      {
-        "price": 11771, 
-        "isBuy": false, 
-        "qty": 2288
-      }, 
-      {
-        "price": 11829, 
-        "isBuy": false, 
-        "qty": 2288
-      }, 
-      {
-        "price": 11887, 
-        "isBuy": false, 
-        "qty": 2288
-      }
-    ], 
+    "asks": null, 
     "bids": [
       {
-        "price": 11319, 
+        "price": 7872, 
         "isBuy": true, 
-        "qty": 319
+        "qty": 499
       }, 
       {
-        "price": 11151, 
+        "price": 7833, 
         "isBuy": true, 
-        "qty": 7665
+        "qty": 499
       }, 
       {
-        "price": 11095, 
+        "price": 7794, 
         "isBuy": true, 
-        "qty": 7665
-      }, 
-      {
-        "price": 11074, 
-        "isBuy": true, 
-        "qty": 192
-      }, 
-      {
-        "price": 11039, 
-        "isBuy": true, 
-        "qty": 7665
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:16.000256136Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:52.572880593Z"
   }, 
   {
     "ok": true, 
-    "asks": [
-      {
-        "price": 11620, 
-        "isBuy": false, 
-        "qty": 2346
-      }, 
-      {
-        "price": 11677, 
-        "isBuy": false, 
-        "qty": 2346
-      }, 
-      {
-        "price": 11734, 
-        "isBuy": false, 
-        "qty": 2346
-      }
-    ], 
+    "asks": null, 
     "bids": [
       {
-        "price": 11506, 
+        "price": 7872, 
         "isBuy": true, 
-        "qty": 7634
+        "qty": 499
       }, 
       {
-        "price": 11449, 
+        "price": 7833, 
         "isBuy": true, 
-        "qty": 7634
+        "qty": 499
       }, 
       {
-        "price": 11392, 
+        "price": 7794, 
         "isBuy": true, 
-        "qty": 7634
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:17.615623228Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:54.171674599Z"
   }, 
   {
     "ok": true, 
-    "asks": [
-      {
-        "price": 11620, 
-        "isBuy": false, 
-        "qty": 2346
-      }, 
-      {
-        "price": 11677, 
-        "isBuy": false, 
-        "qty": 2346
-      }, 
-      {
-        "price": 11734, 
-        "isBuy": false, 
-        "qty": 2346
-      }
-    ], 
+    "asks": null, 
     "bids": [
       {
-        "price": 11506, 
+        "price": 8158, 
         "isBuy": true, 
-        "qty": 7634
+        "qty": 499
       }, 
       {
-        "price": 11449, 
+        "price": 8118, 
         "isBuy": true, 
-        "qty": 7634
+        "qty": 499
       }, 
       {
-        "price": 11392, 
+        "price": 8078, 
         "isBuy": true, 
-        "qty": 7634
-      }, 
-      {
-        "price": 10500, 
-        "isBuy": true, 
-        "qty": 331
+        "qty": 499
       }
     ], 
-    "symbol": "DOEZ", 
-    "venue": "JIBEX", 
-    "ts": "2016-05-05T22:45:19.219413097Z"
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:55.821988454Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8158, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8118, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8078, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:57.458755541Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8158, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8118, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8078, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:14:59.062306586Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8233, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8192, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8151, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:00.671015649Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8233, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8192, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8151, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:02.318645812Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8233, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8192, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8151, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:03.916462329Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8528, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8486, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8444, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:05.548942301Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8528, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8486, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8444, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:07.242902775Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8528, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8486, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8444, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:08.884224775Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8513, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8471, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8429, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:10.483651178Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8513, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8471, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8429, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:12.126198417Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8513, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8471, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8429, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:13.724027063Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 7879, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7840, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7801, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:15.361495647Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 7879, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7840, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7801, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:17.006673937Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 7879, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7840, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7801, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:18.606147115Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8315, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8274, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8233, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:20.208010277Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8315, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8274, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8233, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:21.806273997Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8315, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8274, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8233, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:23.505281351Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 7984, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7944, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7904, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:25.165434968Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 7984, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7944, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7904, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:26.764164839Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 7984, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7944, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7904, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:28.416109718Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8648, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8605, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8562, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:30.013436956Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8648, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8605, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8562, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:31.613362753Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8648, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8605, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8562, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:33.323080691Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8183, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8142, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8101, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:34.923445897Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8183, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8142, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8101, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:36.523121418Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8183, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8142, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8101, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:38.146405322Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8142, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8101, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:39.743812492Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8040, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8000, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7960, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:41.340820857Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8040, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8000, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7960, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:42.938456591Z"
+  }, 
+  {
+    "ok": true, 
+    "asks": null, 
+    "bids": [
+      {
+        "price": 8040, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 8000, 
+        "isBuy": true, 
+        "qty": 499
+      }, 
+      {
+        "price": 7960, 
+        "isBuy": true, 
+        "qty": 499
+      }
+    ], 
+    "symbol": "FOEE", 
+    "venue": "DWLBEX", 
+    "ts": "2016-05-06T22:15:44.536519883Z"
   }
 ]

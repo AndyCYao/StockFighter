@@ -1,0 +1,27 @@
+Nail This Bastard To The Wall (Street)
+We're the regulator for the QIOJ Hong Kong Exchange (QIOHEX), the Committee for Exchange Security, better known as the CES. We need your help.
+
+Our primary responsibility is making sure that the public markets operate in a fair and stable manner. Insider trading, where someone with a fiduciary duty to a company uses material non-public information for their own benefit, destabilizes the market and destroys investor confidence. We prosecute it, vigorously, when we find it.
+
+We got an anonymous tip from a whistleblower inside EQGU Inc. (EQGU). Apparently their comptroller was very underwater on his mortgage but recently, quote, "a rich uncle died and left me a fortune." We pulled birth records, marriage licenses, and social network profiles, and we believe no such uncle existed.
+
+When comptrollers suddenly come into a lot of money, it either means embezzlement or insider trading. We have talked to some market makers for EQGU Inc. and they spontaneously offered "Yeah, it feels funny recently. Can't quite put my finger on it."
+
+We used our regulatory authority to lean on the comptroller's brokerage, but his accounts are clean: he has no position in EQGU and hasn't in a decade. We suspect he has an accomplice on the outside. We have no clue who it is. We don't have enough resources to put the comptroller under surveillance and we don't have any evidence to justify a search warrant of his phone or email.
+
+We need you to help us identify that accomplice. Find the account making the insider trades and give us hard evidence which supports them as being anomalous. We'll use a regulatory subpoena on their brokerage, get their information, and your evidence will be used to support a subpoena of their stored communications. If they've ever talked to the comptroller, both of them are going to have a very, very bad time.
+
+We regulate Wall Street but we don't work on it, so resources are limited. We put $100,000 in account CES52567522 for your use. The taxpayers don't need to see a return, so use it responsibly for the purpose of this investigation. Word to the wise: embezzling it would be an exceptionally poor career decision.
+
+Your Goal
+Identify the accomplice of the comptroller. You only get one shot at this, so make it count.
+See "Submitting Evidence" under the Instructions menu for how to give us the evidence.
+You'll Be Fired If
+You accuse someone who turns out to be innocent.
+You spend more than the $100,000 we allocated for this investigation.
+You go short -- this is not a margin account.
+You can't develop a case in 500 days.
+Starfighter Notes
+This level is designed to be challenging but not impossible. There are multiple steps you'll need to overcome to win it.
+
+Your first order of business should probably be identifying the accounts of everyone trading EQGU on QIOHEX. Don't know how to do that? Read the API docs very thoroughly.
