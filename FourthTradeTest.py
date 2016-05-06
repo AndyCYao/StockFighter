@@ -8,8 +8,8 @@ import gamemaster
 import time
 import json
 
-sf = gamemaster.StockFighter("dueling_bulldozers")
-# sf = gamemaster.StockFighter("sell_side")
+# sf = gamemaster.StockFighter("dueling_bulldozers")
+sf = gamemaster.StockFighter("sell_side")
 stock = sf.tickers
 start = time.time()
 end = time.time()
@@ -19,16 +19,8 @@ ask_stream = []
 
 while end - start < 200:                
     time.sleep(1.5)
-    try:        
-        quote = sf.quotes[-1] 
-        if not quote == prevQuote:
-            prevQuote = quote
-            print json.dumps(quote.json(), indent=2)
-    except:
-        quote = None
-
-    o_book = sf.get_order_book(stock)
-    print json.dumps(o_book.json(), indent=3)
+    # o_book = sf.get_order_book(stock)
+    # print json.dumps(o_book.json(), indent=3)
     
     end = time.time()
 sf.make_graphs()

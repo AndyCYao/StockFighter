@@ -2,7 +2,7 @@
 import requests
 import json
 from ws4py.client.threadedclient import WebSocketClient
-import Queue
+# import Queue
 
 
 class GameMaster:
@@ -15,12 +15,12 @@ class GameMaster:
         """to be worked on."""
         pass
 
-    def check_if_instance_is_active(self, instanceID):
+    def get_is_instance_active(self, instanceID):
         """Return the state of instance."""
-        is_true = False
         header = {'X-Starfighter-Authorization': self.get_api_key()}
         full_url = "%s/instances/%s" % (self.gm_url, instanceID)
         response = requests.get(full_url, headers=header)
+        print json.dumps(response.json(), indent=4)
         is_true = response.json().get("state")
         return is_true
             
@@ -53,8 +53,7 @@ class GameMaster:
         full_url = "%s/levels/%s" % (self.gm_url, level)
         response = requests.post(full_url, headers=header)
         try:
-            # print response.json()
-            # self.write_to_setting(response.json())  # for retrieving later
+            # print json.dumps(response.json(), indent=4)
             return response
         except ValueError as e:
             return{'error': e, 'raw_content': response.content}
@@ -103,6 +102,8 @@ class StockFighter:
         self.quote_venue_ticker(self.quote_socket)
         print "\nConnecting to execution socket...",
         self.execution_venue_ticker(self.execution_socket)
+        print "checking instance detail"
+        gm.get_is_instance_active(self.instanceID)
 
     @classmethod
     def test_mode(cls):
@@ -120,7 +121,6 @@ class StockFighter:
         # print response.json()
         if not response["ok"]:
             print "%s's on fire" % (self.venues)
-
         return response["ok"]
 
     def get_position_so_far(self):
@@ -196,15 +196,10 @@ class StockFighter:
             # testing updating the self.orders straight from here. especially to see whether i can
             # see the remaining of the order. 
             id = m['order']['id']
-            """
-            try:
-                print "\nPREUPDATE%r" % (self.orders[id])          
-            except:
-                pass
-            """
-            self.orders[id] = m['order']
-            # print "\nPOSTUPDATE%r" % (self.orders[id])  
+            print "Execution Socket"
+            print json.dumps(m, indent=4)
 
+            self.orders[id] = m['order']
             filled = m["filled"]
             price = m["price"]
             direction = m["order"]["direction"]
@@ -245,6 +240,8 @@ class StockFighter:
                 last_m = {i: self.quotes[-1][i] for i in self.quotes[-1] if i != 'quoteTime'}                
                 if not this_m == last_m:                    
                     self.quotes.append(m)
+                    # print "Quote Socket"
+                    # print json.dumps(m, indent=4)
             else:
                 self.quotes.append(m)
 

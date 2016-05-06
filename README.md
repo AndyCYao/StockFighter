@@ -10,6 +10,8 @@ Fourth Level - Dueling Bulldozers -
 
 
 To Do List:
+	look at the relation between standing id and incoming id.
+
 	Bug- the self.order got updated before the self.position_so_far did. so the BuySell had incorrect numbers to make decision with, causing losing games.
 
 	Done make sf.positionSoFar , cash, nav expected position in gamemaster private instance variables.

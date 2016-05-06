@@ -1,299 +1,506 @@
 {
-  "367": {
-    "direction": "sell", 
+  "545": {
+    "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-05T00:25:27.349698189Z", 
+    "ts": "2016-05-05T22:34:15.206304784Z", 
     "fills": [], 
     "originalQty": 1000, 
     "orderType": "limit", 
-    "symbol": "XEAO", 
-    "venue": "EZJEX", 
-    "account": "BM43274570", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
     "qty": 0, 
-    "id": 367, 
+    "id": 545, 
     "totalFilled": 0, 
     "open": false, 
-    "price": 8200
+    "price": 8000
   }, 
-  "209": {
+  "898": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-05T00:24:57.549749011Z", 
+    "ts": "2016-05-05T22:35:22.829610141Z", 
     "fills": [
       {
-        "price": 7348, 
-        "ts": "2016-05-05T00:24:57.549752348Z", 
-        "qty": 78
-      }, 
-      {
-        "price": 7474, 
-        "ts": "2016-05-05T00:24:57.549753919Z", 
-        "qty": 922
+        "price": 8700, 
+        "ts": "2016-05-05T22:36:07.003281857Z", 
+        "qty": 1000
       }
     ], 
     "originalQty": 1000, 
     "orderType": "limit", 
-    "symbol": "XEAO", 
-    "venue": "EZJEX", 
-    "account": "BM43274570", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
     "qty": 0, 
-    "id": 209, 
+    "id": 898, 
     "totalFilled": 1000, 
     "open": false, 
-    "price": 7500
+    "price": 8700
   }, 
-  "1492": {
-    "direction": "buy", 
+  "1835": {
+    "direction": "sell", 
     "ok": true, 
-    "ts": "2016-05-05T00:29:04.197474724Z", 
+    "ts": "2016-05-05T22:38:34.038826193Z", 
     "fills": [], 
-    "originalQty": 1300, 
+    "originalQty": 1000, 
     "orderType": "limit", 
-    "symbol": "XEAO", 
-    "venue": "EZJEX", 
-    "account": "BM43274570", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
     "qty": 0, 
-    "id": 1492, 
+    "id": 1835, 
     "totalFilled": 0, 
     "open": false, 
-    "price": 7600
+    "price": 11000
   }, 
-  "533": {
-    "direction": "sell", 
-    "ok": true, 
-    "ts": "2016-05-05T00:26:00.452520096Z", 
-    "fills": [
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:26:03.206982404Z", 
-        "qty": 137
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:26:53.142243268Z", 
-        "qty": 59
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:26:58.191730277Z", 
-        "qty": 41
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:13.18004751Z", 
-        "qty": 22
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:13.184580228Z", 
-        "qty": 99
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:28.203853748Z", 
-        "qty": 23
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:28.20581645Z", 
-        "qty": 47
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:28.208141881Z", 
-        "qty": 137
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:33.153846182Z", 
-        "qty": 37
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:58.282896786Z", 
-        "qty": 75
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:58.285209255Z", 
-        "qty": 73
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:58.28729689Z", 
-        "qty": 25
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:58.289003382Z", 
-        "qty": 8
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:27:58.291444784Z", 
-        "qty": 34
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:28:03.287764855Z", 
-        "qty": 33
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:28:03.290065432Z", 
-        "qty": 59
-      }, 
-      {
-        "price": 8200, 
-        "ts": "2016-05-05T00:28:03.292552599Z", 
-        "qty": 91
-      }
-    ], 
-    "originalQty": 1000, 
-    "orderType": "limit", 
-    "symbol": "XEAO", 
-    "venue": "EZJEX", 
-    "account": "BM43274570", 
-    "qty": 0, 
-    "id": 533, 
-    "totalFilled": 1000, 
-    "open": false, 
-    "price": 8200
-  }, 
-  "956": {
+  "677": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-05T00:27:22.774448494Z", 
-    "fills": [
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:48.456345942Z", 
-        "qty": 64
-      }, 
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:48.461442238Z", 
-        "qty": 266
-      }, 
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:28:38.324415435Z", 
-        "qty": 670
-      }
-    ], 
+    "ts": "2016-05-05T22:34:40.815452794Z", 
+    "fills": [], 
     "originalQty": 1000, 
     "orderType": "limit", 
-    "symbol": "XEAO", 
-    "venue": "EZJEX", 
-    "account": "BM43274570", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
     "qty": 0, 
-    "id": 956, 
-    "totalFilled": 1000, 
-    "open": false, 
-    "price": 7600
-  }, 
-  "1693": {
-    "direction": "sell", 
-    "ok": true, 
-    "ts": "2016-05-05T00:29:47.133778292Z", 
-    "fills": [
-      {
-        "price": 8300, 
-        "ts": "2016-05-05T00:29:48.431612775Z", 
-        "qty": 192
-      }, 
-      {
-        "price": 8300, 
-        "ts": "2016-05-05T00:29:48.434698171Z", 
-        "qty": 138
-      }
-    ], 
-    "originalQty": 330, 
-    "orderType": "limit", 
-    "symbol": "XEAO", 
-    "venue": "EZJEX", 
-    "account": "BM43274570", 
-    "qty": 0, 
-    "id": 1693, 
-    "totalFilled": 330, 
+    "id": 677, 
+    "totalFilled": 0, 
     "open": false, 
     "price": 8300
   }, 
-  "853": {
+  "774": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:35:01.17437173Z", 
+    "fills": [], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 774, 
+    "totalFilled": 0, 
+    "open": false, 
+    "price": 8500
+  }, 
+  "3057": {
     "direction": "sell", 
     "ok": true, 
-    "ts": "2016-05-05T00:26:58.990470222Z", 
+    "ts": "2016-05-05T22:42:44.756905436Z", 
     "fills": [
       {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.142240828Z", 
-        "qty": 34
+        "price": 10500, 
+        "ts": "2016-05-05T22:42:52.202614986Z", 
+        "qty": 96
       }, 
       {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.169086746Z", 
-        "qty": 36
+        "price": 10500, 
+        "ts": "2016-05-05T22:42:52.204954355Z", 
+        "qty": 98
       }, 
       {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.171155477Z", 
-        "qty": 134
+        "price": 10500, 
+        "ts": "2016-05-05T22:42:52.207030558Z", 
+        "qty": 20
       }, 
       {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.173549247Z", 
-        "qty": 70
+        "price": 10500, 
+        "ts": "2016-05-05T22:42:52.209326622Z", 
+        "qty": 32
       }, 
       {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.175572238Z", 
+        "price": 10500, 
+        "ts": "2016-05-05T22:42:52.211630496Z", 
+        "qty": 126
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:42:52.23409156Z", 
+        "qty": 154
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:42:52.236416158Z", 
+        "qty": 474
+      }
+    ], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 3057, 
+    "totalFilled": 1000, 
+    "open": false, 
+    "price": 10500
+  }, 
+  "650": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:34:32.217553026Z", 
+    "fills": [], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 650, 
+    "totalFilled": 0, 
+    "open": false, 
+    "price": 8000
+  }, 
+  "1739": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:38:16.887763633Z", 
+    "fills": [
+      {
+        "price": 8780, 
+        "ts": "2016-05-05T22:39:27.17089745Z", 
+        "qty": 1000
+      }
+    ], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 1739, 
+    "totalFilled": 1000, 
+    "open": false, 
+    "price": 8780
+  }, 
+  "2770": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:41:44.15798745Z", 
+    "fills": [
+      {
+        "price": 10000, 
+        "ts": "2016-05-05T22:41:57.589151022Z", 
+        "qty": 297
+      }, 
+      {
+        "price": 10000, 
+        "ts": "2016-05-05T22:42:22.231383125Z", 
+        "qty": 703
+      }
+    ], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 2770, 
+    "totalFilled": 1000, 
+    "open": false, 
+    "price": 10000
+  }, 
+  "2254": {
+    "direction": "sell", 
+    "ok": true, 
+    "ts": "2016-05-05T22:40:01.06834152Z", 
+    "fills": [
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:40:12.236042796Z", 
+        "qty": 188
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:40:12.238514709Z", 
+        "qty": 163
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:40:17.199348813Z", 
+        "qty": 185
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:40:17.201288938Z", 
+        "qty": 92
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:40:27.197433288Z", 
+        "qty": 167
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:40:27.200382026Z", 
         "qty": 119
       }, 
       {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.178011356Z", 
-        "qty": 100
-      }, 
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.180624383Z", 
-        "qty": 118
-      }, 
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.182747175Z", 
-        "qty": 143
-      }, 
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.184880469Z", 
-        "qty": 60
-      }, 
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:03.186919491Z", 
-        "qty": 45
-      }, 
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:08.142566289Z", 
-        "qty": 55
-      }, 
-      {
-        "price": 7600, 
-        "ts": "2016-05-05T00:27:08.144429745Z", 
+        "price": 10500, 
+        "ts": "2016-05-05T22:40:27.202381034Z", 
         "qty": 86
       }
     ], 
     "originalQty": 1000, 
     "orderType": "limit", 
-    "symbol": "XEAO", 
-    "venue": "EZJEX", 
-    "account": "BM43274570", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
     "qty": 0, 
-    "id": 853, 
+    "id": 2254, 
     "totalFilled": 1000, 
     "open": false, 
-    "price": 7600
+    "price": 10500
+  }, 
+  "3407": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:43:56.339035362Z", 
+    "fills": [
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:44:22.244269485Z", 
+        "qty": 188
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:44:22.246664266Z", 
+        "qty": 180
+      }, 
+      {
+        "price": 10500, 
+        "ts": "2016-05-05T22:44:22.253355031Z", 
+        "qty": 301
+      }
+    ], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 331, 
+    "id": 3407, 
+    "totalFilled": 669, 
+    "open": true, 
+    "price": 10500
+  }, 
+  "400": {
+    "direction": "sell", 
+    "ok": true, 
+    "ts": "2016-05-05T22:33:45.664797642Z", 
+    "fills": [
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:47.036784477Z", 
+        "qty": 141
+      }, 
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:47.038948742Z", 
+        "qty": 137
+      }, 
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:47.041371632Z", 
+        "qty": 166
+      }, 
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:47.043658732Z", 
+        "qty": 96
+      }, 
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:47.045644098Z", 
+        "qty": 62
+      }, 
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:51.999124838Z", 
+        "qty": 109
+      }, 
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:52.001453332Z", 
+        "qty": 132
+      }, 
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:52.003687463Z", 
+        "qty": 109
+      }, 
+      {
+        "price": 9000, 
+        "ts": "2016-05-05T22:33:52.027212512Z", 
+        "qty": 48
+      }
+    ], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 400, 
+    "totalFilled": 1000, 
+    "open": false, 
+    "price": 9000
+  }, 
+  "497": {
+    "direction": "sell", 
+    "ok": true, 
+    "ts": "2016-05-05T22:34:05.249747166Z", 
+    "fills": [
+      {
+        "price": 9061, 
+        "ts": "2016-05-05T22:34:05.249749755Z", 
+        "qty": 844
+      }, 
+      {
+        "price": 9016, 
+        "ts": "2016-05-05T22:34:05.249751425Z", 
+        "qty": 156
+      }
+    ], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 497, 
+    "totalFilled": 1000, 
+    "open": false, 
+    "price": 9000
+  }, 
+  "626": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:34:29.814634867Z", 
+    "fills": [], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 626, 
+    "totalFilled": 0, 
+    "open": false, 
+    "price": 8200
+  }, 
+  "2547": {
+    "direction": "sell", 
+    "ok": true, 
+    "ts": "2016-05-05T22:41:00.572320389Z", 
+    "fills": [
+      {
+        "price": 10700, 
+        "ts": "2016-05-05T22:41:07.198412007Z", 
+        "qty": 46
+      }, 
+      {
+        "price": 10700, 
+        "ts": "2016-05-05T22:41:07.202824849Z", 
+        "qty": 203
+      }, 
+      {
+        "price": 10700, 
+        "ts": "2016-05-05T22:41:17.224746561Z", 
+        "qty": 307
+      }, 
+      {
+        "price": 10700, 
+        "ts": "2016-05-05T22:41:22.206740573Z", 
+        "qty": 237
+      }, 
+      {
+        "price": 10700, 
+        "ts": "2016-05-05T22:41:22.210209397Z", 
+        "qty": 207
+      }
+    ], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 2547, 
+    "totalFilled": 1000, 
+    "open": false, 
+    "price": 10700
+  }, 
+  "725": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:34:49.645152729Z", 
+    "fills": [], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 725, 
+    "totalFilled": 0, 
+    "open": false, 
+    "price": 8400
+  }, 
+  "825": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:35:08.770743472Z", 
+    "fills": [], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 825, 
+    "totalFilled": 0, 
+    "open": false, 
+    "price": 8600
+  }, 
+  "318": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:33:28.69387958Z", 
+    "fills": [
+      {
+        "price": 5370, 
+        "ts": "2016-05-05T22:33:28.693881103Z", 
+        "qty": 1000
+      }
+    ], 
+    "originalQty": 1000, 
+    "orderType": "market", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 318, 
+    "totalFilled": 1000, 
+    "open": false, 
+    "price": 0
+  }, 
+  "3237": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-05T22:43:21.364851111Z", 
+    "fills": [], 
+    "originalQty": 1000, 
+    "orderType": "limit", 
+    "symbol": "DOEZ", 
+    "venue": "JIBEX", 
+    "account": "CRS23740034", 
+    "qty": 0, 
+    "id": 3237, 
+    "totalFilled": 0, 
+    "open": false, 
+    "price": 10000
   }
 }
