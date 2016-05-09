@@ -154,6 +154,12 @@ class StockFighter:
             best_result = 0
         return best_result
 
+    def get_status_for_existing_order(self, venue, stock, order_id):
+        
+        full_url = "%s/venues/%s/stocks/%s/orders/%s" % (self.base_url, venue, stock, order_id)
+        response = requests.get(full_url, headers=self.header)
+        return response.json()
+
     def status_for_all_orders_in_stock(self, s):
         """Retrieve all orders in a given account, loads into a dictionary object."""
         my_orders = {}
@@ -296,7 +302,11 @@ class StockFighter:
         full_url = "%s/venues/%s/stocks/%s/orders/%s/cancel" % (self.base_url, self.venues, s, o_id)
         response = requests.post(full_url, headers=self.header)
         response_order = response.json()
-        self.orders[response_order['id']] = response_order
+        try:
+            self.orders[response_order['id']] = response_order
+        except KeyError:
+            # i trap KeyError because in some level i may try to cancel orders not stored in my list
+            pass
 
         return response.json()
 
