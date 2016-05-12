@@ -100,9 +100,9 @@ class StockFighter:
         # self.position_so_far_queue = Queue.Queue(maxsize=0)
         # self.position_so_far_queue.put(self._positionSoFar)  # this will be the outward facing variable.
         print "\nConnecting to quote socket...",
-        self.quote_venue_ticker(self.quote_socket)
+        self.quote_venue_ticker(self.account, self.venues, self.tickers, self.quote_socket)
         print "\nConnecting to execution socket...",
-        self.execution_venue_ticker(self.execution_socket)
+        self.execution_venue_ticker(self.account, self.venues, self.tickers, self.execution_socket)
 
     @classmethod
     def test_mode(cls):
@@ -235,7 +235,7 @@ class StockFighter:
         else:
             if self.heartbeat():  # sometimes m is None because venue is dead, this checks it.
                 print "...restarting websocket..."
-                self.execution_venue_ticker(self.execution_socket)
+                self.execution_venue_ticker(self.account, self.venues, self.tickers, self.execution_socket)
 
     def quote_socket(self, m):
         """Receive quotes from websocket, and put them in a data list of dictionary.
@@ -316,7 +316,7 @@ class StockFighter:
         response = requests.get(full_url, headers=self.header)
         return response.json()
 
-    def quote_venue_ticker(self, callback):
+    def quote_venue_ticker(self, _account, _venue, _stock, callback):
         def wrapper(msg):
             
             if msg is None:
@@ -324,10 +324,10 @@ class StockFighter:
             else:
                 callback(msg['quote'])
 
-        url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/tickertape/stocks/%s' % (self.account, self.venues, self.tickers)
+        url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/tickertape/stocks/%s' % (_account, _venue, _stock)
         self.SFSocket(url, wrapper)
 
-    def execution_venue_ticker(self, callback):
+    def execution_venue_ticker(self, _account, _venue, _stock, callback):
         def wrapper(msg):
             
             if msg is None:
@@ -335,7 +335,7 @@ class StockFighter:
             else:
                 callback(msg)
 
-        url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/executions/stocks/%s' % (self.account, self.venues, self.tickers)
+        url = 'wss://api.stockfighter.io/ob/api/ws/%s/venues/%s/executions/stocks/%s' % (_account, _venue, _stock)
         self.SFSocket(url, wrapper)
 
     class SFSocket(WebSocketClient):

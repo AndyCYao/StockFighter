@@ -1,393 +1,401 @@
 {
-  "384": {
+  "576": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:17:15.315280283Z", 
+    "ts": "2016-05-12T05:51:00.471914567Z", 
+    "fills": [
+      {
+        "price": 3227, 
+        "ts": "2016-05-12T05:51:00.471917548Z", 
+        "qty": 1
+      }
+    ], 
+    "originalQty": 1, 
+    "orderType": "market", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
+    "qty": 0, 
+    "id": 576, 
+    "totalFilled": 1, 
+    "open": false, 
+    "price": 0
+  }, 
+  "1105": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-12T05:51:42.065755339Z", 
+    "fills": [
+      {
+        "price": 3431, 
+        "ts": "2016-05-12T05:51:42.065758331Z", 
+        "qty": 1
+      }
+    ], 
+    "originalQty": 1, 
+    "orderType": "market", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
+    "qty": 0, 
+    "id": 1105, 
+    "totalFilled": 1, 
+    "open": false, 
+    "price": 0
+  }, 
+  "1154": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-12T05:51:45.303109676Z", 
+    "fills": [
+      {
+        "price": 3371, 
+        "ts": "2016-05-12T05:51:45.303112038Z", 
+        "qty": 1
+      }
+    ], 
+    "originalQty": 1, 
+    "orderType": "market", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
+    "qty": 0, 
+    "id": 1154, 
+    "totalFilled": 1, 
+    "open": false, 
+    "price": 0
+  }, 
+  "651": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-12T05:51:10.01219649Z", 
+    "fills": [
+      {
+        "price": 3418, 
+        "ts": "2016-05-12T05:51:10.012198761Z", 
+        "qty": 1
+      }
+    ], 
+    "originalQty": 1, 
+    "orderType": "market", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
+    "qty": 0, 
+    "id": 651, 
+    "totalFilled": 1, 
+    "open": false, 
+    "price": 0
+  }, 
+  "774": {
+    "direction": "buy", 
+    "ok": true, 
+    "ts": "2016-05-12T05:51:16.366801857Z", 
     "fills": [], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 384, 
+    "id": 774, 
     "totalFilled": 0, 
     "open": false, 
     "price": 0
   }, 
-  "194": {
+  "775": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:38.01328748Z", 
-    "fills": [
-      {
-        "price": 2243, 
-        "ts": "2016-05-09T22:16:38.013289844Z", 
-        "qty": 1
-      }
-    ], 
-    "originalQty": 1, 
-    "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
-    "qty": 0, 
-    "id": 194, 
-    "totalFilled": 1, 
-    "open": false, 
-    "price": 0
-  }, 
-  "195": {
-    "direction": "buy", 
-    "ok": true, 
-    "ts": "2016-05-09T22:16:41.111946319Z", 
-    "fills": [
-      {
-        "price": 2243, 
-        "ts": "2016-05-09T22:16:41.111948876Z", 
-        "qty": 1
-      }
-    ], 
-    "originalQty": 1, 
-    "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
-    "qty": 0, 
-    "id": 195, 
-    "totalFilled": 1, 
-    "open": false, 
-    "price": 0
-  }, 
-  "356": {
-    "direction": "buy", 
-    "ok": true, 
-    "ts": "2016-05-09T22:17:12.205809757Z", 
+    "ts": "2016-05-12T05:51:19.541597761Z", 
     "fills": [], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 356, 
+    "id": 775, 
     "totalFilled": 0, 
     "open": false, 
     "price": 0
   }, 
-  "101": {
+  "713": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:22.492072188Z", 
+    "ts": "2016-05-12T05:51:13.187633648Z", 
     "fills": [], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 101, 
+    "id": 713, 
     "totalFilled": 0, 
     "open": false, 
     "price": 0
   }, 
-  "326": {
+  "650": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:17:02.913152475Z", 
-    "fills": [], 
-    "originalQty": 1, 
-    "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
-    "qty": 0, 
-    "id": 326, 
-    "totalFilled": 0, 
-    "open": false, 
-    "price": 0
-  }, 
-  "327": {
-    "direction": "buy", 
-    "ok": true, 
-    "ts": "2016-05-09T22:17:06.008508161Z", 
-    "fills": [], 
-    "originalQty": 1, 
-    "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
-    "qty": 0, 
-    "id": 327, 
-    "totalFilled": 0, 
-    "open": false, 
-    "price": 0
-  }, 
-  "296": {
-    "direction": "buy", 
-    "ok": true, 
-    "ts": "2016-05-09T22:16:59.764734178Z", 
+    "ts": "2016-05-12T05:51:06.834577744Z", 
     "fills": [
       {
-        "price": 2300, 
-        "ts": "2016-05-09T22:16:59.764736983Z", 
+        "price": 3418, 
+        "ts": "2016-05-12T05:51:06.834581367Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 296, 
+    "id": 650, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "73": {
+  "587": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:19.381744982Z", 
+    "ts": "2016-05-12T05:51:03.656650281Z", 
     "fills": [
       {
-        "price": 2212, 
-        "ts": "2016-05-09T22:16:19.381747707Z", 
+        "price": 3395, 
+        "ts": "2016-05-12T05:51:03.656652806Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 73, 
+    "id": 587, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "138": {
+  "908": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:28.706998872Z", 
+    "ts": "2016-05-12T05:51:25.921490057Z", 
     "fills": [
       {
-        "price": 1363, 
-        "ts": "2016-05-09T22:16:28.70700135Z", 
+        "price": 3244, 
+        "ts": "2016-05-12T05:51:25.921492851Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 138, 
+    "id": 908, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "139": {
+  "909": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:31.81811952Z", 
+    "ts": "2016-05-12T05:51:29.139590665Z", 
     "fills": [
       {
-        "price": 1363, 
-        "ts": "2016-05-09T22:16:31.818121817Z", 
+        "price": 3244, 
+        "ts": "2016-05-12T05:51:29.139593865Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 139, 
+    "id": 909, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "108": {
+  "1410": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:25.588585323Z", 
+    "ts": "2016-05-12T05:51:58.088576204Z", 
     "fills": [
       {
-        "price": 2342, 
-        "ts": "2016-05-09T22:16:25.588588101Z", 
+        "price": 3337, 
+        "ts": "2016-05-12T05:51:58.088578436Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 108, 
+    "id": 1410, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "411": {
+  "847": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:17:18.416468332Z", 
+    "ts": "2016-05-12T05:51:22.723977591Z", 
     "fills": [
       {
-        "price": 2217, 
-        "ts": "2016-05-09T22:17:18.416471409Z", 
+        "price": 3206, 
+        "ts": "2016-05-12T05:51:22.723980706Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 411, 
+    "id": 847, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "272": {
+  "1040": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:53.541765534Z", 
+    "ts": "2016-05-12T05:51:35.607476969Z", 
     "fills": [
       {
-        "price": 1356, 
-        "ts": "2016-05-09T22:16:53.541768585Z", 
+        "price": 3410, 
+        "ts": "2016-05-12T05:51:35.607479968Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 272, 
+    "id": 1040, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "273": {
+  "1041": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:56.657138762Z", 
+    "ts": "2016-05-12T05:51:38.78381112Z", 
     "fills": [
       {
-        "price": 1356, 
-        "ts": "2016-05-09T22:16:56.657141603Z", 
+        "price": 3410, 
+        "ts": "2016-05-12T05:51:38.783813548Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 273, 
+    "id": 1041, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "355": {
+  "967": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:17:09.109949939Z", 
-    "fills": [], 
-    "originalQty": 1, 
-    "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
-    "qty": 0, 
-    "id": 355, 
-    "totalFilled": 0, 
-    "open": false, 
-    "price": 0
-  }, 
-  "244": {
-    "direction": "buy", 
-    "ok": true, 
-    "ts": "2016-05-09T22:16:50.419423862Z", 
+    "ts": "2016-05-12T05:51:32.422914869Z", 
     "fills": [
       {
-        "price": 2198, 
-        "ts": "2016-05-09T22:16:50.419426862Z", 
+        "price": 3346, 
+        "ts": "2016-05-12T05:51:32.422917368Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 244, 
+    "id": 967, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "169": {
+  "1337": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:34.917040414Z", 
+    "ts": "2016-05-12T05:51:54.912653905Z", 
     "fills": [
       {
-        "price": 2239, 
-        "ts": "2016-05-09T22:16:34.917042513Z", 
+        "price": 3440, 
+        "ts": "2016-05-12T05:51:54.912656303Z", 
         "qty": 1
       }
     ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 169, 
+    "id": 1337, 
     "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "219": {
+  "1336": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:44.218960888Z", 
-    "fills": [], 
+    "ts": "2016-05-12T05:51:51.68865595Z", 
+    "fills": [
+      {
+        "price": 3440, 
+        "ts": "2016-05-12T05:51:51.688658596Z", 
+        "qty": 1
+      }
+    ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 219, 
-    "totalFilled": 0, 
+    "id": 1336, 
+    "totalFilled": 1, 
     "open": false, 
     "price": 0
   }, 
-  "220": {
+  "1177": {
     "direction": "buy", 
     "ok": true, 
-    "ts": "2016-05-09T22:16:47.317837681Z", 
-    "fills": [], 
+    "ts": "2016-05-12T05:51:48.485685974Z", 
+    "fills": [
+      {
+        "price": 3460, 
+        "ts": "2016-05-12T05:51:48.485688485Z", 
+        "qty": 1
+      }
+    ], 
     "originalQty": 1, 
     "orderType": "market", 
-    "symbol": "SRE", 
-    "venue": "UAMEX", 
-    "account": "BB15905780", 
+    "symbol": "LMI", 
+    "venue": "VXMCEX", 
+    "account": "CES14371864", 
     "qty": 0, 
-    "id": 220, 
-    "totalFilled": 0, 
+    "id": 1177, 
+    "totalFilled": 1, 
     "open": false, 
     "price": 0
   }

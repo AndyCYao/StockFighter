@@ -1,15 +1,12 @@
 """Sixth Trade - making_amends.
 
 * I can use the execution socket to determine the standing ID and incomingID of a given trade.
-* I determine which id is my trade. and run the other ID in status_for_an_existing_order. which can tell me the account number.
-    problem. the get_status_for_existing_order doesn't allow me to view the detail of an order that's not mine. 
-* when i try to cancel the order of a counter_party, the error message says you have to own account x. 
-* once i know the trading accounts, i can just use that account into the websocket to check their status of order.
+* once i find out the list of accounts, i can create web sockets that can print out their trade activity.
 """
 
 from gamemaster import StockFighter as sF
 import time
-# import json
+import json
 
 
 class SixthTradeSF(sF):
@@ -17,8 +14,14 @@ class SixthTradeSF(sF):
 
     def __init__(self, level):
         sF.__init__(self, level)        
-        sF.execution_venue_ticker(self, self.discover_traders)
+        sF.execution_venue_ticker(self, self.account, self.venues, self.tickers, self.discover_traders)
         self.players_in_venue = []
+
+    def analyze_fills(self, m):
+        """This is the websocket that checks the account's fill.
+        """
+        if m is not None:
+            json.dumps(m, indent=4)
 
     def discover_traders(self, m):
         """Use the execution socket to find who is the counterparty.
@@ -51,10 +54,18 @@ trader = SixthTradeSF("making_amends")
 start = time.time()
 end = time.time()
 
-while end - start < 60:                
+while end - start < 60: # give it 60 sec to find all the traders in the market.               
     trader.make_order(0, 1, trader.tickers, "buy", "market")
     time.sleep(3)
     print trader.players_in_venue
-    
     end = time.time()
-trader.make_graphs()
+
+'''
+for player in trader.players_in_venue:
+    trader.execution_venue_ticker(player, trader.venues, trader.tickers, trader.analyze_fills)
+'''
+trader.execution_venue_ticker(trader.players_in_venue[-1], trader.venues, trader.tickers, trader.analyze_fills)
+while True:
+    time.sleep(1)
+
+# trader.make_graphs()
