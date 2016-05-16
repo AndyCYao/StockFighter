@@ -32,3 +32,4 @@ Your first order of business should probably be identifying the accounts of ever
 * I can use the execution socket to determine the standing ID and incomingID of a given trade.
 * I determine which id is my trade. and run the other ID in status_for_an_existing_order. which can tell me the account 	number.
 * once i know the trading accounts, i can just use that account into the websocket to check their status of order.
+* then compare quote socket price with the actual bid ask.

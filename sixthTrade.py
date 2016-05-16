@@ -16,12 +16,15 @@ class SixthTradeSF(sF):
         sF.__init__(self, level)        
         sF.execution_venue_ticker(self, self.account, self.venues, self.tickers, self.discover_traders)
         self.players_in_venue = []
+        self.orders = {}  # these are all the orders recorded in the analyze_fills accounts.
 
     def analyze_fills(self, m):
         """This is the websocket that checks the account's fill.
         """
         if m is not None:
-            json.dumps(m, indent=4)
+            # print json.dumps(m, indent=4)
+            self.orders[m['order']['id']] = m
+
 
     def discover_traders(self, m):
         """Use the execution socket to find who is the counterparty.
@@ -54,7 +57,7 @@ trader = SixthTradeSF("making_amends")
 start = time.time()
 end = time.time()
 
-while end - start < 60: # give it 60 sec to find all the traders in the market.               
+while end - start < 25: # give it 60 sec to find all the traders in the market.               
     trader.make_order(0, 1, trader.tickers, "buy", "market")
     time.sleep(3)
     print trader.players_in_venue
@@ -65,7 +68,11 @@ for player in trader.players_in_venue:
     trader.execution_venue_ticker(player, trader.venues, trader.tickers, trader.analyze_fills)
 '''
 trader.execution_venue_ticker(trader.players_in_venue[-1], trader.venues, trader.tickers, trader.analyze_fills)
-while True:
-    time.sleep(1)
 
+while end - start < 100:
+    time.sleep(1)
+    end = time.time()
+print "Leaving sixthTrade, printing all the orders collected."
+for o in trader.orders:
+    print o
 # trader.make_graphs()
