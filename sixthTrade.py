@@ -6,7 +6,7 @@
 
 from gamemaster import StockFighter as sF
 import time
-import json
+# import json
 
 
 class SixthTradeSF(sF):
@@ -16,15 +16,37 @@ class SixthTradeSF(sF):
         sF.__init__(self, level)        
         sF.execution_venue_ticker(self, self.account, self.venues, self.tickers, self.discover_traders)
         self.players_in_venue = []
-        self.orders = {}  # these are all the orders recorded in the analyze_fills accounts.
+        self.all_orders = {}  # these are all the orders recorded in the add_to_orders accounts.
 
-    def analyze_fills(self, m):
-        """This is the websocket that checks the account's fill.
-        """
+    def add_to_orders(self, m):
+        """Websocket that checks the account's fill."""
         if m is not None:
             # print json.dumps(m, indent=4)
-            self.orders[m['order']['id']] = m
+            self.all_orders[m['order']['id']] = m['order']
+            """
+            try:
+                q = self.quotes[-1]
+                if m['order']['direction'] == 'buy':
+                    print "%r bought at %r while best bid is %r - ok? %r" % (m['account'], m['price'], q['bid'], 
+                                                                             m['price'] <= q['bid'])
+                else: 
+                    print "%r sold at %r while best ask is %r - ok? %r" % (m['account'], m['price'], q['ask'], 
+                                                                           m['price'] >= q['ask'])
+            except:
+                pass
+            """
 
+    def analyze_orders(self):
+        """Print on browser the relevant info.
+
+        Read through the self.all_orders
+        including - Cash, Nav, count of orders.
+        """
+        for player in self.players_in_venue:
+            player_orders = {k: v for k, v in self.all_orders.items() if self.all_orders['account'] == player}
+            print(self.update_open_orders(player_orders))
+        # for o, v in list(trader.orders.items()):
+        # print(json.dumps(v, indent=3))
 
     def discover_traders(self, m):
         """Use the execution socket to find who is the counterparty.
@@ -57,22 +79,20 @@ trader = SixthTradeSF("making_amends")
 start = time.time()
 end = time.time()
 
-while end - start < 25: # give it 60 sec to find all the traders in the market.               
+while end - start < 25:  # give it 60 sec to find all the traders in the market.               
     trader.make_order(0, 1, trader.tickers, "buy", "market")
     time.sleep(3)
     print trader.players_in_venue
     end = time.time()
 
-'''
 for player in trader.players_in_venue:
-    trader.execution_venue_ticker(player, trader.venues, trader.tickers, trader.analyze_fills)
-'''
-trader.execution_venue_ticker(trader.players_in_venue[-1], trader.venues, trader.tickers, trader.analyze_fills)
+    trader.execution_venue_ticker(player, trader.venues, trader.tickers, trader.add_to_orders)
 
-while end - start < 100:
+# trader.execution_venue_ticker(trader.players_in_venue[-1], trader.venues, trader.tickers, trader.add_to_orders)
+
+while end - start < 60:
     time.sleep(1)
     end = time.time()
 print "Leaving sixthTrade, printing all the orders collected."
-for o in trader.orders:
-    print o
+trader.analyze_orders()
 # trader.make_graphs()
