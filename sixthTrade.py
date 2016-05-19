@@ -2,6 +2,8 @@
 
 * I can use the execution socket to determine the standing ID and incomingID of a given trade.
 * once i find out the list of accounts, i can create web sockets that can print out their trade activity.
+* then we can identify unusual trade prices and volumn movement. (Read on about SONAR system)
+read about naive bayes, logistics regressions to identify suspicious accounts. 
 """
 
 from gamemaster import StockFighter as sF
@@ -16,17 +18,17 @@ class SixthTradeSF(sF):
         sF.__init__(self, level)        
         sF.execution_venue_ticker(self, self.account, self.venues, self.tickers, self.discover_traders)
         self.players_in_venue = []
-        self.all_orders = {}  # these are all the orders recorded in the add_to_orders accounts.
+        self.orders = {}  # these are all the orders recorded in the orders accounts.
 
     def add_to_orders(self, m):
         """Websocket that checks the account's fill."""
         if m is not None:
-            self.all_orders[m['order']['id']] = m['order']
+            self.orders[m['order']['id']] = m['order']
 
     def analyze_orders(self):
         """Print on browser the relevant info.
 
-        Read through the self.all_orders
+        Read through the self.orders
         including - Cash, Nav, count of orders.
         """
         last = self.quotes[-1]["last"]
@@ -34,11 +36,26 @@ class SixthTradeSF(sF):
             last = 0
 
         for player in self.players_in_venue:
-            player_orders = {k: v for k, v in self.all_orders.items() if v['account'] == player}
+            player_orders = {k: v for k, v in self.orders.items() if v['account'] == player}
             positionSoFar, cash, expectedPos = self.update_open_orders(player_orders)
             nav = cash + positionSoFar * last * (.01)
             print "\nAccount: %r\nPosition: %r\nCash: %r\nNAV: %r\nNumber of orders: %r" % (player, positionSoFar, 
                                                                                             cash, nav, len(player_orders))
+
+    def load_data_into_json(self):
+        """Load the data into json files. similar to make_graphs in the gamemaster."""
+        with open("ResultQuoteSocket.json", "r+b") as settings:
+            settings.seek(0)  # The seek and truncate line wipes out everythin in the settings file.
+            settings.truncate()
+            json.dump(self.quotes, settings, indent=2)        
+        with open("resultOrderBook.json", "r+b") as orderBook:
+            orderBook.seek(0)  # The seek and truncate line wipes out everythin in the orderBook file.
+            orderBook.truncate()
+            json.dump(self.orderbook, orderBook, indent=2)        
+        with open("resultOrders.json", "r+b") as orders:
+            orders.seek(0)  # The seek and truncate line wipes out everythin in the orders file.
+            orders.truncate()
+            json.dump(self.orders, orders, indent=2)       
 
     def discover_traders(self, m):
         """Use the execution socket to find who is the counterparty.
@@ -81,9 +98,10 @@ for player in trader.players_in_venue:
 
 # trader.execution_venue_ticker(trader.players_in_venue[-1], trader.venues, trader.tickers, trader.add_to_orders)
 
-while end - start < 300:
+while end - start < 2000:
     time.sleep(1)
     end = time.time()
     print ".",
 print "Leaving sixthTrade, printing all the orders collected."
 trader.analyze_orders()
+trader.load_data_into_json()
