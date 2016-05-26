@@ -271,7 +271,7 @@ class StockFighter:
             orders.truncate()
             my_orders = self.status_for_all_orders_in_stock(self.tickers)
             json.dump(my_orders, orders, indent=2)       
-                
+        """
         try:
             print "Printing postmordem info into graph..."
             import QuoteSocketChart
@@ -279,7 +279,8 @@ class StockFighter:
         except Exception as e:
             # raise e
             print "Oops found error while making graph, please try again\n%r" % (e)
-
+        """
+        
     def make_order(self, p, q, s, direction, orderType):
         order = {
             "account": self.account,
