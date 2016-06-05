@@ -24,12 +24,8 @@ You can't develop a case in 500 days.
 Starfighter Notes
 This level is designed to be challenging but not impossible. There are multiple steps you'll need to overcome to win it.
 
-Your first order of business should probably be identifying the accounts of everyone trading EQGU on QIOHEX. Don't know how to do that? Read the API docs very thoroughly.
-
 
 #Notes
 ##To Do list
-* I can use the execution socket to determine the standing ID and incomingID of a given trade.
-* I determine which id is my trade. and run the other ID in status_for_an_existing_order. which can tell me the account 	number.
-* once i know the trading accounts, i can just use that account into the websocket to check their status of order.
 * then compare quote socket price with the actual bid ask.
+* i notice there are a lot of orders not loaded in self.orders. the order id can go up to 26k, but actual is about 1.2k .i am missing about 20 orders per each one i get. 

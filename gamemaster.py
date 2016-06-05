@@ -206,7 +206,7 @@ class StockFighter:
         if m is not None:
             # testing updating the self.orders straight from here. especially to see whether i can
             # see the remaining of the order. 
-            id = m['order']['id']
+            id = int(m['order']['id'])
             # print "Execution Socket"
             # print json.dumps(m, indent=4)
 
@@ -269,17 +269,17 @@ class StockFighter:
         with open("resultOrders.json", "r+b") as orders:
             orders.seek(0)  # The seek and truncate line wipes out everythin in the orders file.
             orders.truncate()
-            my_orders = self.status_for_all_orders_in_stock(self.tickers)
-            json.dump(my_orders, orders, indent=2)       
-        """
+            # my_orders = self.status_for_all_orders_in_stock(self.tickers)
+            json.dump(self.orders, orders, indent=2)       
+        
         try:
             print "Printing postmordem info into graph..."
-            import QuoteSocketChart
-            QuoteSocketChart.main()
+            import QuotesChart
+            QuotesChart.make_quote_chart()
         except Exception as e:
             # raise e
             print "Oops found error while making graph, please try again\n%r" % (e)
-        """
+        
         
     def make_order(self, p, q, s, direction, orderType):
         order = {
