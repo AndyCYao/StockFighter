@@ -82,10 +82,11 @@ end = time.time()
 while end - start < 300:  #  find all the traders in the market.               
     trader.make_order(0, 1, trader.tickers, "buy", "market")
     time.sleep(3)
-    print "found %r accounts" % (len(trader.players_in_venue))
+    if len(trader.players_in_venue) % 10 == 0:
+        print "found %r accounts" % (len(trader.players_in_venue))
     end = time.time()
 
-while end - start < 1000:
+while end - start < 2000:
     time.sleep(1)
     end = time.time()
     print ".",

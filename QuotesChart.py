@@ -30,7 +30,7 @@ def make_quote_chart():
     ax2 = fig.add_subplot(2, 1, 2)
     depths.plot(kind='area', x='quoteTime', linewidth=0, sharex=ax1, ax=ax2)
     plt.show() 
-    fig.savefig('quotes.png')
+    fig.savefig('charts/quotes.png')
     print "Done outputting chart.. saved to quotes.png"  
 
 if __name__ == "__main__":

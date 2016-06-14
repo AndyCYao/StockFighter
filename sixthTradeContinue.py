@@ -31,7 +31,7 @@ class SixthTradeSF(sF):
 
 if __name__ == '__main__':
     trader = SixthTradeSF("making_amends")
-    account = "MAD12044586"
+    account = "EIB44573834"
     explanation_link = "https://github.com/AndyCYao/StockFighter"
     executive_summary = "This account has a much differ trading volumne than others. it made strategic high volumne trades unlike the others."
 
