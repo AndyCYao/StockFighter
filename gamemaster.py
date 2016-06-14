@@ -64,7 +64,7 @@ class StockFighter:
 
     def __init__(self, LevelName):
         gm = GameMaster()
-        apikey = gm.get_api_key()
+        self.apikey = gm.get_api_key()
         
         self.quotes = []     # used to store the websocket quote data.
         self.orderbook = []  # used in the websocket quote method to store the orderbook
@@ -89,7 +89,7 @@ class StockFighter:
         print "venue is %s , account is %s, id %s, ticker %s" % (self.venues, self.account,
                                                                  self.instanceID, self.tickers)
         
-        self.header = {'X-Starfighter-Authorization': apikey}
+        self.header = {'X-Starfighter-Authorization': self.apikey}
         self.base_url = "https://api.stockfighter.io/ob/api"
         # used for storing a list of active orders made during this session.
         self.orders = self.status_for_all_orders_in_stock(self.tickers)
