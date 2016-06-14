@@ -27,5 +27,4 @@ This level is designed to be challenging but not impossible. There are multiple 
 
 #Notes
 ##To Do list
-* then compare quote socket price with the actual bid ask.
-* i notice there are a lot of orders not loaded in self.orders. the order id can go up to 26k, but actual is about 1.2k .i am missing about 20 orders per each one i get. 
+* chart each trader's trade, as well as their trade volume in a secondary axis. 

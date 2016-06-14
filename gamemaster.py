@@ -280,7 +280,6 @@ class StockFighter:
             # raise e
             print "Oops found error while making graph, please try again\n%r" % (e)
         
-        
     def make_order(self, p, q, s, direction, orderType):
         order = {
             "account": self.account,

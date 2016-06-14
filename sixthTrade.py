@@ -2,8 +2,7 @@
 
 * I can use the execution socket to determine the standing ID and incomingID of a given trade.
 * once i find out the list of accounts, i can create web sockets that can print out their trade activity.
-* then we can identify unusual trade prices and volumn movement. (Read on about SONAR system)
-read about naive bayes, logistics regressions to identify suspicious accounts. 
+* modified so that as soon as i found a new account i will immediatly create the websocket to track their order.
 """
 
 from gamemaster import StockFighter as sF
@@ -73,23 +72,20 @@ class SixthTradeSF(sF):
                 if account not in self.players_in_venue:
                     print "Found %r" % (account),
                     self.players_in_venue.append(account)
-            
+                    self.execution_venue_ticker(account, trader.venues, trader.tickers, trader.add_to_orders)
             self.last_id = order_id
 
 trader = SixthTradeSF("making_amends")
 start = time.time()
 end = time.time()
 
-while end - start < 120:  # give it 60 sec, or '12 * 5 sec days' to find all the traders in the market.               
+while end - start < 300:  #  find all the traders in the market.               
     trader.make_order(0, 1, trader.tickers, "buy", "market")
     time.sleep(3)
     print "found %r accounts" % (len(trader.players_in_venue))
     end = time.time()
 
-for player in trader.players_in_venue:
-    trader.execution_venue_ticker(player, trader.venues, trader.tickers, trader.add_to_orders)
-
-while end - start < 500:
+while end - start < 1000:
     time.sleep(1)
     end = time.time()
     print ".",
